@@ -9,7 +9,7 @@ CRUD asignado: gestión de cuentas bancarias de compañía.
 | Integrante | GitHub | Rama asignada |
 |---|---|---|
 | Caleb Hernández Vega | `CalebHv21` | `feature/caleb-docs-http` |
-| YO | `cbastiancq-lab` | `feature/sebas-db-transacciones` |
+| Sebastián Cordero | `cbastiancq-lab` | `feature/sebas-db-transacciones` |
 | Josue Delgado Corrales | `JosueDelgadoCorrales` | `feature/josue-api-business` |
 | Alejandro Porras | `axpew` | `feature/alejandro-wpf` |
 
