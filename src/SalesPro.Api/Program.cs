@@ -6,6 +6,8 @@ using SalesPro.Data.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("SalesProDb")
     ?? throw new InvalidOperationException("Falta configurar ConnectionStrings:SalesProDb en appsettings.json.");
@@ -22,6 +24,12 @@ builder.Services.AddScoped<ICuentaBancariaService, CuentaBancariaService>();
 builder.Services.AddScoped<IOrdenService, OrdenService>();
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapControllers();
