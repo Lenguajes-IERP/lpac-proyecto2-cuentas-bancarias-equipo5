@@ -134,7 +134,8 @@ dotnet build SalesPro.slnx --no-restore
 
 1. **Transacciones Seguras:** La orden de venta usa `SqlTransaction` en la capa `SalesPro.Data`. Si falla cualquier parte de la operación (cliente inválido, stock, inserción), se ejecuta rollback y no queda la base a medias.
 2. **Documentación interactiva de API:** La API implementa OpenAPI/Swagger en `http://localhost:5294/swagger`, lo que permite revisar y probar endpoints durante el desarrollo.
-3. **Arquitectura por capas:** El proyecto separa dominio, contratos, datos, negocio, API y WPF para mantener trazabilidad entre diseño, código y pruebas.
+3. **Accesibilidad digital:** Las vistas WPF incluyen nombres accesibles, ayudas de controles, orden de tabulación y mensajes de estado para apoyar navegación por teclado y lectores de pantalla, en línea con criterios de accesibilidad asociados a la Ley 7600.
+4. **Arquitectura por capas:** El proyecto separa dominio, contratos, datos, negocio, API y WPF para mantener trazabilidad entre diseño, código y pruebas.
 
 ## Organización del trabajo
 

@@ -28,6 +28,18 @@ Debe poder responder:
 - como se prueba en `.http` o en WPF;
 - que pasa si falla.
 
+## Accesibilidad digital
+
+Para la defensa se puede indicar que la interfaz WPF incorpora ajustes de accesibilidad relacionados con la Ley 7600:
+
+- nombres accesibles en controles principales mediante `AutomationProperties.Name`;
+- textos de ayuda mediante `AutomationProperties.HelpText` y `ToolTip`;
+- orden de tabulación para navegación por teclado;
+- mensajes de estado con `AutomationProperties.LiveSetting`;
+- encabezados de pantalla marcados con `AutomationProperties.HeadingLevel`.
+
+Estos ajustes no sustituyen la validación final con usuario o lector de pantalla, pero dejan la interfaz preparada para una revisión básica de accesibilidad.
+
 ## Frase para defensa
 
 > El proyecto sigue una arquitectura por capas parecida al Laboratorio 3: dominio, contratos, datos, negocio, API y WPF. La WPF consume la API REST y la capa de datos usa ADO.NET. La orden se procesa con transaccion para asegurar que el inventario y el encabezado/detalle queden consistentes o no se guarde nada.

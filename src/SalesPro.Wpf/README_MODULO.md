@@ -39,3 +39,13 @@ La orden debe verse como maestro-detalle:
 - Productos en tabla.
 - Subtotal, impuesto y total visibles.
 - Botones para agregar/remover/incrementar/decrementar.
+
+## Accesibilidad digital
+
+Las vistas WPF deben mantener:
+
+- nombres accesibles en controles interactivos;
+- textos de ayuda cuando el control requiera contexto;
+- orden de tabulación lógico;
+- mensajes de estado anunciables;
+- contraste suficiente entre fondo y texto.

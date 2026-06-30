@@ -17,6 +17,7 @@
 - ASP.NET Core Web API como backend.
 - SQL Server.
 - Arquitectura de tres capas: controlador REST, negocio y servicios de datos.
+- Accesibilidad digital en WPF mediante nombres accesibles, ayudas de controles y navegación por teclado.
 - WPF debe tener únicamente dos funcionalidades:
   1. Gestión de cuentas bancarias.
   2. Registro de orden de venta.
@@ -106,4 +107,5 @@ Tareas:
 - [ ] Probar CRUD completo de cuentas bancarias.
 - [ ] Probar orden completa y descuento de inventario.
 - [ ] Probar rollback por stock insuficiente.
+- [x] Agregar atributos básicos de accesibilidad digital en WPF.
 - [ ] Crear documentación final.
