@@ -1,12 +1,12 @@
 # Plan de trabajo - Proyecto 2 Equipo 5
 
-Este plan es para que el proyecto no se vuelva el despiche del Proyecto 1. Cada quien trabaja en su rama, con su modulo, y si ocupa tocar algo ajeno lo explica en el PR.
+Este plan define la organizacion del trabajo del Proyecto 2. Cada integrante trabaja en su rama y modulo asignado; si necesita modificar otro modulo, debe explicarlo en el Pull Request.
 
 Primero leer:
 
 ```text
-docs/ARRANQUE_RAPIDO_COMPA.md
-docs/USO_IA_Y_DEFENSA.md
+docs/ARRANQUE_RAPIDO.md
+docs/GUIA_DEFENSA.md
 docs/BITACORA_TAREAS.md
 ```
 
@@ -212,5 +212,5 @@ Puntos que cubre:
 
 ## Regla final
 
-Main no se toca directo. Si alguien mete codigo que no entiende, se le devuelve el PR. Mejor poquito codigo claro que un Frankenstein de IA que nadie puede defender.
+Main no se modifica directamente. Si un cambio no se puede explicar en defensa, se devuelve el Pull Request. Es preferible codigo claro y defendible que una implementacion grande sin trazabilidad.
 

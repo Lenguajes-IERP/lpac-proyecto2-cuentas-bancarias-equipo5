@@ -72,8 +72,8 @@ src/SalesPro.Wpf/README_MODULO.md
 src/SalesPro.Contracts/README_MODULO.md
 src/SalesPro.Domain/README_MODULO.md
 docs/README_MODULO.md
-docs/ARRANQUE_RAPIDO_COMPA.md
-docs/USO_IA_Y_DEFENSA.md
+docs/ARRANQUE_RAPIDO.md
+docs/GUIA_DEFENSA.md
 docs/BITACORA_TAREAS.md
 ```
 
@@ -87,7 +87,7 @@ Ejemplo:
 Tuve que modificar SalesPro.Contracts porque el endpoint nuevo necesitaba un DTO.
 ```
 
-## Regla anti-despiche
+## Regla de control de calidad
 
 No se acepta código que el autor no pueda explicar en defensa.
 

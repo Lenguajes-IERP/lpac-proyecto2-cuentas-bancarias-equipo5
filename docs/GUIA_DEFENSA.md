@@ -1,6 +1,6 @@
-# Uso de IA y defensa del codigo
+# Guia de defensa
 
-La IA no esta prohibida, pero tampoco es pase libre para meter cualquier cosa.
+Esta guia resume los puntos que cada integrante debe poder explicar durante la defensa del proyecto.
 
 Regla del equipo:
 
@@ -8,14 +8,14 @@ Regla del equipo:
 Si no puede explicar el codigo en defensa, no entra al main.
 ```
 
-## Permitido
+## Uso aceptable de asistencia
 
 - Pedir ayuda para entender errores.
 - Generar una primera idea y luego adaptarla a la estructura del proyecto.
 - Pedir ejemplos parecidos a lo visto en clase.
 - Usarla para documentacion, siempre revisando que calce con el codigo real.
 
-## No permitido
+## Aspectos no aceptables
 
 - Pegar codigo que no se entiende.
 - Meter frameworks, paquetes o patrones raros que no se hablaron.

@@ -1,6 +1,6 @@
-# Arranque rapido para que nadie diga que no sabia
+# Arranque rapido
 
-Maes, esto es lo primero que tienen que hacer antes de tocar codigo. Si esto les corre, ya no hay excusa rara de ambiente.
+Este documento resume los pasos minimos para preparar el ambiente local, montar la base de datos, compilar y ejecutar el proyecto.
 
 ## 1. Clonar el proyecto
 
@@ -241,14 +241,14 @@ Esto es lo que hay que respetar para no perder puntos por una tontera:
 - La busqueda de producto/cliente puede ser popup, ventana o dialogo, pero tiene que existir.
 - Si alguien no bretea, se documenta en bitacora y se habla con el profe.
 
-## Regla anti-despiche con IA
+## Regla de calidad sobre codigo asistido
 
-Pueden usar IA solo si entienden lo que metieron. Regla simple:
+Se puede usar asistencia de IA solo si el codigo resultante se entiende y se puede defender. Regla simple:
 
 - si no puede explicar el codigo, no se mergea;
 - si mete arquitectura nueva que nadie pidio, no se mergea;
 - si rompe otra capa sin avisar, no se mergea;
 - si cambia transacciones/inventario/impuesto sin explicarlo, no se mergea.
 
-El laboratorio 3 dejaba usar prompts, pero con la condicion de que siguieran lo visto en clase y que la persona pudiera defender el codigo. Entonces aqui igual: nada de pegar codigo fantasma.
+El Laboratorio 3 permitia usar prompts, pero con la condicion de seguir lo visto en clase y poder defender el codigo generado. Para este proyecto aplica el mismo criterio.
 

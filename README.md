@@ -82,8 +82,8 @@ database/
   00_create_salespro.sql
 docs/
   PLAN_EQUIPO_5.md
-  ARRANQUE_RAPIDO_COMPA.md
-  USO_IA_Y_DEFENSA.md
+  ARRANQUE_RAPIDO.md
+  GUIA_DEFENSA.md
   BITACORA_TAREAS.md
   GITHUB_ORGANIZACION.md
 scripts/
@@ -92,7 +92,7 @@ scripts/
 
 ## Preparar base de datos
 
-Forma rápida para compas:
+Forma rápida:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\setup-localdb.ps1
@@ -168,9 +168,9 @@ Leer antes de trabajar:
 
 ```text
 CONTRIBUTING.md
-docs/ARRANQUE_RAPIDO_COMPA.md
+docs/ARRANQUE_RAPIDO.md
 docs/PLAN_EQUIPO_5.md
-docs/USO_IA_Y_DEFENSA.md
+docs/GUIA_DEFENSA.md
 docs/BITACORA_TAREAS.md
 docs/GITHUB_ORGANIZACION.md
 ```
