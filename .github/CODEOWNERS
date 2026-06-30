@@ -1,0 +1,43 @@
+# CODEOWNERS - Equipo 5
+#
+# Importante:
+# GitHub CODEOWNERS no bloquea por sí solo que alguien edite un archivo.
+# Para que funcione como control real, activen branch protection en main y marquen:
+# - Require a pull request before merging
+# - Require review from Code Owners
+# - Do not allow bypassing the above settings
+#
+# Equipo:
+# Caleb Hernández Vega      @CalebHv21
+# Sebastian Cordero         @cbastiancq-lab
+# Josue Delgado             @JosueDelgadoCorrales
+# Alejandro Porras          @axpew
+
+# Dueño general del repo / integración
+* @cbastiancq-lab
+
+# Base de datos y scripts SQL
+/database/ @cbastiancq-lab
+
+# Backend API y configuración
+/src/SalesPro.Api/ @JosueDelgadoCorrales @cbastiancq-lab
+
+# Reglas de negocio
+/src/SalesPro.Business/ @JosueDelgadoCorrales @cbastiancq-lab
+
+# Acceso a datos, ADO.NET y transacciones
+/src/SalesPro.Data/ @cbastiancq-lab @CalebHv21
+
+# Dominio y DTOs compartidos
+/src/SalesPro.Domain/ @cbastiancq-lab
+/src/SalesPro.Contracts/ @cbastiancq-lab @JosueDelgadoCorrales @CalebHv21 @axpew
+
+# Frontend WPF
+/src/SalesPro.Wpf/ @axpew @CalebHv21 @cbastiancq-lab
+
+# Documentación y entrega
+/docs/ @CalebHv21 @cbastiancq-lab
+/README.md @cbastiancq-lab
+
+# Pruebas manuales de API
+/src/SalesPro.Api/*.http @JosueDelgadoCorrales @cbastiancq-lab
