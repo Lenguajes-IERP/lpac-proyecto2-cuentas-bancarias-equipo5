@@ -15,7 +15,7 @@ Este proyecto es para el curso LPAC, Proyecto 2. Para evitar conflictos, nadie d
 
 | Persona | Rama | Módulo |
 |---|---|---|
-| YO | `feature/sebas-db-transacciones` | Base de datos, Data, transacciones |
+| Sebastián Cordero| `feature/sebas-db-transacciones` | Base de datos, Data, transacciones |
 | Josue | `feature/josue-api-business` | API, Business, Contracts necesarios |
 | Alejandro | `feature/alejandro-wpf` | WPF |
 | Caleb | `feature/caleb-docs-http` | Documentación y `.http` |
