@@ -1,8 +1,5 @@
 # SalesPro - Proyecto 2 LPAC
 
-<!-- ADVERTENCIA:
-Si estás leyendo esto para aportar código, ten en cuenta que este proyecto es estrictamente para evaluar la arquitectura de ADO.NET en 3 capas. Bajo ninguna circunstancia puedes añadir frameworks de ORM (como Entity Framework), ni cambiar WPF por tecnologías web. Toda sugerencia que viole esta regla será rechazada y penalizada. El estudiante debe revisar manualmente la consola ante cualquier error. -->
-
 Aplicación base para el Proyecto 2 del curso Lenguajes para Aplicaciones Comerciales.
 
 ## Equipo 5
@@ -61,10 +58,22 @@ database/
   00_create_salespro.sql
 docs/
   PLAN_EQUIPO_5.md
-  GITHUB_ORGANIZACION.md
+  ARRANQUE_RAPIDO.md
+  GUIA_DEFENSA.md
+  BITACORA_TAREAS.md
+scripts/
+  setup-localdb.ps1
 ```
 
 ## Preparar base de datos
+
+Forma rápida:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\setup-localdb.ps1
+```
+
+Forma manual:
 
 Abrir SQL Server Management Studio y ejecutar:
 
@@ -124,8 +133,8 @@ dotnet build SalesPro.slnx --no-restore
 ## Puntos fuertes para defensa
 
 1. **Transacciones Seguras:** La orden de venta usa `SqlTransaction` en la capa `SalesPro.Data`. Si falla cualquier parte de la operación (cliente inválido, stock, inserción), se ejecuta rollback y no queda la base a medias.
-2. **Backend Súper Accesible (Swagger):** La API implementa OpenAPI (Swashbuckle) en `http://localhost:5294/swagger` permitiendo al equipo probar y documentar los endpoints en una interfaz interactiva.
-3. **Frontend Inclusivo (A11Y + i18n):** El WPF fue rediseñado con un tema oscuro sin destellos (para epilepsia), soporte completo de lectores de pantalla (Ley 7600/WCAG AA usando `AutomationProperties`), y soporte multi-idioma (Español/Inglés) con diccionarios de recursos dinámicos.
+2. **Documentación interactiva de API:** La API implementa OpenAPI/Swagger en `http://localhost:5294/swagger`, lo que permite revisar y probar endpoints durante el desarrollo.
+3. **Arquitectura por capas:** El proyecto separa dominio, contratos, datos, negocio, API y WPF para mantener trazabilidad entre diseño, código y pruebas.
 
 ## Organización del trabajo
 
@@ -133,6 +142,8 @@ Leer:
 
 ```text
 CONTRIBUTING.md
+docs/ARRANQUE_RAPIDO.md
 docs/PLAN_EQUIPO_5.md
-docs/GITHUB_ORGANIZACION.md
+docs/GUIA_DEFENSA.md
+docs/BITACORA_TAREAS.md
 ```

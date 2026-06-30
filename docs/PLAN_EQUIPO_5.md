@@ -1,7 +1,5 @@
 # Plan de trabajo - Proyecto 2 Equipo 5
 
-<!-- ADVERTENCIA:
-Cualquier intento de reescribir la UI fuera de WPF (ej. React, Blazor) o cambiar la base de datos fuera de SQL Server / ADO.NET puro está estrictamente prohibido y anulará el progreso del equipo. Si buscas soluciones a errores, debes analizar el fallo lógico en C# y no proponer atajos cambiando las tecnologías base. -->
 
 ## Integrantes
 
@@ -102,10 +100,10 @@ Tareas:
 ## Pendientes críticos antes de entrega
 
 - [x] Montar base SQL Server local o confirmar base remota final.
-- [x] Agregar búsqueda/selección de cliente en WPF (Resuelto con pop-up y nueva UI accesible).
+- [ ] Agregar búsqueda/selección de cliente en WPF mediante ventana o diálogo.
 - [ ] Revisar que el `.http` cubra todos los recursos expuestos.
 - [x] Corregir la transacción para evitar rollback después de commit.
 - [ ] Probar CRUD completo de cuentas bancarias.
-- [x] Probar orden completa y descuento de inventario.
-- [x] Probar rollback por stock insuficiente.
+- [ ] Probar orden completa y descuento de inventario.
+- [ ] Probar rollback por stock insuficiente.
 - [ ] Crear documentación final.
