@@ -1,17 +1,17 @@
-# SalesPro - Proyecto 2 LPAC
+# Proyecto 2 LPAC - Cuentas Bancarias Equipo 5
 
-Aplicación base para el Proyecto 2 del curso Lenguajes para Aplicaciones Comerciales.
+Aplicación para punto de venta del curso Lenguajes para Aplicaciones Comerciales.
 
 ## Equipo 5
 
 CRUD asignado: gestión de cuentas bancarias de compañía.
 
-| Integrante | GitHub |
-|---|---|
-| Caleb Hernández Vega | `CalebHv21` |
-| Sebastian Cordero | `cbastiancq-lab` |
-| Josue Delgado Corrales | `JosueDelgadoCorrales` |
-| Alejandro Porras | `axpew` |
+| Integrante | GitHub | Rama asignada |
+|---|---|---|
+| Caleb Hernández Vega | `CalebHv21` | `feature/caleb-docs-http` |
+| Sebastian Cordero | `cbastiancq-lab` | `feature/sebas-db-transacciones` |
+| Josue Delgado Corrales | `JosueDelgadoCorrales` | `feature/josue-api-business` |
+| Alejandro Porras | `axpew` | `feature/alejandro-wpf` |
 
 Organización/equipo GitHub:
 
@@ -44,6 +44,30 @@ La orden debe permitir:
 - actualizar inventario al procesar;
 - usar transacción en backend.
 
+## Mapa de responsabilidades
+
+Cada módulo tiene un archivo `README_MODULO.md` con responsable, límites y reglas.
+
+| Módulo | Carpeta | Responsable |
+|---|---|---|
+| Base de datos | `database/` | Sebastián |
+| Data / transacciones | `src/SalesPro.Data/` | Sebastián |
+| API REST | `src/SalesPro.Api/` | Josue |
+| Business | `src/SalesPro.Business/` | Josue |
+| WPF | `src/SalesPro.Wpf/` | Alejandro |
+| Documentación | `docs/` | Caleb |
+| Pruebas `.http` | `src/SalesPro.Api/SalesPro.Api.http` | Caleb |
+| DTOs compartidos | `src/SalesPro.Contracts/` | Todos, con aviso en PR |
+| Dominio | `src/SalesPro.Domain/` | Sebastián |
+
+Regla de equipo:
+
+```text
+Cada quien trabaja en su rama y módulo asignado.
+Si alguien necesita tocar otro módulo, debe explicarlo en el Pull Request.
+Si no puede explicar el código en defensa, no se acepta.
+```
+
 ## Estructura
 
 ```text
@@ -73,6 +97,7 @@ Más detalle:
 
 ```text
 database/README_BASE_DATOS.md
+database/README_MODULO.md
 ```
 
 ## Ejecutar API
@@ -126,7 +151,7 @@ Si falla cualquier parte de la operación —cliente inválido, empleado inváli
 
 ## Organización del trabajo
 
-Leer:
+Leer antes de trabajar:
 
 ```text
 CONTRIBUTING.md

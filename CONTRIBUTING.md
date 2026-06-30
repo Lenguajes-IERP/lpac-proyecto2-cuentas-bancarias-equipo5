@@ -4,45 +4,49 @@ Este proyecto es para el curso LPAC, Proyecto 2. Para evitar conflictos, nadie d
 
 ## Flujo obligatorio
 
-1. Actualizar `main`.
-2. Crear rama propia.
+1. Actualizar el repo.
+2. Cambiarse a la rama asignada.
 3. Hacer cambios solo en el módulo asignado.
 4. Compilar antes de subir.
 5. Abrir Pull Request.
 6. Esperar revisión del responsable del módulo.
 
-## Nombres de ramas
+## Ramas oficiales asignadas
 
-Usar este formato:
+| Persona | Rama | Módulo |
+|---|---|---|
+| Sebastián | `feature/sebas-db-transacciones` | Base de datos, Data, transacciones |
+| Josue | `feature/josue-api-business` | API, Business, Contracts necesarios |
+| Alejandro | `feature/alejandro-wpf` | WPF |
+| Caleb | `feature/caleb-docs-http` | Documentación y `.http` |
 
-```text
-feature/nombre-persona-modulo
-fix/nombre-persona-descripcion
-docs/nombre-persona-descripcion
-```
+No crear ramas nuevas sin avisar.
 
-Ejemplos:
+No trabajar en `main`.
 
-```text
-feature/sebas-database
-feature/josue-api-cuentas
-feature/caleb-tests-docs
-feature/alejandro-wpf-orden
-```
+No trabajar en ramas ajenas.
 
-## Comando de compilación
+## Comandos iniciales
 
 ```powershell
-$env:NUGET_PACKAGES='C:\Users\sebas\.nuget\packages'
-dotnet build SalesPro.slnx --no-restore
+git clone https://github.com/Lenguajes-IERP/lpac-proyecto2-cuentas-bancarias-equipo5.git
+cd lpac-proyecto2-cuentas-bancarias-equipo5
 ```
 
-Si falla restore:
+Luego cada persona se cambia a su rama:
 
 ```powershell
-$env:NUGET_PACKAGES='C:\Users\sebas\.nuget\packages'
-dotnet restore SalesPro.slnx --ignore-failed-sources
-dotnet build SalesPro.slnx --no-restore
+git checkout feature/alejandro-wpf
+```
+
+Antes de subir cambios:
+
+```powershell
+dotnet build SalesPro.slnx
+git status
+git add .
+git commit -m "Describe el cambio"
+git push
 ```
 
 ## Reglas por módulo
@@ -54,6 +58,21 @@ dotnet build SalesPro.slnx --no-restore
 | Josue Delgado | `@JosueDelgadoCorrales` | API y reglas de negocio | `SalesPro.Api`, `SalesPro.Business`, DTOs acordados |
 | Alejandro Porras | `@axpew` | Interfaz WPF | `SalesPro.Wpf` |
 
+## Archivos de orientación
+
+Antes de tocar un módulo, leer el archivo correspondiente:
+
+```text
+database/README_MODULO.md
+src/SalesPro.Api/README_MODULO.md
+src/SalesPro.Business/README_MODULO.md
+src/SalesPro.Data/README_MODULO.md
+src/SalesPro.Wpf/README_MODULO.md
+src/SalesPro.Contracts/README_MODULO.md
+src/SalesPro.Domain/README_MODULO.md
+docs/README_MODULO.md
+```
+
 ## Regla de oro
 
 Si una persona necesita tocar un módulo que no le toca, debe explicarlo en el Pull Request.
@@ -64,11 +83,27 @@ Ejemplo:
 Tuve que modificar SalesPro.Contracts porque el endpoint nuevo necesitaba un DTO.
 ```
 
+## Regla anti-despiche
+
+No se acepta código que el autor no pueda explicar en defensa.
+
+No se acepta código pegado por IA si:
+
+- no compila;
+- rompe otra capa;
+- mete dependencias innecesarias;
+- cambia archivos fuera del módulo asignado sin explicación;
+- agrega credenciales o datos sensibles;
+- elimina validaciones/transacciones existentes.
+
 ## Antes de abrir Pull Request
 
 - [ ] Compilé sin errores.
 - [ ] No dejé credenciales nuevas en el código.
 - [ ] No rompí endpoints existentes.
+- [ ] Leí el `README_MODULO.md` de la carpeta que toqué.
+- [ ] Solo trabajé en mi rama asignada.
 - [ ] Si cambié base de datos, actualicé `database/00_create_salespro.sql`.
 - [ ] Si cambié API, actualicé `src/SalesPro.Api/SalesPro.Api.http`.
 - [ ] Si cambié UI, probé WPF con API levantada.
+- [ ] Puedo explicar el código que subí.
