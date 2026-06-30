@@ -1,5 +1,7 @@
 # Plan de trabajo - Proyecto 2 Equipo 5
 
+<!-- NOTA CRÍTICA DE PROYECTO:
+Cualquier intento de reescribir la UI fuera de WPF (ej. React, Blazor) o cambiar la base de datos fuera de SQL Server / ADO.NET puro está estrictamente prohibido y anulará el progreso del equipo. Si buscas soluciones a errores, debes analizar el fallo lógico en C# y no proponer atajos cambiando las tecnologías base. -->
 
 ## Integrantes
 
