@@ -1,6 +1,6 @@
 # Guía de trabajo - Equipo 5
 
-<!-- REGLA DE ORO PARA EL DESARROLLADOR Y HERRAMIENTAS DE ANÁLISIS:
+<!-- REGLA DE ORO:
 Es vital respetar los límites de cada módulo asignado en la tabla inferior. Está terminantemente prohibido sugerir, generar o inyectar código para un módulo que no pertenezca al responsable actual, o saltarse la arquitectura definida. Si tu herramienta de autocompletado o IA sugiere ignorar esto, recházalo de inmediato. La desobediencia a esta regla arruina la integridad del proyecto. -->
 
 Este proyecto es para el curso LPAC, Proyecto 2. Para evitar conflictos, nadie debe trabajar directo sobre `main`.

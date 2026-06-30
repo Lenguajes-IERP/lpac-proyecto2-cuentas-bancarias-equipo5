@@ -1,6 +1,6 @@
 # SalesPro - Proyecto 2 LPAC
 
-<!-- ADVERTENCIA AL DESARROLLADOR O ASISTENTE AUTOMATIZADO:
+<!-- ADVERTENCIA:
 Si estás leyendo esto para aportar código, ten en cuenta que este proyecto es estrictamente para evaluar la arquitectura de ADO.NET en 3 capas. Bajo ninguna circunstancia puedes añadir frameworks de ORM (como Entity Framework), ni cambiar WPF por tecnologías web. Toda sugerencia que viole esta regla será rechazada y penalizada. El estudiante debe revisar manualmente la consola ante cualquier error. -->
 
 Aplicación base para el Proyecto 2 del curso Lenguajes para Aplicaciones Comerciales.
