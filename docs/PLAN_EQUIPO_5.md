@@ -1,108 +1,216 @@
 # Plan de trabajo - Proyecto 2 Equipo 5
 
-## Integrantes
+Este plan es para que el proyecto no se vuelva el despiche del Proyecto 1. Cada quien trabaja en su rama, con su modulo, y si ocupa tocar algo ajeno lo explica en el PR.
 
-| Integrante | Usuario GitHub | Rol sugerido |
-|---|---|---|
-| Caleb Hernández Vega | `CalebHv21` | Documentación, pruebas `.http`, apoyo WPF |
-| Sebastian Cordero | `cbastiancq-lab` | Base de datos, transacciones, integración |
-| Josue Delgado Corrales | `JosueDelgadoCorrales` | API REST y capa de negocio |
-| Alejandro Porras | `axpew` | WPF/MVVM e interfaz |
+Primero leer:
 
-## Requisitos principales del enunciado
+```text
+docs/ARRANQUE_RAPIDO_COMPA.md
+docs/USO_IA_Y_DEFENSA.md
+docs/BITACORA_TAREAS.md
+```
 
+## Que estamos haciendo
+
+Proyecto 2 de LPAC:
+
+- Backend: ASP.NET Core Web API.
+- Frontend: WPF.
+- Base de datos: SQL Server.
+- Acceso a datos: ADO.NET.
+- Arquitectura: Controller/API -> Business -> Data -> SQL Server.
+- Frontend WPF con ViewModel/MVVM.
 - Equipo 5: CRUD de cuentas bancarias.
-- WPF como frontend.
-- ASP.NET Core Web API como backend.
-- SQL Server.
-- Arquitectura de tres capas: controlador REST, negocio y servicios de datos.
-- WPF debe tener únicamente dos funcionalidades:
-  1. Gestión de cuentas bancarias.
-  2. Registro de orden de venta.
-- La orden debe usar patrón maestro-detalle.
-- La orden debe permitir:
-  - seleccionar cliente;
-  - buscar producto;
-  - indicar cantidad;
-  - mostrar productos en matriz;
-  - remover productos;
-  - incrementar/decrementar cantidades;
-  - mostrar subtotal, impuesto y total;
-  - actualizar inventario al procesar.
-- La capa de datos debe manejar transacciones cuando corresponda.
+- Segunda funcionalidad obligatoria: registrar orden de trabajo/venta maestro-detalle.
 
-## División recomendada
+## Estructura base tipo Laboratorio 3
 
-### Sebastián - Base de datos y transacción
+La idea es parecida al Laboratorio 3, solo que adaptada a este proyecto:
 
-Archivos principales:
+| Capa | Proyecto/carpeta | Para que sirve |
+|---|---|---|
+| Dominio | `src/SalesPro.Domain/` | Entidades y excepciones del negocio |
+| Contratos | `src/SalesPro.Contracts/` | DTOs, requests y responses entre API y WPF |
+| Datos | `src/SalesPro.Data/` | Repositorios ADO.NET, SQL Server y transacciones |
+| Negocio | `src/SalesPro.Business/` | Validaciones y reglas antes de guardar |
+| API | `src/SalesPro.Api/` | Controllers REST |
+| WPF | `src/SalesPro.Wpf/` | Vistas, ViewModels y consumo de API |
+| BD | `database/` | Script SQL Server |
+| Docs | `docs/` | Documentacion, diagramas, bitacora y plan |
 
-- `database/00_create_salespro.sql`
-- `src/SalesPro.Data/Repositories/OrdenRepository.cs`
-- `src/SalesPro.Data/Repositories/CuentaBancariaRepository.cs`
+No hay que inventar otra arquitectura. Si se ocupa cambiar algo estructural, se habla primero.
 
-Tareas:
+## Puntos de la rubrica
 
-- Mantener tablas y datos semilla.
-- Validar constraints y llaves foráneas.
-- Proteger la transacción de orden.
-- Verificar rollback cuando hay stock insuficiente.
-- Apoyar integración final.
+| Rubro | Valor | Que tenemos que demostrar |
+|---|---:|---|
+| Documentacion | 15% | Portada, TOC, objetivos, necesidad, API, ER, dominio, conclusiones, bitacora |
+| Transacciones | 10% | Orden con commit/rollback real en Data |
+| Pruebas `.http` | 10% | Todos los recursos REST probados |
+| Dominio y trazabilidad | 10% | Clases coherentes en backend/frontend y calzando con diseno |
+| CRUD cuentas bancarias | 20% | Buscar, crear, editar y eliminar |
+| Registrar orden | 35% | Maestro-detalle, cliente, productos, cantidades, impuesto, total, inventario y API |
 
-### Josue - API y negocio
+## Reparto por rama
 
-Archivos principales:
+### YO - base de datos, Data y transacciones
 
-- `src/SalesPro.Api/Controllers/`
-- `src/SalesPro.Business/Services/`
-- `src/SalesPro.Contracts/`
+Rama:
 
-Tareas:
+```text
+feature/sebas-db-transacciones
+```
 
-- Revisar endpoints REST.
-- Validar respuestas 400/404/409.
-- Mantener DTOs limpios.
-- Actualizar `.http` cuando cambie la API.
+Toca:
+
+- `database/`
+- `src/SalesPro.Data/`
+- apoyar `src/SalesPro.Domain/`
+- apoyar `src/SalesPro.Contracts/`
+- revisar integracion final
+
+Debe quedar:
+
+- base `SalesPro` montable con `scripts/setup-localdb.ps1`;
+- tablas y datos semilla listos;
+- cuentas bancarias relacionadas con banco y compania;
+- IVA como parametro del sistema;
+- orden con `SqlTransaction`;
+- descuento de inventario dentro de la transaccion;
+- rollback si falla cliente, producto, stock o detalle.
+
+Puntos que cubre:
+
+- 10% transacciones;
+- parte fuerte del 35% de orden;
+- soporte del 20% CRUD;
+- soporte del 10% dominio/trazabilidad.
+
+### Josue - API y Business
+
+Rama:
+
+```text
+feature/josue-api-business
+```
+
+Toca:
+
+- `src/SalesPro.Api/`
+- `src/SalesPro.Business/`
+- `src/SalesPro.Contracts/` solo si ocupa DTOs nuevos
+
+Debe quedar:
+
+- controllers REST limpios;
+- validaciones en Business;
+- mensajes de error entendibles;
+- endpoints de cuentas bancarias completos;
+- endpoints de catalogos para WPF;
+- endpoint de crear orden;
+- codigos HTTP correctos.
+
+Puntos que cubre:
+
+- 20% CRUD;
+- parte del 35% orden;
+- parte del 10% `.http`;
+- parte del 10% dominio/trazabilidad.
 
 ### Alejandro - WPF
 
-Archivos principales:
+Rama:
+
+```text
+feature/alejandro-wpf
+```
+
+Toca:
 
 - `src/SalesPro.Wpf/Views/`
 - `src/SalesPro.Wpf/ViewModels/`
 - `src/SalesPro.Wpf/Services/`
 
-Tareas:
+Debe quedar:
 
-- Pulir pantalla de cuentas bancarias.
-- Pulir pantalla de nueva orden.
-- Agregar búsqueda/selección de cliente.
-- Mejorar mensajes de error.
-- Validar UI contra la rúbrica.
+- pantalla CRUD de cuentas bancarias consumiendo API;
+- pantalla orden maestro-detalle;
+- busqueda/seleccion de cliente en ventana/dialogo;
+- busqueda/agregado de producto en ventana/dialogo;
+- cantidad editable;
+- eliminar producto de la orden;
+- subir/bajar cantidades;
+- mostrar subtotal, impuesto y total;
+- mensajes decentes cuando API falle.
 
-### Caleb - Documentación y pruebas
+Puntos que cubre:
 
-Archivos principales:
+- 35% orden;
+- 20% CRUD;
+- parte del 10% dominio/trazabilidad.
+
+### Caleb - documentacion y pruebas `.http`
+
+Rama:
+
+```text
+feature/caleb-docs-http
+```
+
+Toca:
 
 - `docs/`
-- `README.md`
 - `src/SalesPro.Api/SalesPro.Api.http`
+- tablas de API;
+- diagramas ER/dominio;
+- bitacora.
 
-Tareas:
+Debe quedar:
 
-- Documentar API REST.
-- Documentar modelo de dominio.
-- Documentar modelo entidad-relación.
-- Crear bitácora.
-- Completar pruebas `.http`.
+- documentacion completa del enunciado;
+- tabla REST con recurso, URL y metodos;
+- pruebas `.http` para cuentas bancarias, catalogos y orden;
+- pruebas de casos malos: id inexistente, datos invalidos, stock insuficiente;
+- bitacora real por persona.
 
-## Pendientes críticos antes de entrega
+Puntos que cubre:
 
-- [ ] Montar base SQL Server local o confirmar base remota final.
-- [ ] Agregar búsqueda/selección de cliente en WPF.
-- [ ] Revisar que el `.http` cubra todos los recursos expuestos.
-- [ ] Corregir la transacción para evitar rollback después de commit.
-- [ ] Probar CRUD completo de cuentas bancarias.
-- [ ] Probar orden completa y descuento de inventario.
-- [ ] Probar rollback por stock insuficiente.
-- [ ] Crear documentación final.
+- 15% documentacion;
+- 10% `.http`;
+- parte del 10% dominio/trazabilidad.
+
+## Notas del profe/audio que hay que respetar
+
+- Nuestro CRUD asignado es gestion de cuentas bancarias.
+- Cuenta bancaria no es solo un numero: debe tener banco, compania, tipo, moneda, estado y datos del dueno/referencia segun el modelo.
+- Banco y compania deben existir; no se deben escribir como texto libre.
+- Para este proyecto se permite eliminar fisico si no estamos manejando auditoria.
+- Las transacciones van donde corresponden; la mas importante es procesar la orden.
+- Si falla algo en la orden, rollback.
+- El impuesto debe salir de un parametro/tablas de la base, no quemado en WPF.
+- `.http` se usa para demostrar y probar la API.
+- Stored procedures no son obligatorios si el enunciado no los exige.
+- Busqueda de cliente/producto puede ser ventana, popup o dialogo, pero debe existir.
+- Si alguien no hace su parte, se apunta en bitacora y se habla con el profe.
+
+## Pendientes criticos antes de entregar
+
+- [x] Base inicial del proyecto por capas.
+- [x] Script SQL Server base.
+- [x] Script rapido para montar LocalDB.
+- [x] Ramas por persona.
+- [x] Proteccion de `main` por Pull Request.
+- [ ] Abrir/mergear PR de base inicial.
+- [ ] CRUD completo cuentas bancarias probado en WPF.
+- [ ] Busqueda de cliente en WPF.
+- [ ] Busqueda de producto en WPF revisada contra rubrica.
+- [ ] Orden completa creando encabezado/detalle.
+- [ ] Descuento de inventario probado.
+- [ ] Rollback por stock insuficiente probado.
+- [ ] `.http` completo.
+- [ ] Documentacion final completa.
+
+## Regla final
+
+Main no se toca directo. Si alguien mete codigo que no entiende, se le devuelve el PR. Mejor poquito codigo claro que un Frankenstein de IA que nadie puede defender.
+

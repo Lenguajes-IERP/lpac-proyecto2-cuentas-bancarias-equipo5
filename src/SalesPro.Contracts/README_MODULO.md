@@ -3,7 +3,7 @@
 Responsables:
 
 ```text
-Sebastián Cordero (@cbastiancq-lab)
+YO (@cbastiancq-lab)
 Josue Delgado Corrales (@JosueDelgadoCorrales)
 Caleb Hernández Vega (@CalebHv21)
 Alejandro Porras (@axpew)

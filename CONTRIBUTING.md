@@ -15,7 +15,7 @@ Este proyecto es para el curso LPAC, Proyecto 2. Para evitar conflictos, nadie d
 
 | Persona | Rama | Módulo |
 |---|---|---|
-| Sebastián | `feature/sebas-db-transacciones` | Base de datos, Data, transacciones |
+| YO | `feature/sebas-db-transacciones` | Base de datos, Data, transacciones |
 | Josue | `feature/josue-api-business` | API, Business, Contracts necesarios |
 | Alejandro | `feature/alejandro-wpf` | WPF |
 | Caleb | `feature/caleb-docs-http` | Documentación y `.http` |
@@ -42,6 +42,7 @@ git checkout feature/alejandro-wpf
 Antes de subir cambios:
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\setup-localdb.ps1
 dotnet build SalesPro.slnx
 git status
 git add .
@@ -53,7 +54,7 @@ git push
 
 | Persona | GitHub | Responsable principal | Puede tocar |
 |---|---|---|---|
-| Sebastián Cordero | `@cbastiancq-lab` | Base de datos, transacciones, integración | `database/`, `SalesPro.Data`, documentación técnica |
+| YO | `@cbastiancq-lab` | Base de datos, transacciones, integración | `database/`, `SalesPro.Data`, documentación técnica |
 | Caleb Hernández | `@CalebHv21` | Documentación, pruebas `.http`, apoyo WPF | `docs/`, `.http`, partes acordadas de WPF |
 | Josue Delgado | `@JosueDelgadoCorrales` | API y reglas de negocio | `SalesPro.Api`, `SalesPro.Business`, DTOs acordados |
 | Alejandro Porras | `@axpew` | Interfaz WPF | `SalesPro.Wpf` |
@@ -71,6 +72,9 @@ src/SalesPro.Wpf/README_MODULO.md
 src/SalesPro.Contracts/README_MODULO.md
 src/SalesPro.Domain/README_MODULO.md
 docs/README_MODULO.md
+docs/ARRANQUE_RAPIDO_COMPA.md
+docs/USO_IA_Y_DEFENSA.md
+docs/BITACORA_TAREAS.md
 ```
 
 ## Regla de oro

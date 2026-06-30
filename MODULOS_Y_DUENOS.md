@@ -14,7 +14,7 @@ main no se toca directo.
 
 | Persona | Rama | Carpeta principal | Responsabilidad |
 |---|---|---|---|
-| Sebastián | `feature/sebas-db-transacciones` | `database/`, `src/SalesPro.Data/` | SQL Server, repositorios, transacciones, integración |
+| YO | `feature/sebas-db-transacciones` | `database/`, `src/SalesPro.Data/` | SQL Server, repositorios, transacciones, integración |
 | Josue | `feature/josue-api-business` | `src/SalesPro.Api/`, `src/SalesPro.Business/` | Controllers, servicios de negocio, validaciones |
 | Alejandro | `feature/alejandro-wpf` | `src/SalesPro.Wpf/` | Interfaz WPF, ViewModels, consumo API |
 | Caleb | `feature/caleb-docs-http` | `docs/`, `.http` | Documentación, pruebas manuales API |
@@ -26,8 +26,8 @@ Estas carpetas pueden requerir coordinación:
 | Carpeta | Regla |
 |---|---|
 | `src/SalesPro.Contracts/` | Cambios solo si API/WPF necesitan DTOs nuevos. Avisar en PR. |
-| `src/SalesPro.Domain/` | Cambios solo si el modelo de dominio cambia. Revisar con Sebastián. |
-| `README.md` | Cambios de documentación general. Revisar con Sebastián. |
+| `src/SalesPro.Domain/` | Cambios solo si el modelo de dominio cambia. Revisar conmigo. |
+| `README.md` | Cambios de documentación general. Revisar conmigo. |
 
 ## No hacer
 

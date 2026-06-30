@@ -9,7 +9,7 @@ CRUD asignado: gestión de cuentas bancarias de compañía.
 | Integrante | GitHub | Rama asignada |
 |---|---|---|
 | Caleb Hernández Vega | `CalebHv21` | `feature/caleb-docs-http` |
-| Sebastian Cordero | `cbastiancq-lab` | `feature/sebas-db-transacciones` |
+| YO | `cbastiancq-lab` | `feature/sebas-db-transacciones` |
 | Josue Delgado Corrales | `JosueDelgadoCorrales` | `feature/josue-api-business` |
 | Alejandro Porras | `axpew` | `feature/alejandro-wpf` |
 
@@ -50,15 +50,15 @@ Cada módulo tiene un archivo `README_MODULO.md` con responsable, límites y reg
 
 | Módulo | Carpeta | Responsable |
 |---|---|---|
-| Base de datos | `database/` | Sebastián |
-| Data / transacciones | `src/SalesPro.Data/` | Sebastián |
+| Base de datos | `database/` | YO |
+| Data / transacciones | `src/SalesPro.Data/` | YO |
 | API REST | `src/SalesPro.Api/` | Josue |
 | Business | `src/SalesPro.Business/` | Josue |
 | WPF | `src/SalesPro.Wpf/` | Alejandro |
 | Documentación | `docs/` | Caleb |
 | Pruebas `.http` | `src/SalesPro.Api/SalesPro.Api.http` | Caleb |
 | DTOs compartidos | `src/SalesPro.Contracts/` | Todos, con aviso en PR |
-| Dominio | `src/SalesPro.Domain/` | Sebastián |
+| Dominio | `src/SalesPro.Domain/` | YO |
 
 Regla de equipo:
 
@@ -82,10 +82,23 @@ database/
   00_create_salespro.sql
 docs/
   PLAN_EQUIPO_5.md
+  ARRANQUE_RAPIDO_COMPA.md
+  USO_IA_Y_DEFENSA.md
+  BITACORA_TAREAS.md
   GITHUB_ORGANIZACION.md
+scripts/
+  setup-localdb.ps1
 ```
 
 ## Preparar base de datos
+
+Forma rápida para compas:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\setup-localdb.ps1
+```
+
+Forma manual:
 
 Abrir SQL Server Management Studio y ejecutar:
 
@@ -155,6 +168,9 @@ Leer antes de trabajar:
 
 ```text
 CONTRIBUTING.md
+docs/ARRANQUE_RAPIDO_COMPA.md
 docs/PLAN_EQUIPO_5.md
+docs/USO_IA_Y_DEFENSA.md
+docs/BITACORA_TAREAS.md
 docs/GITHUB_ORGANIZACION.md
 ```

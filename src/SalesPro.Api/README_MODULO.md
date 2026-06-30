@@ -9,7 +9,7 @@ Josue Delgado Corrales (@JosueDelgadoCorrales)
 Revisor obligatorio:
 
 ```text
-Sebastián Cordero (@cbastiancq-lab)
+YO (@cbastiancq-lab)
 ```
 
 ## Qué se puede tocar aquí

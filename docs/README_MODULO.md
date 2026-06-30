@@ -9,7 +9,7 @@ Caleb Hernández Vega (@CalebHv21)
 Revisor:
 
 ```text
-Sebastián Cordero (@cbastiancq-lab)
+YO (@cbastiancq-lab)
 ```
 
 ## Qué se debe documentar

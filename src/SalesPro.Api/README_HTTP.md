@@ -10,7 +10,7 @@ Apoyo:
 
 ```text
 Josue Delgado Corrales (@JosueDelgadoCorrales)
-Sebastián Cordero (@cbastiancq-lab)
+YO (@cbastiancq-lab)
 ```
 
 Archivo principal:
