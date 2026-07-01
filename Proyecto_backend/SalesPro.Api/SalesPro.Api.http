@@ -1,7 +1,5 @@
 @baseUrl = http://localhost:5294
-
-### Health
-GET {{baseUrl}}/
+@idCuentaPrueba = 2
 
 ### Catálogo: bancos registrados
 GET {{baseUrl}}/api/catalogos/bancos
@@ -18,7 +16,7 @@ GET {{baseUrl}}/api/catalogos/productos?buscar=lap
 ### Cuentas bancarias: listar
 GET {{baseUrl}}/api/cuentas-bancarias
 
-### Cuentas bancarias: crear
+### Cuentas bancarias: crear cuenta de prueba
 POST {{baseUrl}}/api/cuentas-bancarias
 Content-Type: application/json
 
@@ -35,15 +33,19 @@ Content-Type: application/json
   "apellidosDueno": "Demo"
 }
 
-### Cuentas bancarias: obtener por id
-GET {{baseUrl}}/api/cuentas-bancarias/1
+### Cuentas bancarias: buscar cuenta de prueba
+GET {{baseUrl}}/api/cuentas-bancarias?buscar=CR000000000099
 
-### Cuentas bancarias: actualizar
-PUT {{baseUrl}}/api/cuentas-bancarias/1
+### Cuentas bancarias: obtener por id
+GET {{baseUrl}}/api/cuentas-bancarias/{{idCuentaPrueba}}
+
+### Cuentas bancarias: actualizar cuenta de prueba
+# Antes de ejecutar, ajuste @idCuentaPrueba con el id devuelto por el POST de creación.
+PUT {{baseUrl}}/api/cuentas-bancarias/{{idCuentaPrueba}}
 Content-Type: application/json
 
 {
-  "numeroCuenta": "CR000000000001",
+  "numeroCuenta": "CR000000000099",
   "tipoCuenta": "Ahorro",
   "tipoDivisa": "CRC",
   "estado": true,
@@ -52,7 +54,7 @@ Content-Type: application/json
   "bancoId": 1,
   "companiaId": 1,
   "nombreDueno": "SalesPro",
-  "apellidosDueno": "Demo"
+  "apellidosDueno": "Demo Actualizado"
 }
 
 ### Cuentas bancarias: error por moneda inválida
@@ -91,7 +93,7 @@ Content-Type: application/json
   ]
 }
 
-### Orden: error de inventario insuficiente, debe hacer rollback
+### Orden: error de inventario insuficiente; debe hacer rollback
 POST {{baseUrl}}/api/ordenes
 Content-Type: application/json
 
@@ -108,3 +110,38 @@ Content-Type: application/json
 
 ### Orden: obtener por número
 GET {{baseUrl}}/api/ordenes/1
+
+### Cuentas bancarias: obtener cuenta inexistente (error esperado)
+GET {{baseUrl}}/api/cuentas-bancarias/999999
+
+### Cuentas bancarias: eliminar cuenta de prueba
+# No elimine cuentas semilla. Ajuste @idCuentaPrueba con el id creado para esta sesión.
+DELETE {{baseUrl}}/api/cuentas-bancarias/{{idCuentaPrueba}}
+
+### Cuentas bancarias: eliminar inexistente (error esperado)
+DELETE {{baseUrl}}/api/cuentas-bancarias/999999
+
+### Orden: crear sin detalles (error esperado)
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": []
+}
+
+### Orden: crear con cliente inexistente (error esperado)
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 999999,
+  "empleadoId": 1,
+  "detalles": [
+    {
+      "productoId": 1,
+      "cantidad": 1
+    }
+  ]
+}

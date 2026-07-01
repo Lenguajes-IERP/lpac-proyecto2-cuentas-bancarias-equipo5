@@ -17,6 +17,7 @@ Proyecto_WPF/SalesPro.Wpf/appsettings.Local.json
 *.log
 tmp/
 outputs/
+dist/
 
 # OS
 Thumbs.db
