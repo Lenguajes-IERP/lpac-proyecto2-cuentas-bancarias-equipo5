@@ -48,6 +48,7 @@ Desarrollar una aplicación de punto de venta con backend RESTful en ASP.NET Cor
 - Consumir la API REST desde WPF.
 - Aplicar una arquitectura por capas: API, negocio, datos y dominio.
 - Utilizar ADO.NET y transacciones SQL donde corresponda.
+- Incorporar medidas básicas de accesibilidad en la interfaz WPF, conforme a los principios de acceso a la información indicados en la Ley N.° 7600 y criterios técnicos WCAG.
 - Documentar endpoints, modelo entidad-relación, modelo de dominio, pruebas y bitácora.
 
 ## Especificación de la necesidad
@@ -173,17 +174,22 @@ docs/EVIDENCIA_TRANSACCIONES.md
 | CRUD cuentas | `docs/EVIDENCIA_CRUD_CUENTAS.md` | Evidencia API anexada; capturas WPF pendientes |
 | Orden | `docs/EVIDENCIA_ORDEN_WPF.md` | Evidencia API/transacción anexada; capturas WPF pendientes |
 
-## Accesibilidad
+## Accesibilidad, Ley N.° 7600 y criterios WCAG
 
-Las vistas WPF incluyen medidas básicas de accesibilidad:
+Aunque el proyecto utiliza WPF como interfaz de escritorio y no corresponde a un sitio web público, se incorporaron medidas básicas de accesibilidad digital para facilitar el uso de la aplicación por teclado y tecnologías de apoyo. Esta decisión se fundamenta en el principio de acceso a la información de la Ley N.° 7600 y en la Directriz N.° 036-MTSS-MICITT, la cual orienta la implementación de accesibilidad digital en sitios y servicios tecnológicos del sector público (Poder Ejecutivo de Costa Rica, 2024).
+
+Además, se tomaron como referencia los principios generales de las Pautas de Accesibilidad para el Contenido Web (WCAG): contenido perceptible, operable, comprensible y robusto (World Wide Web Consortium, 2026). En el contexto del proyecto, estos criterios se aplicaron de forma práctica sobre las vistas WPF solicitadas.
+
+Las medidas incorporadas incluyen:
 
 - nombres accesibles mediante `AutomationProperties.Name`;
 - textos de ayuda mediante `AutomationProperties.HelpText`;
-- navegación por tabulación;
-- mensajes de estado con notificación para tecnologías de apoyo;
+- navegación por tabulación mediante `TabIndex` y `KeyboardNavigation.TabNavigation`;
+- mensajes de estado con `AutomationProperties.LiveSetting` para notificación a tecnologías de apoyo;
+- encabezados identificados con `AutomationProperties.HeadingLevel`;
 - controles identificables para acciones principales.
 
-Estas medidas apoyan criterios de acceso y uso para personas con distintas necesidades, en línea con la preocupación indicada por el profesor sobre accesibilidad.
+Estas medidas no sustituyen una auditoría formal de accesibilidad ni una validación con lectores de pantalla, pero sí permiten defender que la interfaz fue construida considerando accesibilidad desde el diseño y no como un ajuste posterior.
 
 ## Conclusiones
 
@@ -216,3 +222,7 @@ Microsoft. (s. f.). *ASP.NET Core documentation*. Microsoft Learn.
 Microsoft. (s. f.). *Windows Presentation Foundation documentation*. Microsoft Learn.
 
 Microsoft. (s. f.). *SQL Server documentation*. Microsoft Learn.
+
+Poder Ejecutivo de Costa Rica. (2024). *Directriz N.° 036-MTSS-MICITT: Implementación de accesibilidad de la red de los sitios del sector público*. Sistema Costarricense de Información Jurídica. https://pgrweb.go.cr/scij/Busqueda/Normativa/Normas/nrm_texto_completo.aspx?nValor1=1&nValor2=101480&nValor3=139934&param1=NRTC&strTipM=TC
+
+World Wide Web Consortium. (2026). *Sumario de WCAG 2*. Web Accessibility Initiative. https://www.w3.org/WAI/standards-guidelines/wcag/es
