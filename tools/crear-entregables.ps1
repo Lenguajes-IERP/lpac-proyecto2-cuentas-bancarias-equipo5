@@ -38,10 +38,8 @@ function Write-BackendSolution($dest) {
     <Project Path="Proyecto_backend/SalesPro.Api/SalesPro.Api.csproj" />
     <Project Path="Proyecto_backend/SalesPro.Business/SalesPro.Business.csproj" />
     <Project Path="Proyecto_backend/SalesPro.Data/SalesPro.Data.csproj" />
-  </Folder>
-  <Folder Name="/Proyecto_compartido/">
-    <Project Path="Proyecto_compartido/SalesPro.Contracts/SalesPro.Contracts.csproj" />
-    <Project Path="Proyecto_compartido/SalesPro.Domain/SalesPro.Domain.csproj" />
+    <Project Path="Proyecto_backend/SalesPro.Contracts/SalesPro.Contracts.csproj" />
+    <Project Path="Proyecto_backend/SalesPro.Domain/SalesPro.Domain.csproj" />
   </Folder>
 </Solution>
 "@ | Set-Content -Path (Join-Path $dest "Proyecto_backend.slnx") -Encoding UTF8
@@ -53,9 +51,8 @@ function Write-WpfSolution($dest) {
   <Folder Name="/Proyecto_WPF/">
     <Project Path="Proyecto_WPF/SalesPro.Wpf/SalesPro.Wpf.csproj" />
   </Folder>
-  <Folder Name="/Proyecto_compartido/">
-    <Project Path="Proyecto_compartido/SalesPro.Contracts/SalesPro.Contracts.csproj" />
-    <Project Path="Proyecto_compartido/SalesPro.Domain/SalesPro.Domain.csproj" />
+  <Folder Name="/Proyecto_backend/">
+    <Project Path="Proyecto_backend/SalesPro.Contracts/SalesPro.Contracts.csproj" />
   </Folder>
 </Solution>
 "@ | Set-Content -Path (Join-Path $dest "Proyecto_WPF.slnx") -Encoding UTF8
@@ -65,7 +62,6 @@ try {
 	# Backend zip
 	$backendPaths = @(
 		"Proyecto_backend",
-		"Proyecto_compartido",
 		"README.md"
 	)
 	$backendCopy = Copy-ProjectForZip $backendPaths "Proyecto_backend_Equipo5"
@@ -78,7 +74,7 @@ try {
 	# WPF zip
 	$wpfPaths = @(
 		"Proyecto_WPF",
-		"Proyecto_compartido",
+		"Proyecto_backend",
 		"README.md"
 	)
 	$wpfCopy = Copy-ProjectForZip $wpfPaths "Proyecto_WPF_Equipo5"
