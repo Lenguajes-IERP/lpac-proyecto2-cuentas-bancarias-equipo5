@@ -225,17 +225,8 @@ GET {{baseUrl}}/api/ordenes/1
 
 ### Orden: obtener por número inexistente (espera 404 not_found)
 GET {{baseUrl}}/api/ordenes/999999
-### Cuentas bancarias: obtener cuenta inexistente (error esperado)
-GET {{baseUrl}}/api/cuentas-bancarias/999999
 
-### Cuentas bancarias: eliminar cuenta de prueba
-# No elimine cuentas semilla. Ajuste @idCuentaPrueba con el id creado para esta sesión.
-DELETE {{baseUrl}}/api/cuentas-bancarias/{{idCuentaPrueba}}
-
-### Cuentas bancarias: eliminar inexistente (error esperado)
-DELETE {{baseUrl}}/api/cuentas-bancarias/999999
-
-### Orden: crear sin detalles (error esperado)
+### Orden: crear sin detalles (espera 400 validation_error)
 POST {{baseUrl}}/api/ordenes
 Content-Type: application/json
 
@@ -245,17 +236,54 @@ Content-Type: application/json
   "detalles": []
 }
 
-### Orden: crear con cliente inexistente (error esperado)
-POST {{baseUrl}}/api/ordenes
+### Cuentas bancarias: actualizar id inexistente (espera 404 not_found)
+PUT {{baseUrl}}/api/cuentas-bancarias/999999
 Content-Type: application/json
 
 {
-  "clienteId": 999999,
-  "empleadoId": 1,
-  "detalles": [
-    {
-      "productoId": 1,
-      "cantidad": 1
-    }
-  ]
+  "numeroCuenta": "CR000000000099",
+  "tipoCuenta": "Corriente",
+  "tipoDivisa": "CRC",
+  "estado": true,
+  "pais": "Costa Rica",
+  "provincia": "San José",
+  "bancoId": 1,
+  "companiaId": 1,
+  "nombreDueno": "SalesPro",
+  "apellidosDueno": "Demo"
+}
+
+### Cuentas bancarias: actualizar con número duplicado (espera 409 conflict)
+# Ajuste @idCuentaPrueba con un id válido distinto al de CR000000000001.
+PUT {{baseUrl}}/api/cuentas-bancarias/{{idCuentaPrueba}}
+Content-Type: application/json
+
+{
+  "numeroCuenta": "CR000000000001",
+  "tipoCuenta": "Corriente",
+  "tipoDivisa": "CRC",
+  "estado": true,
+  "pais": "Costa Rica",
+  "provincia": "San José",
+  "bancoId": 1,
+  "companiaId": 1,
+  "nombreDueno": "SalesPro",
+  "apellidosDueno": "Demo"
+}
+
+### Cuentas bancarias: actualizar con moneda inválida (espera 400 bad_request)
+PUT {{baseUrl}}/api/cuentas-bancarias/{{idCuentaPrueba}}
+Content-Type: application/json
+
+{
+  "numeroCuenta": "CR000000000099",
+  "tipoCuenta": "Corriente",
+  "tipoDivisa": "CHAYOTE",
+  "estado": true,
+  "pais": "Costa Rica",
+  "provincia": "San José",
+  "bancoId": 1,
+  "companiaId": 1,
+  "nombreDueno": "SalesPro",
+  "apellidosDueno": "Demo"
 }
