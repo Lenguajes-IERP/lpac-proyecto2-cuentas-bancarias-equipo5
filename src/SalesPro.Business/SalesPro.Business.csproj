@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\SalesPro.Domain\SalesPro.Domain.csproj" />
+    <ProjectReference Include="..\SalesPro.Contracts\SalesPro.Contracts.csproj" />
+    <ProjectReference Include="..\SalesPro.Data\SalesPro.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

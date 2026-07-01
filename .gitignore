@@ -1,0 +1,23 @@
+# Build
+bin/
+obj/
+
+# User/local settings
+*.user
+*.suo
+.vs/
+.vscode/
+
+# Local app settings with credentials
+src/SalesPro.Api/appsettings.Development.local.json
+src/SalesPro.Api/appsettings.Local.json
+src/SalesPro.Wpf/appsettings.Local.json
+
+# Logs / temp
+*.log
+tmp/
+outputs/
+
+# OS
+Thumbs.db
+Desktop.ini

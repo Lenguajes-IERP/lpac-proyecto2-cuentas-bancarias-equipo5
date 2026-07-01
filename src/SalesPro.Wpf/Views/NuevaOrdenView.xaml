@@ -1,0 +1,109 @@
+<UserControl x:Class="SalesPro.Wpf.Views.NuevaOrdenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#D7DEE8" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5,0,12" />
+            <Setter Property="Padding" Value="8" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Padding" Value="12,7" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="24">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.1*" />
+            <ColumnDefinition Width="24" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.ColumnSpan="3" Text="Nueva orden de venta" FontSize="28" FontWeight="Bold" Foreground="#F3F6FA" Margin="0,0,0,20" />
+
+        <Border Grid.Row="1" Grid.Column="0" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10" Margin="0,0,0,18">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,14,0">
+                    <TextBlock Text="Cliente Id" />
+                    <TextBox Text="{Binding ClienteId, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="0,0,14,0">
+                    <TextBlock Text="Empleado Id" />
+                    <TextBox Text="{Binding EmpleadoId, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+
+                <Button Grid.Column="3" Content="Buscar y Agregar Producto..." Click="AbrirBusqueda_Click" VerticalAlignment="Center" Background="#1688F0" Foreground="White" />
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,15,0,0">
+            <TextBlock Text="{Binding Mensaje}" Foreground="#9FB2C8" TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
+                    <Grid Margin="0,0,0,6">
+                        <TextBlock Text="Subtotal" />
+                        <TextBlock Text="{Binding Subtotal, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" />
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <TextBlock Text="IVA estimado" />
+                        <TextBlock Text="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" />
+                    </Grid>
+                    <Separator Margin="0,8" />
+                    <Grid Margin="0,0,0,18">
+                        <TextBlock Text="Total estimado" FontWeight="Bold" />
+                        <TextBlock Text="{Binding TotalEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" FontWeight="Bold" />
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="+" Command="{Binding IncrementarCommand}" Width="42" />
+                        <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" />
+                        <Button Content="Remover" Command="{Binding RemoverProductoCommand}" />
+                    </StackPanel>
+                    <Button Content="Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="#1688F0" Foreground="White" Margin="0,12,0,0" />
+                    <Button Content="Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" />
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Detalle de orden" FontSize="19" FontWeight="SemiBold" Foreground="#F3F6FA" Margin="0,0,0,12" />
+                    <DataGrid AutoGenerateColumns="False"
+                              ItemsSource="{Binding Detalles}"
+                              SelectedItem="{Binding DetalleSeleccionado}"
+                              IsReadOnly="True"
+                              MinHeight="360"
+                              Background="#121820"
+                              Foreground="#E7EDF5"
+                              RowBackground="#121820"
+                              AlternatingRowBackground="#18202A">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*" />
+                            <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="55" />
+                            <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnitario, StringFormat=₡{0:N2}}" Width="100" />
+                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=₡{0:N2}}" Width="110" />
+                            <DataGridTextColumn Header="IVA" Binding="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" Width="90" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

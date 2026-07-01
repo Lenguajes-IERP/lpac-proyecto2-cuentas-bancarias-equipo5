@@ -1,0 +1,110 @@
+@baseUrl = http://localhost:5294
+
+### Health
+GET {{baseUrl}}/
+
+### Catálogo: bancos registrados
+GET {{baseUrl}}/api/catalogos/bancos
+
+### Catálogo: compañías registradas
+GET {{baseUrl}}/api/catalogos/companias
+
+### Catálogo: clientes
+GET {{baseUrl}}/api/catalogos/clientes?buscar=Valeria
+
+### Catálogo: productos
+GET {{baseUrl}}/api/catalogos/productos?buscar=lap
+
+### Cuentas bancarias: listar
+GET {{baseUrl}}/api/cuentas-bancarias
+
+### Cuentas bancarias: crear
+POST {{baseUrl}}/api/cuentas-bancarias
+Content-Type: application/json
+
+{
+  "numeroCuenta": "CR000000000099",
+  "tipoCuenta": "Corriente",
+  "tipoDivisa": "CRC",
+  "estado": true,
+  "pais": "Costa Rica",
+  "provincia": "San José",
+  "bancoId": 1,
+  "companiaId": 1,
+  "nombreDueno": "SalesPro",
+  "apellidosDueno": "Demo"
+}
+
+### Cuentas bancarias: obtener por id
+GET {{baseUrl}}/api/cuentas-bancarias/1
+
+### Cuentas bancarias: actualizar
+PUT {{baseUrl}}/api/cuentas-bancarias/1
+Content-Type: application/json
+
+{
+  "numeroCuenta": "CR000000000001",
+  "tipoCuenta": "Ahorro",
+  "tipoDivisa": "CRC",
+  "estado": true,
+  "pais": "Costa Rica",
+  "provincia": "Heredia",
+  "bancoId": 1,
+  "companiaId": 1,
+  "nombreDueno": "SalesPro",
+  "apellidosDueno": "Demo"
+}
+
+### Cuentas bancarias: error por moneda inválida
+POST {{baseUrl}}/api/cuentas-bancarias
+Content-Type: application/json
+
+{
+  "numeroCuenta": "CR000000000100",
+  "tipoCuenta": "Corriente",
+  "tipoDivisa": "CHAYOTE",
+  "estado": true,
+  "pais": "Costa Rica",
+  "provincia": "San José",
+  "bancoId": 1,
+  "companiaId": 1,
+  "nombreDueno": "SalesPro",
+  "apellidosDueno": "Demo"
+}
+
+### Orden: crear venta con transacción, inventario e IVA por parámetro
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    {
+      "productoId": 1,
+      "cantidad": 1
+    },
+    {
+      "productoId": 2,
+      "cantidad": 2
+    }
+  ]
+}
+
+### Orden: error de inventario insuficiente, debe hacer rollback
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    {
+      "productoId": 1,
+      "cantidad": 999999
+    }
+  ]
+}
+
+### Orden: obtener por número
+GET {{baseUrl}}/api/ordenes/1
