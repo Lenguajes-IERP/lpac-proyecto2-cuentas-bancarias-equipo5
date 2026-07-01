@@ -6,6 +6,7 @@ namespace SalesPro.Api.Controllers;
 
 [ApiController]
 [Route("api/cuentas-bancarias")]
+[Produces("application/json")]
 public sealed class CuentasBancariasController : ControllerBase
 {
     private readonly ICuentaBancariaService _cuentaBancariaService;
@@ -16,18 +17,24 @@ public sealed class CuentasBancariasController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(IReadOnlyCollection<CuentaBancariaDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyCollection<CuentaBancariaDto>>> Listar([FromQuery] string? buscar, CancellationToken cancellationToken)
     {
         return Ok(await _cuentaBancariaService.ListarAsync(buscar, cancellationToken));
     }
 
     [HttpGet("{id:int}")]
+    [ProducesResponseType(typeof(CuentaBancariaDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<CuentaBancariaDto>> ObtenerPorId(int id, CancellationToken cancellationToken)
     {
         return Ok(await _cuentaBancariaService.ObtenerPorIdAsync(id, cancellationToken));
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(CuentaBancariaDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<ActionResult<CuentaBancariaDto>> Crear([FromBody] CrearCuentaBancariaRequest request, CancellationToken cancellationToken)
     {
         var created = await _cuentaBancariaService.CrearAsync(request, cancellationToken);
@@ -35,12 +42,18 @@ public sealed class CuentasBancariasController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [ProducesResponseType(typeof(CuentaBancariaDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<ActionResult<CuentaBancariaDto>> Actualizar(int id, [FromBody] ActualizarCuentaBancariaRequest request, CancellationToken cancellationToken)
     {
         return Ok(await _cuentaBancariaService.ActualizarAsync(id, request, cancellationToken));
     }
 
     [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Eliminar(int id, CancellationToken cancellationToken)
     {
         await _cuentaBancariaService.EliminarAsync(id, cancellationToken);

@@ -16,6 +16,8 @@ GET {{baseUrl}}/api/catalogos/productos?buscar=lap
 ### Cuentas bancarias: listar
 GET {{baseUrl}}/api/cuentas-bancarias
 
+### Cuentas bancarias: crear
+# @name crearCuenta
 ### Cuentas bancarias: crear cuenta de prueba
 POST {{baseUrl}}/api/cuentas-bancarias
 Content-Type: application/json
@@ -74,6 +76,33 @@ Content-Type: application/json
   "apellidosDueno": "Demo"
 }
 
+### Cuentas bancarias: obtener por id inexistente (espera 404 not_found)
+GET {{baseUrl}}/api/cuentas-bancarias/999999
+
+### Cuentas bancarias: crear duplicada, mismo numero y banco (espera 409 conflict)
+POST {{baseUrl}}/api/cuentas-bancarias
+Content-Type: application/json
+
+{
+  "numeroCuenta": "CR000000000001",
+  "tipoCuenta": "Corriente",
+  "tipoDivisa": "CRC",
+  "estado": true,
+  "pais": "Costa Rica",
+  "provincia": "San José",
+  "bancoId": 1,
+  "companiaId": 1,
+  "nombreDueno": "SalesPro",
+  "apellidosDueno": "Demo"
+}
+
+### Cuentas bancarias: eliminar la recien creada (espera 204 no content)
+# Requiere ejecutar antes "Cuentas bancarias: crear" (usa el id devuelto por esa respuesta).
+DELETE {{baseUrl}}/api/cuentas-bancarias/{{crearCuenta.response.body.$.id}}
+
+### Cuentas bancarias: eliminar id inexistente (espera 404 not_found)
+DELETE {{baseUrl}}/api/cuentas-bancarias/999999
+
 ### Orden: crear venta con transacción, inventario e IVA por parámetro
 POST {{baseUrl}}/api/ordenes
 Content-Type: application/json
@@ -108,9 +137,94 @@ Content-Type: application/json
   ]
 }
 
+### Orden: cliente inexistente o inactivo (espera 404 not_found, hace rollback)
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 999999,
+  "empleadoId": 1,
+  "detalles": [
+    {
+      "productoId": 1,
+      "cantidad": 1
+    }
+  ]
+}
+
+### Orden: producto inexistente (espera 404 not_found, hace rollback)
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    {
+      "productoId": 999999,
+      "cantidad": 1
+    }
+  ]
+}
+
+### Orden: productos repetidos en el detalle (espera 400 validation_error)
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    {
+      "productoId": 2,
+      "cantidad": 1
+    },
+    {
+      "productoId": 2,
+      "cantidad": 3
+    }
+  ]
+}
+
+### Orden: cantidad menor o igual a cero (espera 400 validation_error)
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    {
+      "productoId": 1,
+      "cantidad": 0
+    }
+  ]
+}
+
+### Orden: producto no habilitado para venta (espera 409 conflict)
+# Precondicion: requiere un producto con puede_venderse = 0.
+# El seed actual (00_create_salespro.sql) deja todos los productos vendibles,
+# por lo que este caso solo se dispara si BD siembra uno no vendible.
+# Ajustar el productoId al del producto no vendible cuando exista.
+POST {{baseUrl}}/api/ordenes
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    {
+      "productoId": 5,
+      "cantidad": 1
+    }
+  ]
+}
+
 ### Orden: obtener por número
 GET {{baseUrl}}/api/ordenes/1
 
+### Orden: obtener por número inexistente (espera 404 not_found)
+GET {{baseUrl}}/api/ordenes/999999
 ### Cuentas bancarias: obtener cuenta inexistente (error esperado)
 GET {{baseUrl}}/api/cuentas-bancarias/999999
 
