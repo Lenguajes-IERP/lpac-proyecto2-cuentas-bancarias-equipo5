@@ -10,9 +10,11 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
 {
     private readonly ApiClientService _apiClient;
     private string _mensaje = string.Empty;
+    private string _clienteBusqueda = string.Empty;
     private string _productoBusqueda = string.Empty;
-    private int _clienteId = 1;
+    private int _clienteId;
     private int? _empleadoId = 1;
+    private ClienteDto? _clienteSeleccionado;
     private ProductoDto? _productoSeleccionado;
     private OrdenDetalleLineaViewModel? _detalleSeleccionado;
     private int _cantidadProducto = 1;
@@ -21,6 +23,8 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     {
         _apiClient = apiClient;
 
+        BuscarClientesCommand = new AsyncRelayCommand(BuscarClientesAsync);
+        SeleccionarClienteCommand = new RelayCommand(SeleccionarCliente, () => ClienteSeleccionado is not null);
         BuscarProductosCommand = new AsyncRelayCommand(BuscarProductosAsync);
         AgregarProductoCommand = new RelayCommand(AgregarProducto, () => ProductoSeleccionado is not null && CantidadProducto > 0);
         IncrementarCommand = new RelayCommand(Incrementar, () => DetalleSeleccionado is not null);
@@ -30,6 +34,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
         LimpiarCommand = new RelayCommand(Limpiar);
     }
 
+    public ObservableCollection<ClienteDto> ClientesEncontrados { get; } = [];
     public ObservableCollection<ProductoDto> ProductosEncontrados { get; } = [];
     public ObservableCollection<OrdenDetalleLineaViewModel> Detalles { get; } = [];
 
@@ -42,14 +47,38 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     public int ClienteId
     {
         get => _clienteId;
-        set
+        private set
         {
             if (SetProperty(ref _clienteId, value))
             {
                 ProcesarOrdenCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(ClienteResumen));
             }
         }
     }
+
+    public string ClienteBusqueda
+    {
+        get => _clienteBusqueda;
+        set => SetProperty(ref _clienteBusqueda, value);
+    }
+
+    public ClienteDto? ClienteSeleccionado
+    {
+        get => _clienteSeleccionado;
+        set
+        {
+            if (SetProperty(ref _clienteSeleccionado, value))
+            {
+                SeleccionarClienteCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(ClienteResumen));
+            }
+        }
+    }
+
+    public string ClienteResumen => ClienteId <= 0 || ClienteSeleccionado is null
+        ? "Sin cliente seleccionado"
+        : $"{ClienteSeleccionado.Nombre} {ClienteSeleccionado.Apellidos} - {ClienteSeleccionado.NumeroIdentificacion}";
 
     public int? EmpleadoId
     {
@@ -105,6 +134,8 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     public decimal ImpuestoEstimado => Detalles.Sum(d => d.ImpuestoEstimado);
     public decimal TotalEstimado => Detalles.Sum(d => d.TotalEstimado);
 
+    public AsyncRelayCommand BuscarClientesCommand { get; }
+    public RelayCommand SeleccionarClienteCommand { get; }
     public AsyncRelayCommand BuscarProductosCommand { get; }
     public RelayCommand AgregarProductoCommand { get; }
     public RelayCommand IncrementarCommand { get; }
@@ -112,6 +143,36 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     public RelayCommand RemoverProductoCommand { get; }
     public AsyncRelayCommand ProcesarOrdenCommand { get; }
     public RelayCommand LimpiarCommand { get; }
+
+    private async Task BuscarClientesAsync()
+    {
+        try
+        {
+            var clientes = await _apiClient.GetAsync<IReadOnlyCollection<ClienteDto>>($"api/catalogos/clientes?buscar={Uri.EscapeDataString(ClienteBusqueda)}");
+            ClientesEncontrados.Clear();
+            foreach (var cliente in clientes)
+            {
+                ClientesEncontrados.Add(cliente);
+            }
+
+            Mensaje = clientes.Count == 0 ? "No se encontraron clientes." : "Clientes cargados.";
+        }
+        catch (Exception ex)
+        {
+            Mensaje = ex.Message;
+        }
+    }
+
+    private void SeleccionarCliente()
+    {
+        if (ClienteSeleccionado is null)
+        {
+            return;
+        }
+
+        ClienteId = ClienteSeleccionado.Id;
+        Mensaje = $"Cliente seleccionado: {ClienteResumen}.";
+    }
 
     private async Task BuscarProductosAsync()
     {
@@ -226,6 +287,9 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
         Detalles.Clear();
         DetalleSeleccionado = null;
         RefrescarTotales();
+        Mensaje = ClienteId > 0
+            ? $"Cliente seleccionado: {ClienteResumen}."
+            : "Orden limpia. Seleccione un cliente para continuar.";
         ProcesarOrdenCommand.RaiseCanExecuteChanged();
     }
 

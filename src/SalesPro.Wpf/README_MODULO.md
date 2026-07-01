@@ -36,6 +36,7 @@ WPF puede mostrar estimaciones, pero el backend calcula el total oficial.
 La orden debe verse como maestro-detalle:
 
 - Cliente y fecha arriba.
+- Búsqueda/selección de cliente mediante ventana.
 - Productos en tabla.
 - Subtotal, impuesto y total visibles.
 - Botones para agregar/remover/incrementar/decrementar.

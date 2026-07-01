@@ -89,7 +89,7 @@ Tuve que modificar SalesPro.Contracts porque el endpoint nuevo necesitaba un DTO
 
 No se acepta código que el autor no pueda explicar en defensa.
 
-No se acepta código pegado por IA si:
+No se acepta código si:
 
 - no compila;
 - rompe otra capa;

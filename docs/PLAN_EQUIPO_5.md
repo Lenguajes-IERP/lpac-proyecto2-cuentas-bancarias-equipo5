@@ -101,7 +101,7 @@ Tareas:
 ## Pendientes críticos antes de entrega
 
 - [x] Montar base SQL Server local o confirmar base remota final.
-- [ ] Agregar búsqueda/selección de cliente en WPF mediante ventana o diálogo.
+- [x] Agregar búsqueda/selección de cliente en WPF mediante ventana o diálogo.
 - [ ] Revisar que el `.http` cubra todos los recursos expuestos.
 - [x] Corregir la transacción para evitar rollback después de commit.
 - [ ] Probar CRUD completo de cuentas bancarias.

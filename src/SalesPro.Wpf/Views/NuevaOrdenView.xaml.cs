@@ -1,4 +1,5 @@
 using System.Windows.Controls;
+using System.Windows;
 
 namespace SalesPro.Wpf.Views;
 
@@ -13,7 +14,18 @@ public partial class NuevaOrdenView : UserControl
     {
         var window = new BuscarProductoWindow
         {
-            DataContext = this.DataContext
+            Owner = Window.GetWindow(this),
+            DataContext = DataContext
+        };
+        window.ShowDialog();
+    }
+
+    private void AbrirBusquedaCliente_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new BuscarClienteWindow
+        {
+            Owner = Window.GetWindow(this),
+            DataContext = DataContext
         };
         window.ShowDialog();
     }
