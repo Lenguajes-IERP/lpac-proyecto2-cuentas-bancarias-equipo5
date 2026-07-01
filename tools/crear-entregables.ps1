@@ -31,6 +31,15 @@ function Copy-ProjectForZip($paths, $destFolderName) {
 	return $dest
 }
 
+function Show-LocalSettingsStatus($dest, $relativePath) {
+	$localSettings = Join-Path $dest $relativePath
+	if (Test-Path $localSettings) {
+		Write-Host "Incluyendo configuracion local de entrega: $relativePath" -ForegroundColor Yellow
+	} else {
+		Write-Host "Aviso: no se encontro $relativePath. El ZIP compilara, pero la API requerira configurar la conexion antes de ejecutarse." -ForegroundColor Yellow
+	}
+}
+
 function Write-BackendSolution($dest) {
 	@"
 <Solution>
@@ -65,6 +74,7 @@ try {
 		"README.md"
 	)
 	$backendCopy = Copy-ProjectForZip $backendPaths "Proyecto_backend_Equipo5"
+	Show-LocalSettingsStatus $backendCopy "Proyecto_backend\SalesPro.Api\appsettings.Local.json"
 	Write-BackendSolution $backendCopy
 	$backendZip = Join-Path $dist "Proyecto_backend_Equipo5.zip"
 	if (Test-Path $backendZip) { Remove-Item $backendZip -Force }
@@ -78,6 +88,7 @@ try {
 		"README.md"
 	)
 	$wpfCopy = Copy-ProjectForZip $wpfPaths "Proyecto_WPF_Equipo5"
+	Show-LocalSettingsStatus $wpfCopy "Proyecto_backend\SalesPro.Api\appsettings.Local.json"
 	Write-WpfSolution $wpfCopy
 	$wpfZip = Join-Path $dist "Proyecto_WPF_Equipo5.zip"
 	if (Test-Path $wpfZip) { Remove-Item $wpfZip -Force }

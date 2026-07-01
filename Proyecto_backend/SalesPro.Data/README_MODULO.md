@@ -3,7 +3,7 @@
 Responsable principal:
 
 ```text
-YO (@cbastiancq-lab)
+Sebastián Cordero (@cbastiancq-lab)
 ```
 
 Apoyo:

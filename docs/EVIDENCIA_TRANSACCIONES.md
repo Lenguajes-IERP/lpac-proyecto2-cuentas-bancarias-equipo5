@@ -16,9 +16,25 @@ product_id  nombre_etiqueta          existencia_en_stock
           2 Mouse                                     50
           3 Keyboard                                  30
           4 Servicio instalacion                      99
+Fecha de ejecución: 2026-07-01  
+Ambiente: API local contra SQL Server del curso  
+Archivo generado: `docs/evidencia_generada/api_transacciones_20260701164829.json`
+
+## Preparación
+
+La API se levantó con:
+
+```powershell
+dotnet run --project .\Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj --urls http://localhost:5294
 ```
 
-## 2. Órdenes antes de la prueba
+La conexión real se tomó desde:
+
+```text
+Proyecto_backend/SalesPro.Api/appsettings.Local.json
+```
+
+## Validación de datos base
 
 ```sql
 USE SalesPro;
@@ -26,13 +42,22 @@ SELECT TOP 10 numero_orden, fk_cliente, total_orden, impuesto, fecha_orden
 FROM Pos_Orden ORDER BY numero_orden DESC;
 ```
 
+Consulta previa contra SQL Server:
+
+```text
+Bancos: 3
+Compañías: 1
+Clientes: 2
+Productos: 4
+Cuentas bancarias: 1
+IVA: 13.0000
 ```
 (0 rows affected)
 ```
 
 No existían órdenes previas en la base de datos recién creada.
 
-## 3. Orden válida
+## Orden válida
 
 Request ejecutado:
 
@@ -100,6 +125,29 @@ SELECT fk_pos_orden, fk_producto, cantidad, precio_unitario, precio_subtotal
 FROM Pos_Orden_Detalle ORDER BY fk_pos_orden DESC;
 ```
 
+POST /api/ordenes
+```
+
+Body:
+
+```json
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    { "productoId": 1, "cantidad": 1 },
+    { "productoId": 2, "cantidad": 1 }
+  ]
+}
+```
+
+Resultado:
+
+```text
+Orden creada: 1
+Total: 692125.00
+Stock producto 1 antes: 10
+Stock producto 1 después: 9
 ```
 product_id  nombre_etiqueta  existencia_en_stock
 ----------- ---------------- -------------------
@@ -118,7 +166,7 @@ fk_pos_orden fk_producto cantidad  precio_unitario  precio_subtotal
 
 **Resultado:** inventario descontado correctamente (Laptop: 10→9, Mouse: 50→48). Orden y detalles insertados.
 
-## 5. Orden inválida por inventario insuficiente
+Conclusión: la orden válida se creó y el inventario fue actualizado.
 
 Request ejecutado:
 
@@ -175,3 +223,38 @@ La transacción de orden de venta cumple los requisitos:
 - La orden válida insertó el encabezado, los dos detalles y descontó el inventario de ambos productos en una sola operación atómica.
 - La orden inválida (stock insuficiente) no creó ningún registro parcial: ni la orden, ni los detalles, ni el descuento de inventario persistieron.
 - El `SqlTransaction` en la capa `SalesPro.Data` garantiza la integridad de las operaciones.
+## Rollback por inventario insuficiente
+
+Request ejecutado:
+
+```http
+POST /api/ordenes
+```
+
+Body:
+
+```json
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    { "productoId": 1, "cantidad": 999999 }
+  ]
+}
+```
+
+Resultado:
+
+```text
+Código HTTP recibido: 409
+Código esperado: 409
+Stock producto 1 antes del intento inválido: 9
+Stock producto 1 después del intento inválido: 9
+Rollback mantiene stock: true
+```
+
+Conclusión: el intento inválido no descontó inventario. El estado de la base se mantuvo consistente, por lo que el rollback quedó evidenciado.
+
+## Observación
+
+La orden válida modifica inventario de forma real en la base del curso. Para repetir la prueba desde el mismo estado inicial, se debe restaurar la base o ajustar la evidencia al nuevo stock.

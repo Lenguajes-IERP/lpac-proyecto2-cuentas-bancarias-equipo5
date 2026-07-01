@@ -13,16 +13,10 @@
 
 | Persona | Rama | Módulo |
 |---|---|---|
-| Sebastián Cordero| `feature/sebas-db-transacciones` | Base de datos, Data, transacciones |
-| Josue | `feature/josue-api-business` | API, Business, Contracts necesarios |
+| Sebastián Cordero | `feature/sebas-db-transacciones` | Base de datos, Data, transacciones |
+| Josué | `feature/josue-api-business` | API, Business, Contracts necesarios |
 | Alejandro | `feature/alejandro-wpf` | WPF |
 | Caleb | `feature/caleb-docs-http` | Documentación y `.http` |
-
-No crear ramas nuevas sin avisar.
-
-No trabajar en `main`.
-
-No trabajar en ramas ajenas.
 
 ## Comandos iniciales
 
@@ -31,16 +25,9 @@ git clone https://github.com/Lenguajes-IERP/lpac-proyecto2-cuentas-bancarias-equ
 cd lpac-proyecto2-cuentas-bancarias-equipo5
 ```
 
-Luego cada persona se cambia a su rama:
-
-```powershell
-git checkout feature/alejandro-wpf
-```
-
 Antes de subir cambios:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\Proyecto_backend\scripts\setup-localdb.ps1
 dotnet build SalesPro.slnx
 git status
 git add .
@@ -52,40 +39,38 @@ git push
 
 | Persona | GitHub | Responsable principal | Puede tocar |
 |---|---|---|---|
-| YO | `@cbastiancq-lab` | Base de datos, transacciones, integración | `Proyecto_backend/database/`, `SalesPro.Data`, documentación técnica |
+| Sebastián Cordero | `@cbastiancq-lab` | Base de datos, transacciones, integración | `Proyecto_backend/database/`, `SalesPro.Data`, documentación técnica |
 | Caleb Hernández | `@CalebHv21` | Documentación, pruebas `.http`, apoyo WPF | `docs/`, `.http`, partes acordadas de WPF |
-| Josue Delgado | `@JosueDelgadoCorrales` | API y reglas de negocio | `SalesPro.Api`, `SalesPro.Business`, DTOs acordados |
+| Josué Delgado | `@JosueDelgadoCorrales` | API y reglas de negocio | `SalesPro.Api`, `SalesPro.Business`, DTOs acordados |
 | Alejandro Porras | `@axpew` | Interfaz WPF | `SalesPro.Wpf` |
 
 ## Archivos de orientación
-
-Antes de tocar un módulo, leer el archivo correspondiente:
 
 ```text
 Proyecto_backend/database/README_MODULO.md
 Proyecto_backend/SalesPro.Api/README_MODULO.md
 Proyecto_backend/SalesPro.Business/README_MODULO.md
 Proyecto_backend/SalesPro.Data/README_MODULO.md
+Proyecto_backend/SalesPro.Contracts/README_MODULO.md
+Proyecto_backend/SalesPro.Domain/README_MODULO.md
 Proyecto_WPF/SalesPro.Wpf/README_MODULO.md
-Proyecto_compartido/SalesPro.Contracts/README_MODULO.md
-Proyecto_compartido/SalesPro.Domain/README_MODULO.md
 docs/README_MODULO.md
 docs/ARRANQUE_RAPIDO.md
 docs/GUIA_DEFENSA.md
 docs/BITACORA_TAREAS.md
 ```
 
-## Regla de oro
+## Credenciales
 
-Si una persona necesita tocar un módulo que no le toca, debe explicarlo en el Pull Request.
-
-Ejemplo:
+Las credenciales reales del servidor del curso se configuran en:
 
 ```text
-Tuve que modificar SalesPro.Contracts porque el endpoint nuevo necesitaba un DTO.
+Proyecto_backend/SalesPro.Api/appsettings.Local.json
 ```
 
-## Regla de control de calidad
+Ese archivo no se versiona en Git por seguridad. Si el entregable comprimido debe correr directamente contra el servidor del curso, se genera el ZIP desde la máquina donde exista ese archivo local.
+
+## Regla de calidad
 
 No se acepta código que el autor no pueda explicar en defensa.
 
@@ -95,13 +80,11 @@ No se acepta código si:
 - rompe otra capa;
 - mete dependencias innecesarias;
 - cambia archivos fuera del módulo asignado sin explicación;
-- agrega credenciales o datos sensibles;
 - elimina validaciones/transacciones existentes.
 
 ## Antes de abrir Pull Request
 
 - [ ] Compilé sin errores.
-- [ ] No dejé credenciales nuevas en el código.
 - [ ] No rompí endpoints existentes.
 - [ ] Leí el `README_MODULO.md` de la carpeta que toqué.
 - [ ] Solo trabajé en mi rama asignada.

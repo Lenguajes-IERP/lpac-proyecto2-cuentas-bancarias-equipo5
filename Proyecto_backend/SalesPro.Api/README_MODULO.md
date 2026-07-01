@@ -3,13 +3,13 @@
 Responsable principal:
 
 ```text
-Josue Delgado Corrales (@JosueDelgadoCorrales)
+Josué Delgado Corrales (@JosueDelgadoCorrales)
 ```
 
 Revisor obligatorio:
 
 ```text
-YO (@cbastiancq-lab)
+Sebastián Cordero (@cbastiancq-lab)
 ```
 
 ## Qué se puede tocar aquí

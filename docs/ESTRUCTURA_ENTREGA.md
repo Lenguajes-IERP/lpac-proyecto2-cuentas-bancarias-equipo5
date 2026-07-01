@@ -1,6 +1,6 @@
 # Estructura física para entrega
 
-El repositorio quedó separado físicamente según los entregables solicitados.
+El repositorio está separado según los entregables solicitados por Mediación Virtual.
 
 ## Proyecto_backend
 
@@ -15,8 +15,24 @@ Incluye:
 - API REST ASP.NET Core;
 - capa de negocio;
 - capa de datos ADO.NET;
+- dominio;
+- contratos/DTOs;
 - script SQL Server;
-- script para preparar LocalDB.
+- scripts de preparación.
+
+El ZIP generado para entrega es:
+
+```text
+dist/Proyecto_backend_Equipo5.zip
+```
+
+Dentro del ZIP se incluye:
+
+```text
+Proyecto_backend.slnx
+```
+
+para compilar únicamente backend.
 
 ## Proyecto_WPF
 
@@ -33,18 +49,26 @@ Incluye:
 - ViewModels;
 - consumo de API.
 
-## Proyecto_compartido
-
-Carpeta:
+El ZIP generado para entrega es:
 
 ```text
-Proyecto_compartido/
+dist/Proyecto_WPF_Equipo5.zip
 ```
 
-Incluye:
+Dentro del ZIP se incluye:
 
-- dominio;
-- contratos/DTOs compartidos entre backend y WPF.
+```text
+Proyecto_WPF.slnx
+```
 
-Esta carpeta debe incluirse junto a los dos proyectos al compilar localmente. Para la entrega comprimida, se puede copiar `Proyecto_compartido` dentro de cada paquete o incluirlo como carpeta compartida según indique el profesor.
+para compilar únicamente WPF. El paquete WPF incluye los contratos necesarios para compilar.
 
+## Generación de entregables
+
+Desde la raíz del repositorio:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\crear-entregables.ps1
+```
+
+El script copia los proyectos a una carpeta temporal, elimina `bin/obj` en la copia y genera los ZIP finales en `dist/`.
