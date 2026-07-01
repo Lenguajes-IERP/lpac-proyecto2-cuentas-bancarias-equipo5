@@ -102,10 +102,10 @@ Tareas:
 
 - [x] Montar base SQL Server local o confirmar base remota final.
 - [x] Agregar búsqueda/selección de cliente en WPF mediante ventana o diálogo.
-- [ ] Revisar que el `.http` cubra todos los recursos expuestos.
+- [x] Revisar que el `.http` cubra todos los recursos expuestos.
 - [x] Corregir la transacción para evitar rollback después de commit.
-- [ ] Probar CRUD completo de cuentas bancarias.
-- [ ] Probar orden completa y descuento de inventario.
-- [ ] Probar rollback por stock insuficiente.
+- [x] Probar CRUD completo de cuentas bancarias.
+- [x] Probar orden completa y descuento de inventario.
+- [x] Probar rollback por stock insuficiente.
 - [x] Agregar atributos básicos de accesibilidad digital en WPF.
-- [ ] Crear documentación final.
+- [x] Crear documentación final.
