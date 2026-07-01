@@ -38,7 +38,7 @@ git checkout feature/josue-api-business
 Ocupamos SQL Server / LocalDB. Para hacerlo facil, ya hay script:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\setup-localdb.ps1
+powershell -ExecutionPolicy Bypass -File .\Proyecto_backend\scripts\setup-localdb.ps1
 ```
 
 Eso crea/actualiza la base `SalesPro`, carga bancos, compania, clientes, productos, cuentas bancarias demo y el parametro de IVA.
@@ -59,7 +59,7 @@ dotnet build SalesPro.slnx
 ## 5. Levantar API
 
 ```powershell
-dotnet run --project .\src\SalesPro.Api\SalesPro.Api.csproj
+dotnet run --project .\Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj
 ```
 
 La API queda normalmente en:
@@ -73,7 +73,7 @@ http://localhost:5294
 En otra terminal, con la API viva:
 
 ```powershell
-dotnet run --project .\src\SalesPro.Wpf\SalesPro.Wpf.csproj
+dotnet run --project .\Proyecto_WPF\SalesPro.Wpf\SalesPro.Wpf.csproj
 ```
 
 ## Como se divide el brete
@@ -103,9 +103,9 @@ feature/sebas-db-transacciones
 
 Toca:
 
-- `database/`
-- `src/SalesPro.Data/`
-- revisar que `src/SalesPro.Domain/` y `src/SalesPro.Contracts/` calcen con la base
+- `Proyecto_backend/database/`
+- `Proyecto_backend/SalesPro.Data/`
+- revisar que `Proyecto_compartido/SalesPro.Domain/` y `Proyecto_compartido/SalesPro.Contracts/` calcen con la base
 - transaccion de la orden
 
 Puntos que defiende esta parte:
@@ -132,8 +132,8 @@ feature/josue-api-business
 
 Toca:
 
-- `src/SalesPro.Api/`
-- `src/SalesPro.Business/`
+- `Proyecto_backend/SalesPro.Api/`
+- `Proyecto_backend/SalesPro.Business/`
 - endpoints REST
 - validaciones antes de llegar a Data
 - mensajes de error claros
@@ -166,7 +166,7 @@ feature/alejandro-wpf
 
 Toca:
 
-- `src/SalesPro.Wpf/`
+- `Proyecto_WPF/SalesPro.Wpf/`
 - vistas
 - ViewModels
 - consumo de API con `HttpClient`
@@ -201,7 +201,7 @@ feature/caleb-docs-http
 Toca:
 
 - `docs/`
-- `src/SalesPro.Api/SalesPro.Api.http`
+- `Proyecto_backend/SalesPro.Api/SalesPro.Api.http`
 - bitacora
 - tabla de API REST
 - diagramas ER y dominio

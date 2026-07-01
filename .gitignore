@@ -9,9 +9,9 @@ obj/
 .vscode/
 
 # Local app settings with credentials
-src/SalesPro.Api/appsettings.Development.local.json
-src/SalesPro.Api/appsettings.Local.json
-src/SalesPro.Wpf/appsettings.Local.json
+Proyecto_backend/SalesPro.Api/appsettings.Development.local.json
+Proyecto_backend/SalesPro.Api/appsettings.Local.json
+Proyecto_WPF/SalesPro.Wpf/appsettings.Local.json
 
 # Logs / temp
 *.log

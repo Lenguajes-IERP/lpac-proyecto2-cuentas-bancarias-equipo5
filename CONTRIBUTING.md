@@ -40,7 +40,7 @@ git checkout feature/alejandro-wpf
 Antes de subir cambios:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\setup-localdb.ps1
+powershell -ExecutionPolicy Bypass -File .\Proyecto_backend\scripts\setup-localdb.ps1
 dotnet build SalesPro.slnx
 git status
 git add .
@@ -52,7 +52,7 @@ git push
 
 | Persona | GitHub | Responsable principal | Puede tocar |
 |---|---|---|---|
-| YO | `@cbastiancq-lab` | Base de datos, transacciones, integración | `database/`, `SalesPro.Data`, documentación técnica |
+| YO | `@cbastiancq-lab` | Base de datos, transacciones, integración | `Proyecto_backend/database/`, `SalesPro.Data`, documentación técnica |
 | Caleb Hernández | `@CalebHv21` | Documentación, pruebas `.http`, apoyo WPF | `docs/`, `.http`, partes acordadas de WPF |
 | Josue Delgado | `@JosueDelgadoCorrales` | API y reglas de negocio | `SalesPro.Api`, `SalesPro.Business`, DTOs acordados |
 | Alejandro Porras | `@axpew` | Interfaz WPF | `SalesPro.Wpf` |
@@ -62,13 +62,13 @@ git push
 Antes de tocar un módulo, leer el archivo correspondiente:
 
 ```text
-database/README_MODULO.md
-src/SalesPro.Api/README_MODULO.md
-src/SalesPro.Business/README_MODULO.md
-src/SalesPro.Data/README_MODULO.md
-src/SalesPro.Wpf/README_MODULO.md
-src/SalesPro.Contracts/README_MODULO.md
-src/SalesPro.Domain/README_MODULO.md
+Proyecto_backend/database/README_MODULO.md
+Proyecto_backend/SalesPro.Api/README_MODULO.md
+Proyecto_backend/SalesPro.Business/README_MODULO.md
+Proyecto_backend/SalesPro.Data/README_MODULO.md
+Proyecto_WPF/SalesPro.Wpf/README_MODULO.md
+Proyecto_compartido/SalesPro.Contracts/README_MODULO.md
+Proyecto_compartido/SalesPro.Domain/README_MODULO.md
 docs/README_MODULO.md
 docs/ARRANQUE_RAPIDO.md
 docs/GUIA_DEFENSA.md
@@ -105,7 +105,7 @@ No se acepta código si:
 - [ ] No rompí endpoints existentes.
 - [ ] Leí el `README_MODULO.md` de la carpeta que toqué.
 - [ ] Solo trabajé en mi rama asignada.
-- [ ] Si cambié base de datos, actualicé `database/00_create_salespro.sql`.
-- [ ] Si cambié API, actualicé `src/SalesPro.Api/SalesPro.Api.http`.
+- [ ] Si cambié base de datos, actualicé `Proyecto_backend/database/00_create_salespro.sql`.
+- [ ] Si cambié API, actualicé `Proyecto_backend/SalesPro.Api/SalesPro.Api.http`.
 - [ ] Si cambié UI, probé WPF con API levantada.
 - [ ] Puedo explicar el código que subí.
