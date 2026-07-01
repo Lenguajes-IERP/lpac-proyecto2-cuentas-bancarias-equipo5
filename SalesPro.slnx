@@ -3,10 +3,8 @@
     <Project Path="Proyecto_backend/SalesPro.Api/SalesPro.Api.csproj" />
     <Project Path="Proyecto_backend/SalesPro.Business/SalesPro.Business.csproj" />
     <Project Path="Proyecto_backend/SalesPro.Data/SalesPro.Data.csproj" />
-  </Folder>
-  <Folder Name="/Proyecto_compartido/">
-    <Project Path="Proyecto_compartido/SalesPro.Contracts/SalesPro.Contracts.csproj" />
-    <Project Path="Proyecto_compartido/SalesPro.Domain/SalesPro.Domain.csproj" />
+    <Project Path="Proyecto_backend/SalesPro.Contracts/SalesPro.Contracts.csproj" />
+    <Project Path="Proyecto_backend/SalesPro.Domain/SalesPro.Domain.csproj" />
   </Folder>
   <Folder Name="/Proyecto_WPF/">
     <Project Path="Proyecto_WPF/SalesPro.Wpf/SalesPro.Wpf.csproj" />
