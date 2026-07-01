@@ -39,9 +39,9 @@
 
 Archivos principales:
 
-- `database/00_create_salespro.sql`
-- `src/SalesPro.Data/Repositories/OrdenRepository.cs`
-- `src/SalesPro.Data/Repositories/CuentaBancariaRepository.cs`
+- `Proyecto_backend/database/00_create_salespro.sql`
+- `Proyecto_backend/SalesPro.Data/Repositories/OrdenRepository.cs`
+- `Proyecto_backend/SalesPro.Data/Repositories/CuentaBancariaRepository.cs`
 
 Tareas:
 
@@ -55,9 +55,9 @@ Tareas:
 
 Archivos principales:
 
-- `src/SalesPro.Api/Controllers/`
-- `src/SalesPro.Business/Services/`
-- `src/SalesPro.Contracts/`
+- `Proyecto_backend/SalesPro.Api/Controllers/`
+- `Proyecto_backend/SalesPro.Business/Services/`
+- `Proyecto_compartido/SalesPro.Contracts/`
 
 Tareas:
 
@@ -70,9 +70,9 @@ Tareas:
 
 Archivos principales:
 
-- `src/SalesPro.Wpf/Views/`
-- `src/SalesPro.Wpf/ViewModels/`
-- `src/SalesPro.Wpf/Services/`
+- `Proyecto_WPF/SalesPro.Wpf/Views/`
+- `Proyecto_WPF/SalesPro.Wpf/ViewModels/`
+- `Proyecto_WPF/SalesPro.Wpf/Services/`
 
 Tareas:
 
@@ -88,7 +88,7 @@ Archivos principales:
 
 - `docs/`
 - `README.md`
-- `src/SalesPro.Api/SalesPro.Api.http`
+- `Proyecto_backend/SalesPro.Api/SalesPro.Api.http`
 
 Tareas:
 
@@ -101,7 +101,7 @@ Tareas:
 ## Pendientes críticos antes de entrega
 
 - [x] Montar base SQL Server local o confirmar base remota final.
-- [ ] Agregar búsqueda/selección de cliente en WPF mediante ventana o diálogo.
+- [x] Agregar búsqueda/selección de cliente en WPF mediante ventana o diálogo.
 - [ ] Revisar que el `.http` cubra todos los recursos expuestos.
 - [x] Corregir la transacción para evitar rollback después de commit.
 - [ ] Probar CRUD completo de cuentas bancarias.

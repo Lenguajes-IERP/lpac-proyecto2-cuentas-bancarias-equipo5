@@ -14,9 +14,9 @@ main no se toca directo.
 
 | Persona | Rama | Carpeta principal | Responsabilidad |
 |---|---|---|---|
-| Sebastián Cordero | `feature/sebas-db-transacciones` | `database/`, `src/SalesPro.Data/` | SQL Server, repositorios, transacciones, integración |
-| Josue | `feature/josue-api-business` | `src/SalesPro.Api/`, `src/SalesPro.Business/` | Controllers, servicios de negocio, validaciones |
-| Alejandro | `feature/alejandro-wpf` | `src/SalesPro.Wpf/` | Interfaz WPF, ViewModels, consumo API |
+| Sebastián Cordero | `feature/sebas-db-transacciones` | `Proyecto_backend/database/`, `Proyecto_backend/SalesPro.Data/` | SQL Server, repositorios, transacciones, integración |
+| Josue | `feature/josue-api-business` | `Proyecto_backend/SalesPro.Api/`, `Proyecto_backend/SalesPro.Business/` | Controllers, servicios de negocio, validaciones |
+| Alejandro | `feature/alejandro-wpf` | `Proyecto_WPF/SalesPro.Wpf/` | Interfaz WPF, ViewModels, consumo API |
 | Caleb | `feature/caleb-docs-http` | `docs/`, `.http` | Documentación, pruebas manuales API |
 
 ## Carpetas compartidas
@@ -25,8 +25,8 @@ Estas carpetas pueden requerir coordinación:
 
 | Carpeta | Regla |
 |---|---|
-| `src/SalesPro.Contracts/` | Cambios solo si API/WPF necesitan DTOs nuevos. Avisar en PR. |
-| `src/SalesPro.Domain/` | Cambios solo si el modelo de dominio cambia. Revisar conmigo. |
+| `Proyecto_compartido/SalesPro.Contracts/` | Cambios solo si API/WPF necesitan DTOs nuevos. Avisar en PR. |
+| `Proyecto_compartido/SalesPro.Domain/` | Cambios solo si el modelo de dominio cambia. Revisar conmigo. |
 | `README.md` | Cambios de documentación general. Revisar conmigo. |
 
 ## No hacer

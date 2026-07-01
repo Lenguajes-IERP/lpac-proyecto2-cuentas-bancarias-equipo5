@@ -40,6 +40,10 @@ Para la defensa se puede indicar que la interfaz WPF incorpora ajustes de accesi
 
 Estos ajustes no sustituyen la validación final con usuario o lector de pantalla, pero dejan la interfaz preparada para una revisión básica de accesibilidad.
 
+## Selección de cliente en la orden
+
+La pantalla de nueva orden no depende de escribir el identificador del cliente manualmente. La vista abre una ventana de búsqueda de cliente, consulta el catálogo por API y asigna el cliente seleccionado al ViewModel de la orden. Al procesar la orden se envía el `ClienteId` seleccionado al backend.
+
 ## Frase para defensa
 
 > El proyecto sigue una arquitectura por capas parecida al Laboratorio 3: dominio, contratos, datos, negocio, API y WPF. La WPF consume la API REST y la capa de datos usa ADO.NET. La orden se procesa con transaccion para asegurar que el inventario y el encabezado/detalle queden consistentes o no se guarde nada.

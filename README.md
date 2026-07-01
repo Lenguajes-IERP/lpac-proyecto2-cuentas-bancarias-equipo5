@@ -47,22 +47,23 @@ La orden debe permitir:
 ## Estructura
 
 ```text
-src/
+Proyecto_backend/
+  SalesPro.Api         Endpoints REST
+  SalesPro.Business    Reglas de negocio y validaciones
+  SalesPro.Data        Repositorios ADO.NET y SqlTransaction
+  database/            Script SQL Server
+  scripts/             Utilidades de preparacion local
+Proyecto_WPF/
+  SalesPro.Wpf         Interfaz WPF con MVVM manual
+Proyecto_compartido/
   SalesPro.Domain      Entidades y excepciones compartidas
   SalesPro.Contracts   DTOs / requests / responses
-  SalesPro.Data        Repositorios ADO.NET y SqlTransaction
-  SalesPro.Business    Reglas de negocio y validaciones
-  SalesPro.Api         Endpoints REST
-  SalesPro.Wpf         Interfaz WPF con MVVM manual
-database/
-  00_create_salespro.sql
 docs/
   PLAN_EQUIPO_5.md
   ARRANQUE_RAPIDO.md
+  ESTRUCTURA_ENTREGA.md
   GUIA_DEFENSA.md
   BITACORA_TAREAS.md
-scripts/
-  setup-localdb.ps1
 ```
 
 ## Preparar base de datos
@@ -70,7 +71,7 @@ scripts/
 Forma rápida:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\setup-localdb.ps1
+powershell -ExecutionPolicy Bypass -File .\Proyecto_backend\scripts\setup-localdb.ps1
 ```
 
 Forma manual:
@@ -78,20 +79,20 @@ Forma manual:
 Abrir SQL Server Management Studio y ejecutar:
 
 ```text
-database/00_create_salespro.sql
+Proyecto_backend/database/00_create_salespro.sql
 ```
 
 Más detalle:
 
 ```text
-database/README_BASE_DATOS.md
+Proyecto_backend/database/README_BASE_DATOS.md
 ```
 
 ## Ejecutar API
 
 ```powershell
 $env:NUGET_PACKAGES='C:\Users\sebas\.nuget\packages'
-dotnet run --project src\SalesPro.Api\SalesPro.Api.csproj
+dotnet run --project Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj
 ```
 
 URL por defecto:
@@ -103,7 +104,7 @@ http://localhost:5294
 Pruebas manuales:
 
 ```text
-src/SalesPro.Api/SalesPro.Api.http
+Proyecto_backend/SalesPro.Api/SalesPro.Api.http
 ```
 
 ## Ejecutar WPF
@@ -112,7 +113,7 @@ Con la API levantada:
 
 ```powershell
 $env:NUGET_PACKAGES='C:\Users\sebas\.nuget\packages'
-dotnet run --project src\SalesPro.Wpf\SalesPro.Wpf.csproj
+dotnet run --project Proyecto_WPF\SalesPro.Wpf\SalesPro.Wpf.csproj
 ```
 
 ## Compilar
@@ -144,6 +145,7 @@ Leer:
 ```text
 CONTRIBUTING.md
 docs/ARRANQUE_RAPIDO.md
+docs/ESTRUCTURA_ENTREGA.md
 docs/PLAN_EQUIPO_5.md
 docs/GUIA_DEFENSA.md
 docs/BITACORA_TAREAS.md

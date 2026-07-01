@@ -30,7 +30,7 @@ Si tocaste archivos fuera de tu módulo, listalos aquí y explicá por qué.
 
 ```text
 Ejemplo:
-src/SalesPro.Contracts/Ordenes/CrearOrdenRequest.cs
+Proyecto_compartido/SalesPro.Contracts/Ordenes/CrearOrdenRequest.cs
 Motivo: el endpoint de orden necesitaba un campo nuevo.
 ```
 

@@ -42,28 +42,40 @@
         <Border Grid.Row="1" Grid.Column="0" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10" Margin="0,0,0,18">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="180" />
-                    <ColumnDefinition Width="180" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Margin="0,0,14,0">
-                    <TextBlock Text="Cliente Id" />
-                    <TextBox Text="{Binding ClienteId, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBlock Text="Cliente seleccionado" />
+                    <TextBox Text="{Binding ClienteResumen}"
+                             IsReadOnly="True"
                              TabIndex="0"
-                             ToolTip="Identificador del cliente asociado a la orden"
-                             AutomationProperties.Name="Identificador del cliente"
-                             AutomationProperties.HelpText="Campo temporal para indicar el cliente de la orden. Pendiente reemplazar por búsqueda de cliente" />
+                             ToolTip="Cliente asociado a la orden"
+                             AutomationProperties.Name="Cliente seleccionado"
+                             AutomationProperties.HelpText="Muestra el cliente asociado a la orden de venta" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Margin="0,0,14,0">
                     <TextBlock Text="Empleado Id" />
                     <TextBox Text="{Binding EmpleadoId, UpdateSourceTrigger=PropertyChanged}"
-                             TabIndex="1"
+                             TabIndex="2"
                              ToolTip="Identificador del empleado que registra la orden"
                              AutomationProperties.Name="Identificador del empleado" />
                 </StackPanel>
+
+                <Button Grid.Column="2"
+                        Content="Seleccionar Cliente"
+                        Click="AbrirBusquedaCliente_Click"
+                        VerticalAlignment="Center"
+                        Background="#26313D"
+                        Foreground="#E7EDF5"
+                        TabIndex="1"
+                        ToolTip="Abrir ventana para buscar y seleccionar cliente"
+                        AutomationProperties.Name="Seleccionar cliente"
+                        AutomationProperties.HelpText="Abre la búsqueda de clientes para asociar uno a la orden" />
 
                 <Button Grid.Column="3"
                         Content="Buscar y Agregar Producto..."
@@ -71,7 +83,7 @@
                         VerticalAlignment="Center"
                         Background="#1688F0"
                         Foreground="White"
-                        TabIndex="2"
+                        TabIndex="3"
                         ToolTip="Abrir ventana para buscar productos y agregarlos a la orden"
                         AutomationProperties.Name="Buscar y agregar producto"
                         AutomationProperties.HelpText="Abre la búsqueda de productos para seleccionar cantidad y agregar detalle a la orden" />
@@ -104,12 +116,12 @@
                     </Grid>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="+" Command="{Binding IncrementarCommand}" Width="42" TabIndex="4" AutomationProperties.Name="Incrementar cantidad del producto seleccionado" />
-                        <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" TabIndex="5" AutomationProperties.Name="Disminuir cantidad del producto seleccionado" />
-                        <Button Content="Remover" Command="{Binding RemoverProductoCommand}" TabIndex="6" AutomationProperties.Name="Remover producto seleccionado de la orden" />
+                        <Button Content="+" Command="{Binding IncrementarCommand}" Width="42" TabIndex="5" AutomationProperties.Name="Incrementar cantidad del producto seleccionado" />
+                        <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" TabIndex="6" AutomationProperties.Name="Disminuir cantidad del producto seleccionado" />
+                        <Button Content="Remover" Command="{Binding RemoverProductoCommand}" TabIndex="7" AutomationProperties.Name="Remover producto seleccionado de la orden" />
                     </StackPanel>
-                    <Button Content="Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="#1688F0" Foreground="White" Margin="0,12,0,0" TabIndex="7" AutomationProperties.Name="Procesar orden de venta" />
-                    <Button Content="Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" TabIndex="8" AutomationProperties.Name="Limpiar orden de venta" />
+                    <Button Content="Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="#1688F0" Foreground="White" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
+                    <Button Content="Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" TabIndex="9" AutomationProperties.Name="Limpiar orden de venta" />
                 </StackPanel>
 
                 <StackPanel>
@@ -123,7 +135,7 @@
                               Foreground="#E7EDF5"
                               RowBackground="#121820"
                               AlternatingRowBackground="#18202A"
-                              TabIndex="3"
+                              TabIndex="4"
                               AutomationProperties.Name="Tabla de detalles de la orden"
                               AutomationProperties.HelpText="Lista de productos agregados a la orden. Seleccione una fila para modificar cantidad o removerla">
                         <DataGrid.Columns>
