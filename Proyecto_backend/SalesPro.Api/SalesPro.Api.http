@@ -19,6 +19,7 @@ GET {{baseUrl}}/api/catalogos/productos?buscar=lap
 GET {{baseUrl}}/api/cuentas-bancarias
 
 ### Cuentas bancarias: crear
+# @name crearCuenta
 POST {{baseUrl}}/api/cuentas-bancarias
 Content-Type: application/json
 
@@ -71,6 +72,33 @@ Content-Type: application/json
   "nombreDueno": "SalesPro",
   "apellidosDueno": "Demo"
 }
+
+### Cuentas bancarias: obtener por id inexistente (espera 404 not_found)
+GET {{baseUrl}}/api/cuentas-bancarias/999999
+
+### Cuentas bancarias: crear duplicada, mismo numero y banco (espera 409 conflict)
+POST {{baseUrl}}/api/cuentas-bancarias
+Content-Type: application/json
+
+{
+  "numeroCuenta": "CR000000000001",
+  "tipoCuenta": "Corriente",
+  "tipoDivisa": "CRC",
+  "estado": true,
+  "pais": "Costa Rica",
+  "provincia": "San José",
+  "bancoId": 1,
+  "companiaId": 1,
+  "nombreDueno": "SalesPro",
+  "apellidosDueno": "Demo"
+}
+
+### Cuentas bancarias: eliminar la recien creada (espera 204 no content)
+# Requiere ejecutar antes "Cuentas bancarias: crear" (usa el id devuelto por esa respuesta).
+DELETE {{baseUrl}}/api/cuentas-bancarias/{{crearCuenta.response.body.$.id}}
+
+### Cuentas bancarias: eliminar id inexistente (espera 404 not_found)
+DELETE {{baseUrl}}/api/cuentas-bancarias/999999
 
 ### Orden: crear venta con transacción, inventario e IVA por parámetro
 POST {{baseUrl}}/api/ordenes
