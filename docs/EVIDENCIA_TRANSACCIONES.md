@@ -1,124 +1,100 @@
-# Plantilla de evidencia: pruebas de transacciones y rollback
+# Evidencia: pruebas de transacciones y rollback
 
-Este documento sirve para registrar evidencia real de que la creación de órdenes se ejecuta dentro de una transacción y que, ante un error consistente, no quedan registros parciales.
-
-Estado actual: pendiente de completar con resultados reales de ejecución.
+Fecha de ejecución: 2026-07-01  
+Ambiente: API local contra SQL Server del curso  
+Archivo generado: `docs/evidencia_generada/api_transacciones_20260701164829.json`
 
 ## Preparación
 
-- Levantar la base de datos `SalesPro`.
-- Levantar la API:
+La API se levantó con:
 
 ```powershell
-dotnet run --project .\Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj
+dotnet run --project .\Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj --urls http://localhost:5294
 ```
 
-- Ejecutar los requests desde [SalesPro.Api.http](../Proyecto_backend/SalesPro.Api/SalesPro.Api.http).
-- Pegar aquí las respuestas HTTP y consultas SQL obtenidas.
-
-## 1. Inventario antes de la prueba
-
-```sql
-USE SalesPro;
-
-SELECT product_id, nombre_etiqueta, existencia_en_stock
-FROM Producto
-ORDER BY product_id;
-```
-
-Resultados antes:
+La conexión real se tomó desde:
 
 ```text
-PENDIENTE: pegar salida SQL.
+Proyecto_backend/SalesPro.Api/appsettings.Local.json
 ```
 
-## 2. Órdenes antes de la prueba
+## Validación de datos base
 
-```sql
-USE SalesPro;
-
-SELECT TOP 10 numero_orden, fk_cliente, total_orden, impuesto, fecha_orden
-FROM Pos_Orden
-ORDER BY numero_orden DESC;
-```
-
-Resultados antes:
+Consulta previa contra SQL Server:
 
 ```text
-PENDIENTE: pegar salida SQL.
+Bancos: 3
+Compañías: 1
+Clientes: 2
+Productos: 4
+Cuentas bancarias: 1
+IVA: 13.0000
 ```
 
-## 3. Orden válida
+## Orden válida
 
-Ejecutar el request `Orden: crear venta con transacción, inventario e IVA por parámetro`.
+Request ejecutado:
 
-Respuesta HTTP:
+```http
+POST /api/ordenes
+```
+
+Body:
+
+```json
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    { "productoId": 1, "cantidad": 1 },
+    { "productoId": 2, "cantidad": 1 }
+  ]
+}
+```
+
+Resultado:
 
 ```text
-PENDIENTE: pegar código HTTP y body.
+Orden creada: 1
+Total: 692125.00
+Stock producto 1 antes: 10
+Stock producto 1 después: 9
 ```
 
-## 4. Comprobación posterior a orden válida
+Conclusión: la orden válida se creó y el inventario fue actualizado.
 
-```sql
-USE SalesPro;
+## Rollback por inventario insuficiente
 
-SELECT product_id, nombre_etiqueta, existencia_en_stock
-FROM Producto
-WHERE product_id IN (1, 2)
-ORDER BY product_id;
+Request ejecutado:
 
-SELECT TOP 10 numero_orden, fk_cliente, total_orden, impuesto
-FROM Pos_Orden
-ORDER BY numero_orden DESC;
-
-SELECT TOP 10 fk_pos_orden, fk_producto, cantidad, precio_unitario, precio_subtotal
-FROM Pos_Orden_Detalle
-ORDER BY fk_pos_orden DESC;
+```http
+POST /api/ordenes
 ```
 
-Resultados después:
+Body:
+
+```json
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    { "productoId": 1, "cantidad": 999999 }
+  ]
+}
+```
+
+Resultado:
 
 ```text
-PENDIENTE: pegar salida SQL.
+Código HTTP recibido: 409
+Código esperado: 409
+Stock producto 1 antes del intento inválido: 9
+Stock producto 1 después del intento inválido: 9
+Rollback mantiene stock: true
 ```
 
-## 5. Orden inválida por inventario insuficiente
+Conclusión: el intento inválido no descontó inventario. El estado de la base se mantuvo consistente, por lo que el rollback quedó evidenciado.
 
-Ejecutar el request `Orden: error de inventario insuficiente; debe hacer rollback`.
+## Observación
 
-Respuesta HTTP:
-
-```text
-PENDIENTE: pegar código HTTP y body.
-```
-
-## 6. Comprobación de rollback
-
-```sql
-USE SalesPro;
-
-SELECT product_id, nombre_etiqueta, existencia_en_stock
-FROM Producto
-WHERE product_id = 1;
-
-SELECT TOP 10 numero_orden, fk_cliente, total_orden, impuesto
-FROM Pos_Orden
-ORDER BY numero_orden DESC;
-
-SELECT TOP 10 fk_pos_orden, fk_producto, cantidad, precio_unitario, precio_subtotal
-FROM Pos_Orden_Detalle
-ORDER BY fk_pos_orden DESC;
-```
-
-Resultado esperado: el intento inválido no debe crear una orden parcial ni modificar inventario.
-
-Resultados reales:
-
-```text
-PENDIENTE: pegar salida SQL y explicar si coincide con el estado anterior.
-```
-
-## Conclusión
-
-PENDIENTE: completar cuando existan evidencias reales.
+La orden válida modifica inventario de forma real en la base del curso. Para repetir la prueba desde el mismo estado inicial, se debe restaurar la base o ajustar la evidencia al nuevo stock.

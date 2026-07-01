@@ -1,6 +1,6 @@
 # SalesPro - Proyecto 2 LPAC
 
-Aplicación base para el Proyecto 2 del curso Lenguajes para Aplicaciones Comerciales.
+Aplicación para el Proyecto 2 del curso Lenguajes para Aplicaciones Comerciales. El sistema implementa un punto de venta con backend en ASP.NET Core Web API, frontend en WPF y base de datos SQL Server.
 
 ## Equipo 5
 
@@ -13,86 +13,89 @@ CRUD asignado: gestión de cuentas bancarias de compañía.
 | Josue Delgado Corrales | `JosueDelgadoCorrales` |
 | Alejandro Porras | `axpew` |
 
-Organización/equipo GitHub:
-
-```text
-Lenguajes-IERP/equipo-5
-```
-
 ## Stack
 
 - Backend: ASP.NET Core Web API.
 - Frontend: WPF.
 - Base de datos: SQL Server.
 - Acceso a datos: ADO.NET.
-- Arquitectura: Controller/API → Business → Data Services → SQL Server.
+- Arquitectura: API/Controller → Business → Data → SQL Server.
 - Transacciones: `SqlTransaction` en la capa de datos.
 
-## Funcionalidades requeridas
+## Funcionalidades principales
 
 1. CRUD de cuentas bancarias.
-2. Registro de orden de venta maestro-detalle.
+2. Registro de orden de venta con patrón maestro-detalle.
 
-La orden debe permitir:
+La orden permite:
 
 - seleccionar cliente;
 - buscar productos;
 - indicar cantidad;
 - remover productos;
-- incrementar/decrementar cantidades;
+- incrementar y decrementar cantidades;
 - mostrar subtotal, impuesto y total;
 - actualizar inventario al procesar;
-- usar transacción en backend.
+- ejecutar el registro dentro de una transacción.
 
-## Estructura
+## Estructura del repositorio
 
 ```text
 Proyecto_backend/
-  SalesPro.Api         Endpoints REST
+  SalesPro.Api         Endpoints REST, Swagger y configuración
   SalesPro.Business    Reglas de negocio y validaciones
   SalesPro.Data        Repositorios ADO.NET y SqlTransaction
+  SalesPro.Domain      Entidades y excepciones del dominio
+  SalesPro.Contracts   DTOs, requests y responses compartidos
   database/            Script SQL Server
-  scripts/             Utilidades de preparacion local
+  scripts/             Scripts de preparación de base
+
 Proyecto_WPF/
-  SalesPro.Wpf         Interfaz WPF con MVVM manual
-Proyecto_compartido/
-  SalesPro.Domain      Entidades y excepciones compartidas
-  SalesPro.Contracts   DTOs / requests / responses
+  SalesPro.Wpf         Interfaz WPF con ViewModels y consumo de API
+
 docs/
-  PLAN_EQUIPO_5.md
   ARRANQUE_RAPIDO.md
+  CONFIGURACION_SQL_SERVER.md
   ESTRUCTURA_ENTREGA.md
   GUIA_DEFENSA.md
   BITACORA_TAREAS.md
+  EVIDENCIA_TRANSACCIONES.md
+  EVIDENCIA_CRUD_CUENTAS.md
+  EVIDENCIA_ORDEN_WPF.md
 ```
 
-## Preparar base de datos
+## Configurar base de datos
 
-Forma rápida:
+Para el ambiente del curso, configurar SQL Server con:
+
+```text
+docs/CONFIGURACION_SQL_SERVER.md
+```
+
+El archivo local de conexión debe llamarse:
+
+```text
+Proyecto_backend/SalesPro.Api/appsettings.Local.json
+```
+
+Ese archivo no se sube al repositorio.
+
+Para montar la base en SQL Server:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\Proyecto_backend\scripts\setup-localdb.ps1
+powershell -ExecutionPolicy Bypass -File .\Proyecto_backend\scripts\setup-sqlserver.ps1 -Server "SERVIDOR_SQL" -User "USUARIO"
 ```
 
-Forma manual:
-
-Abrir SQL Server Management Studio y ejecutar:
+También se puede ejecutar manualmente en SQL Server Management Studio:
 
 ```text
 Proyecto_backend/database/00_create_salespro.sql
 ```
 
-Más detalle:
-
-```text
-Proyecto_backend/database/README_BASE_DATOS.md
-```
-
 ## Ejecutar API
 
 ```powershell
-$env:NUGET_PACKAGES='C:\Users\sebas\.nuget\packages'
-dotnet run --project Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj
+dotnet run --project .\Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj
 ```
 
 URL por defecto:
@@ -101,7 +104,13 @@ URL por defecto:
 http://localhost:5294
 ```
 
-Pruebas manuales:
+Swagger:
+
+```text
+http://localhost:5294/swagger
+```
+
+Pruebas HTTP:
 
 ```text
 Proyecto_backend/SalesPro.Api/SalesPro.Api.http
@@ -112,41 +121,34 @@ Proyecto_backend/SalesPro.Api/SalesPro.Api.http
 Con la API levantada:
 
 ```powershell
-$env:NUGET_PACKAGES='C:\Users\sebas\.nuget\packages'
-dotnet run --project Proyecto_WPF\SalesPro.Wpf\SalesPro.Wpf.csproj
+dotnet run --project .\Proyecto_WPF\SalesPro.Wpf\SalesPro.Wpf.csproj
 ```
 
 ## Compilar
 
 ```powershell
-$env:NUGET_PACKAGES='C:\Users\sebas\.nuget\packages'
-dotnet build SalesPro.slnx --no-restore
+dotnet restore SalesPro.slnx
+dotnet build SalesPro.slnx
 ```
 
-Si hace falta restaurar:
+## Crear entregables comprimidos
 
 ```powershell
-$env:NUGET_PACKAGES='C:\Users\sebas\.nuget\packages'
-dotnet restore SalesPro.slnx --ignore-failed-sources
-dotnet build SalesPro.slnx --no-restore
+powershell -ExecutionPolicy Bypass -File .\tools\crear-entregables.ps1
+```
+
+Genera:
+
+```text
+dist/Proyecto_backend_Equipo5.zip
+dist/Proyecto_WPF_Equipo5.zip
 ```
 
 ## Puntos fuertes para defensa
 
-1. **Transacciones Seguras:** La orden de venta usa `SqlTransaction` en la capa `SalesPro.Data`. Si falla cualquier parte de la operación (cliente inválido, stock, inserción), se ejecuta rollback y no queda la base a medias.
-2. **Documentación interactiva de API:** La API implementa OpenAPI/Swagger en `http://localhost:5294/swagger`, lo que permite revisar y probar endpoints durante el desarrollo.
-3. **Accesibilidad digital:** Las vistas WPF incluyen nombres accesibles, ayudas de controles, orden de tabulación y mensajes de estado para apoyar navegación por teclado y lectores de pantalla, en línea con criterios de accesibilidad asociados a la Ley 7600.
-4. **Arquitectura por capas:** El proyecto separa dominio, contratos, datos, negocio, API y WPF para mantener trazabilidad entre diseño, código y pruebas.
-
-## Organización del trabajo
-
-Leer:
-
-```text
-CONTRIBUTING.md
-docs/ARRANQUE_RAPIDO.md
-docs/ESTRUCTURA_ENTREGA.md
-docs/PLAN_EQUIPO_5.md
-docs/GUIA_DEFENSA.md
-docs/BITACORA_TAREAS.md
-```
+1. La orden de venta usa `SqlTransaction`; si falla cualquier paso, se ejecuta rollback.
+2. El inventario se descuenta dentro de la misma transacción que crea encabezado y detalles.
+3. El IVA se obtiene desde `ParametroSistema`, no desde un valor quemado en WPF.
+4. El CRUD de cuentas bancarias consume catálogos reales de bancos y compañías.
+5. La interfaz WPF usa ViewModels y consume la API REST.
+6. Las vistas incluyen medidas básicas de accesibilidad: nombres accesibles, ayudas, navegación por teclado y mensajes de estado.

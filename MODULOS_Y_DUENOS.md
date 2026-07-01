@@ -5,9 +5,9 @@ Este archivo existe para evitar desorden.
 ## Regla principal
 
 ```text
-Cada persona trabaja solo en su rama y módulo asignado.
+Cada persona trabaja en su rama y módulo asignado.
 Todo cambio entra por Pull Request.
-main no se toca directo.
+main no se toca directo salvo integración autorizada.
 ```
 
 ## Asignación oficial
@@ -19,22 +19,30 @@ main no se toca directo.
 | Alejandro | `feature/alejandro-wpf` | `Proyecto_WPF/SalesPro.Wpf/` | Interfaz WPF, ViewModels, consumo API |
 | Caleb | `feature/caleb-docs-http` | `docs/`, `.http` | Documentación, pruebas manuales API |
 
-## Carpetas compartidas
-
-Estas carpetas pueden requerir coordinación:
+## Carpetas de coordinación
 
 | Carpeta | Regla |
 |---|---|
-| `Proyecto_compartido/SalesPro.Contracts/` | Cambios solo si API/WPF necesitan DTOs nuevos. Avisar en PR. |
-| `Proyecto_compartido/SalesPro.Domain/` | Cambios solo si el modelo de dominio cambia. Revisar conmigo. |
-| `README.md` | Cambios de documentación general. Revisar conmigo. |
+| `Proyecto_backend/SalesPro.Contracts/` | Cambios solo si API/WPF necesitan DTOs nuevos. Avisar en PR. |
+| `Proyecto_backend/SalesPro.Domain/` | Cambios solo si el modelo de dominio cambia. Revisar impacto. |
+| `README.md` | Cambios de documentación general. Revisar antes de entregar. |
+
+## Credenciales reales
+
+Las credenciales reales del DBMS del curso van en:
+
+```text
+Proyecto_backend/SalesPro.Api/appsettings.Local.json
+```
+
+Ese archivo queda fuera de Git por seguridad. Para entregar ZIPs ejecutables contra el servidor del curso, generar los ZIPs desde la máquina que tenga ese archivo local.
 
 ## No hacer
 
-- No trabajar directo en `main`.
+- No trabajar directo en `main` sin autorización.
 - No crear ramas nuevas sin avisar.
 - No cambiar la transacción de orden sin revisión.
-- No meter credenciales reales.
+- No subir contraseñas reales al historial de Git.
 - No subir código que no se pueda explicar en revisión o defensa.
 - No tocar módulos ajenos sin explicar.
 

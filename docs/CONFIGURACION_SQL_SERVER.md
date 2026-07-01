@@ -18,7 +18,7 @@ Proyecto_backend/SalesPro.Api/appsettings.Local.json
 
 Luego completar los datos del servidor, usuario y clave.
 
-`appsettings.Local.json` está ignorado por Git, por lo que no debe subirse al repositorio.
+`appsettings.Local.json` está ignorado por Git por seguridad. Ese archivo sí debe existir en la máquina de entrega con las credenciales reales del DBMS del curso. Si se genera el ZIP desde esa máquina, el archivo local queda incluido dentro del comprimido aunque no esté versionado en Git.
 
 ## 2. Montar la base de datos
 

@@ -1,6 +1,5 @@
 # Plan de trabajo - Proyecto 2 Equipo 5
 
-
 ## Integrantes
 
 | Integrante | Usuario GitHub | Rol sugerido |
@@ -15,27 +14,17 @@
 - Equipo 5: CRUD de cuentas bancarias.
 - WPF como frontend.
 - ASP.NET Core Web API como backend.
-- SQL Server.
-- Arquitectura de tres capas: controlador REST, negocio y servicios de datos.
-- Accesibilidad digital en WPF mediante nombres accesibles, ayudas de controles y navegación por teclado.
-- WPF debe tener únicamente dos funcionalidades:
-  1. Gestión de cuentas bancarias.
-  2. Registro de orden de venta.
-- La orden debe usar patrón maestro-detalle.
-- La orden debe permitir:
-  - seleccionar cliente;
-  - buscar producto;
-  - indicar cantidad;
-  - mostrar productos en matriz;
-  - remover productos;
-  - incrementar/decrementar cantidades;
-  - mostrar subtotal, impuesto y total;
-  - actualizar inventario al procesar.
-- La capa de datos debe manejar transacciones cuando corresponda.
+- SQL Server como motor de base de datos.
+- Arquitectura por capas: controlador REST, negocio y servicios de datos.
+- Manejo transaccional en capa de datos cuando corresponda.
+- WPF con dos funcionalidades: gestión de cuentas bancarias y registro de orden.
+- Orden con patrón maestro-detalle.
+- Pruebas de API en archivo `.http`.
+- Documentación con API, ER, dominio, conclusiones y bitácora.
 
-## División recomendada
+## División técnica
 
-### Sebastián - Base de datos y transacción
+### Base de datos, Data y transacciones
 
 Archivos principales:
 
@@ -43,30 +32,30 @@ Archivos principales:
 - `Proyecto_backend/SalesPro.Data/Repositories/OrdenRepository.cs`
 - `Proyecto_backend/SalesPro.Data/Repositories/CuentaBancariaRepository.cs`
 
-Tareas:
+Responsabilidades:
 
 - Mantener tablas y datos semilla.
-- Validar constraints y llaves foráneas.
+- Validar llaves foráneas, checks y datos base.
 - Proteger la transacción de orden.
 - Verificar rollback cuando hay stock insuficiente.
-- Apoyar integración final.
+- Mantener el cálculo de IVA desde `ParametroSistema`.
 
-### Josue - API y negocio
+### API y negocio
 
 Archivos principales:
 
 - `Proyecto_backend/SalesPro.Api/Controllers/`
 - `Proyecto_backend/SalesPro.Business/Services/`
-- `Proyecto_compartido/SalesPro.Contracts/`
+- `Proyecto_backend/SalesPro.Contracts/`
 
-Tareas:
+Responsabilidades:
 
-- Revisar endpoints REST.
+- Mantener endpoints REST.
 - Validar respuestas 400/404/409.
 - Mantener DTOs limpios.
 - Actualizar `.http` cuando cambie la API.
 
-### Alejandro - WPF
+### WPF
 
 Archivos principales:
 
@@ -74,15 +63,16 @@ Archivos principales:
 - `Proyecto_WPF/SalesPro.Wpf/ViewModels/`
 - `Proyecto_WPF/SalesPro.Wpf/Services/`
 
-Tareas:
+Responsabilidades:
 
-- Pulir pantalla de cuentas bancarias.
-- Pulir pantalla de nueva orden.
-- Agregar búsqueda/selección de cliente.
-- Mejorar mensajes de error.
-- Validar UI contra la rúbrica.
+- Pantalla CRUD de cuentas bancarias.
+- Pantalla de nueva orden.
+- Búsqueda y selección de cliente.
+- Búsqueda y selección de productos.
+- Consumo real de API.
+- Accesibilidad básica en controles principales.
 
-### Caleb - Documentación y pruebas
+### Documentación y pruebas
 
 Archivos principales:
 
@@ -90,22 +80,33 @@ Archivos principales:
 - `README.md`
 - `Proyecto_backend/SalesPro.Api/SalesPro.Api.http`
 
-Tareas:
+Responsabilidades:
 
 - Documentar API REST.
 - Documentar modelo de dominio.
 - Documentar modelo entidad-relación.
-- Crear bitácora.
-- Completar pruebas `.http`.
+- Completar bitácora.
+- Completar evidencias de pruebas.
+- Preparar informe final en PDF.
 
-## Pendientes críticos antes de entrega
+## Estado de cierre
 
-- [x] Montar base SQL Server local o confirmar base remota final.
-- [x] Agregar búsqueda/selección de cliente en WPF mediante ventana o diálogo.
-- [ ] Revisar que el `.http` cubra todos los recursos expuestos.
-- [x] Corregir la transacción para evitar rollback después de commit.
-- [ ] Probar CRUD completo de cuentas bancarias.
-- [ ] Probar orden completa y descuento de inventario.
-- [ ] Probar rollback por stock insuficiente.
-- [x] Agregar atributos básicos de accesibilidad digital en WPF.
-- [ ] Crear documentación final.
+- [x] Estructura física backend/WPF.
+- [x] CRUD de cuentas bancarias.
+- [x] Registro de orden maestro-detalle.
+- [x] Búsqueda/selección de cliente en WPF.
+- [x] Búsqueda/selección de productos en WPF.
+- [x] Transacción para procesar orden.
+- [x] Descuento de inventario dentro de transacción.
+- [x] IVA desde parámetro de base de datos.
+- [x] Archivo `.http` ordenado.
+- [x] Script para generar ZIPs de entrega.
+- [x] Compilación de solución completa.
+- [x] Compilación de ZIPs por separado.
+- [x] Ejecutar pruebas API contra SQL Server del curso.
+- [x] Pegar evidencia real de transacciones.
+- [x] Pegar evidencia real del CRUD a nivel API.
+- [x] Pegar evidencia real de orden a nivel API/transacción.
+- [ ] Anexar capturas WPF de CRUD.
+- [ ] Anexar capturas WPF de orden.
+- [ ] Exportar informe final a PDF.

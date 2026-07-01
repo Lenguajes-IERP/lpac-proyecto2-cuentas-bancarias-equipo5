@@ -5,28 +5,36 @@ Este directorio contiene la aplicación ASP.NET Core Web API y las capas de back
 ## Contenido
 
 ```text
-SalesPro.Api        Controladores REST, configuración y Swagger
+SalesPro.Api        Controladores REST, configuración, Swagger y .http
 SalesPro.Business   Reglas de negocio y validaciones
 SalesPro.Data       Repositorios ADO.NET y manejo transaccional
+SalesPro.Domain     Entidades y excepciones del dominio
+SalesPro.Contracts  DTOs, requests y responses compartidos con WPF
 database/           Script SQL Server
-scripts/            Script de preparación local de base de datos
+scripts/            Scripts para preparar base de datos
 ```
 
-## Dependencias compartidas
+## Configuración de base
 
-El backend referencia proyectos ubicados en:
+Leer:
 
 ```text
-../Proyecto_compartido/SalesPro.Domain
-../Proyecto_compartido/SalesPro.Contracts
+docs/CONFIGURACION_SQL_SERVER.md
 ```
+
+La conexión real se configura en:
+
+```text
+Proyecto_backend/SalesPro.Api/appsettings.Local.json
+```
+
+Ese archivo no se versiona.
 
 ## Ejecución
 
 Desde la raíz del repositorio:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\Proyecto_backend\scripts\setup-localdb.ps1
 dotnet run --project .\Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj
 ```
 
@@ -36,3 +44,8 @@ Swagger:
 http://localhost:5294/swagger
 ```
 
+Pruebas HTTP:
+
+```text
+Proyecto_backend/SalesPro.Api/SalesPro.Api.http
+```

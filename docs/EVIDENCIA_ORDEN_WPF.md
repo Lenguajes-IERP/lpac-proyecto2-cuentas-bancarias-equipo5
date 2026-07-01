@@ -1,130 +1,74 @@
-# Plantilla de evidencia: flujo de nueva orden en WPF
+# Evidencia: flujo de nueva orden
 
-Objetivo: validar el flujo completo de creación de una orden desde WPF hasta la base de datos.
+Fecha de ejecución API: 2026-07-01  
+Ambiente: API local contra SQL Server del curso  
+Archivo generado: `docs/evidencia_generada/api_transacciones_20260701164829.json`
 
-Estado actual: pendiente de completar con capturas, respuestas HTTP y salidas SQL reales.
+## Validación por API
 
-## Preparación
+Se ejecutó una orden válida contra el endpoint:
 
-- Levantar la API:
-
-```powershell
-dotnet run --project .\Proyecto_backend\SalesPro.Api\SalesPro.Api.csproj
+```http
+POST /api/ordenes
 ```
 
-- Ejecutar `SalesPro.Wpf`.
-- Verificar que existan clientes y productos con stock.
+Body:
 
-## Checklist de pruebas
+```json
+{
+  "clienteId": 1,
+  "empleadoId": 1,
+  "detalles": [
+    { "productoId": 1, "cantidad": 1 },
+    { "productoId": 2, "cantidad": 1 }
+  ]
+}
+```
 
-### 1. Abrir vista de nueva orden
-
-- Acción: navegar a la vista de nueva orden.
-- Evidencia:
+Resultado:
 
 ```text
-PENDIENTE.
+Orden creada: 1
+Total: 692125.00
+Stock producto 1 antes: 10
+Stock producto 1 después: 9
 ```
 
-### 2. Seleccionar cliente
+## Validación de rollback
 
-- Acción: buscar un cliente, por ejemplo `Valeria`, y seleccionarlo.
-- Evidencia:
+Se ejecutó una orden inválida por inventario insuficiente.
+
+Resultado:
 
 ```text
-PENDIENTE.
+Código HTTP recibido: 409
+Stock antes: 9
+Stock después: 9
+Rollback mantiene stock: true
 ```
 
-### 3. Buscar producto
+## Validación WPF pendiente de captura
 
-- Acción: buscar un producto, por ejemplo `Laptop`.
-- Evidencia:
+La implementación WPF contiene:
 
-```text
-PENDIENTE.
-```
+- ventana de búsqueda de cliente;
+- ventana de búsqueda de producto;
+- matriz maestro-detalle;
+- incremento y decremento de cantidades;
+- remoción de productos;
+- subtotal, IVA estimado y total estimado;
+- botón para procesar orden contra API.
 
-### 4. Agregar productos
+Pendiente de anexar capturas manuales:
 
-- Acción: agregar un producto con cantidad 1 y otro con cantidad 2.
-- Resultado esperado: la matriz muestra código, nombre, precio, cantidad y subtotal.
-- Evidencia:
-
-```text
-PENDIENTE.
-```
-
-### 5. Incrementar y decrementar cantidades
-
-- Acción: usar los controles de cantidad.
-- Resultado esperado: subtotales, impuesto y total se recalculan.
-- Evidencia:
-
-```text
-PENDIENTE.
-```
-
-### 6. Remover producto
-
-- Acción: eliminar una línea de la orden.
-- Resultado esperado: la matriz y los totales se actualizan.
-- Evidencia:
-
-```text
-PENDIENTE.
-```
-
-### 7. Confirmar IVA
-
-```sql
-USE SalesPro;
-
-SELECT nombre, valor_decimal
-FROM ParametroSistema
-WHERE nombre = 'IVA';
-```
-
-Evidencia:
-
-```text
-PENDIENTE.
-```
-
-### 8. Procesar orden
-
-- Acción: confirmar la orden.
-- Resultado esperado: se muestra el número de orden creado.
-- Evidencia:
-
-```text
-PENDIENTE.
-```
-
-### 9. Comprobar inventario
-
-```sql
-USE SalesPro;
-
-SELECT product_id, nombre_etiqueta, existencia_en_stock
-FROM Producto
-WHERE product_id IN (1, 2)
-ORDER BY product_id;
-```
-
-Resultado esperado: las existencias bajan según las cantidades vendidas.
-
-Evidencia:
-
-```text
-PENDIENTE.
-```
-
-## Observaciones
-
-```text
-PENDIENTE: anotar errores encontrados o confirmar que no hubo.
-```
+1. Vista de nueva orden abierta.
+2. Cliente seleccionado.
+3. Producto buscado y agregado.
+4. Matriz con productos.
+5. Incremento/decremento de cantidades.
+6. Orden procesada.
+7. Consulta SQL o respuesta API posterior.
 
 ## Conclusión
 
-PENDIENTE: completar después de las pruebas.
+El flujo principal de orden fue validado contra backend y base real. Falta anexar capturas de la interfaz WPF para completar la evidencia visual de la funcionalidad.

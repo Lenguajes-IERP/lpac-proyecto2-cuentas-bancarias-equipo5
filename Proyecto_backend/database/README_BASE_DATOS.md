@@ -1,6 +1,6 @@
 # Base de datos - SalesPro
 
-Motor requerido por el enunciado:
+Motor requerido:
 
 ```text
 SQL Server
@@ -11,22 +11,22 @@ SQL Server
 Ejecutar en SQL Server Management Studio:
 
 ```text
-database/00_create_salespro.sql
+Proyecto_backend/database/00_create_salespro.sql
 ```
 
-Este script crea:
+El script crea la base `SalesPro`, las tablas principales y datos semilla para pruebas.
 
-- Base `SalesPro`.
-- Tabla `ParametroSistema`.
-- Tabla `Banco`.
-- Tabla `Compania`.
-- Tabla `Cliente`.
-- Tabla `Empleado`.
-- Tabla `Producto`.
-- Tabla `Compania_Cuenta_Bancaria`.
-- Tabla `Pos_Orden`.
-- Tabla `Pos_Orden_Detalle`.
-- Datos semilla para demo.
+## Tablas principales
+
+- `ParametroSistema`
+- `Banco`
+- `Compania`
+- `Cliente`
+- `Empleado`
+- `Producto`
+- `Compania_Cuenta_Bancaria`
+- `Pos_Orden`
+- `Pos_Orden_Detalle`
 
 ## Datos importantes
 
@@ -44,19 +44,27 @@ Productos semilla:
 - Keyboard.
 - Servicio instalación, sin impuesto.
 
-## Connection string local recomendada
+## Configuración de conexión
 
-Para desarrollo local con LocalDB:
+Para no versionar credenciales reales, usar:
 
-```json
-"SalesProDb": "Server=(localdb)\\MSSQLLocalDB;Database=SalesPro;Trusted_Connection=True;TrustServerCertificate=True;"
+```text
+Proyecto_backend/SalesPro.Api/appsettings.Local.json
 ```
 
-## Connection string remota
+Basarse en:
 
-Si se usa la base remota del curso, mantener las credenciales solo en `appsettings.Development.json` local o en variables de entorno.
+```text
+Proyecto_backend/SalesPro.Api/appsettings.Local.example.json
+```
 
-No subir credenciales reales a repos públicos.
+## Preparación por script
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\Proyecto_backend\scripts\setup-sqlserver.ps1 -Server "SERVIDOR_SQL" -User "USUARIO"
+```
+
+El script pide la clave en pantalla.
 
 ## Prueba rápida
 

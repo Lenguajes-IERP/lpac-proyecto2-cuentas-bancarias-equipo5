@@ -1,0 +1,30 @@
+﻿{
+    "fecha":  "2026-07-01 16:48:29",
+    "api":  {
+                "application":  "SalesPro API",
+                "status":  "ok"
+            },
+    "bancos":  3,
+    "companias":  1,
+    "clientes":  1,
+    "productos":  1,
+    "cuentaCreadaId":  3,
+    "cuentaCreadaNumero":  "CRTEST20260701164829",
+    "cuentaActualizadaTipo":  "Ahorro",
+    "cuentaEliminada":  true,
+    "cuentaInexistente":  {
+                              "status":  404,
+                              "esperado":  404
+                          },
+    "ordenCreadaNumero":  1,
+    "ordenCreadaTotal":  692125.00,
+    "stockProducto1AntesOrdenValida":  "10",
+    "stockProducto1DespuesOrdenValida":  "9",
+    "rollbackError":  {
+                          "status":  409,
+                          "esperado":  409
+                      },
+    "stockProducto1AntesRollback":  "9",
+    "stockProducto1DespuesRollback":  "9",
+    "rollbackMantieneStock":  true
+}

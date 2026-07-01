@@ -1,21 +1,20 @@
-# Bitacora de tareas - Equipo 5
+# Bitácora de tareas - Equipo 5
 
-Este archivo se llena conforme avanza el proyecto. No es adorno: la rubrica pide bitacora.
+Esta bitácora resume el avance verificable del proyecto. No reemplaza la defensa individual; sirve como soporte para explicar qué se construyó y dónde se evidencia.
 
-| Fecha | Persona | Rama | Tarea | Evidencia/PR | Estado |
+| Fecha | Persona / área | Rama o PR | Tarea | Evidencia | Estado |
 |---|---|---|---|---|---|
-| 2026-06-29 | YO | `feature/sebas-db-transacciones` | Base inicial, BD, ramas, proteccion de main y transaccion de orden | Pendiente PR | En proceso |
-| 2026-06-29 | Josue | `feature/josue-api-business` | API y Business para CRUD/orden | Pendiente | Pendiente |
-| 2026-06-29 | Alejandro | `feature/alejandro-wpf` | WPF para cuentas bancarias y orden | Pendiente | Pendiente |
-| 2026-06-29 | Caleb | `feature/caleb-docs-http` | Documentacion y pruebas `.http` | Pendiente | Pendiente |
+| 2026-06-29 | YO / base y control del repo | `feature/sebas-db-transacciones` | Organización inicial del proyecto, reglas de ramas, estructura base, base de datos y transacciones. | PRs de integración y commits de backend/data. | Integrado |
+| 2026-06-29 | Equipo / estructura | `main` | Separación física de carpetas para entrega: `Proyecto_backend` y `Proyecto_WPF`. | `docs/ESTRUCTURA_ENTREGA.md`, `tools/crear-entregables.ps1`. | Integrado |
+| 2026-06-30 | Backend/API | PR #6 / `feature/josue-api-business` | Documentación de respuestas HTTP y ajustes en endpoints de catálogos, cuentas bancarias y órdenes. | Commits `6c55371`, `9b56631`. | Integrado |
+| 2026-06-30 | Pruebas API | `feature/sebas-db-transacciones` | Casos `.http` para CRUD de cuentas bancarias y órdenes, incluyendo casos negativos. | Commits `446348d`, `f15f930`. | Integrado |
+| 2026-07-01 | Configuración SQL Server | `main` | Soporte para configuración local con `appsettings.Local.json` y script `setup-sqlserver.ps1`. | Commit `9238f7a`, `docs/CONFIGURACION_SQL_SERVER.md`. | Integrado |
+| 2026-07-01 | Entrega | `main` | Generación de ZIPs separados para backend y WPF; validación de compilación desde los ZIPs. | `tools/crear-entregables.ps1`, carpeta `dist/`. | Integrado |
+| 2026-07-01 | Documentación final | `main` | Limpieza de README, estructura de entrega, `.http`, bitácora e informe final base. | Documentos en `docs/`. | En cierre |
+| 2026-07-01 | Pruebas finales API | `main` | Ejecución de pruebas contra SQL Server del curso: CRUD cuentas, orden válida y rollback por stock insuficiente. | `docs/evidencia_generada/api_transacciones_20260701164829.json`, `docs/EVIDENCIA_TRANSACCIONES.md`. | Ejecutado |
 
-## Como llenar esto
+## Pendientes para cierre final
 
-Cada vez que alguien haga algo importante:
-
-1. pone fecha;
-2. pone su rama;
-3. explica que hizo en una frase normal;
-4. pega link del PR o commit;
-5. marca estado.
-
+- Probar WPF manualmente y pegar capturas.
+- Completar conclusiones del informe con resultados reales.
+- Exportar el informe final a PDF.
