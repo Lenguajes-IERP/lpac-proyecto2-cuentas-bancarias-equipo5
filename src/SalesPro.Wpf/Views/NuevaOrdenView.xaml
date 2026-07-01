@@ -1,6 +1,9 @@
 <UserControl x:Class="SalesPro.Wpf.Views.NuevaOrdenView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             KeyboardNavigation.TabNavigation="Continue"
+             AutomationProperties.Name="Registro de nueva orden de venta"
+             AutomationProperties.HelpText="Pantalla maestro detalle para registrar productos en una orden de venta">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="#D7DEE8" />
@@ -28,7 +31,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.ColumnSpan="3" Text="Nueva orden de venta" FontSize="28" FontWeight="Bold" Foreground="#F3F6FA" Margin="0,0,0,20" />
+        <TextBlock Grid.ColumnSpan="3"
+                   Text="Nueva orden de venta"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="#F3F6FA"
+                   Margin="0,0,0,20"
+                   AutomationProperties.HeadingLevel="Level1" />
 
         <Border Grid.Row="1" Grid.Column="0" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10" Margin="0,0,0,18">
             <Grid>
@@ -41,20 +50,40 @@
 
                 <StackPanel Grid.Column="0" Margin="0,0,14,0">
                     <TextBlock Text="Cliente Id" />
-                    <TextBox Text="{Binding ClienteId, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding ClienteId, UpdateSourceTrigger=PropertyChanged}"
+                             TabIndex="0"
+                             ToolTip="Identificador del cliente asociado a la orden"
+                             AutomationProperties.Name="Identificador del cliente"
+                             AutomationProperties.HelpText="Campo temporal para indicar el cliente de la orden. Pendiente reemplazar por búsqueda de cliente" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Margin="0,0,14,0">
                     <TextBlock Text="Empleado Id" />
-                    <TextBox Text="{Binding EmpleadoId, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding EmpleadoId, UpdateSourceTrigger=PropertyChanged}"
+                             TabIndex="1"
+                             ToolTip="Identificador del empleado que registra la orden"
+                             AutomationProperties.Name="Identificador del empleado" />
                 </StackPanel>
 
-                <Button Grid.Column="3" Content="Buscar y Agregar Producto..." Click="AbrirBusqueda_Click" VerticalAlignment="Center" Background="#1688F0" Foreground="White" />
+                <Button Grid.Column="3"
+                        Content="Buscar y Agregar Producto..."
+                        Click="AbrirBusqueda_Click"
+                        VerticalAlignment="Center"
+                        Background="#1688F0"
+                        Foreground="White"
+                        TabIndex="2"
+                        ToolTip="Abrir ventana para buscar productos y agregarlos a la orden"
+                        AutomationProperties.Name="Buscar y agregar producto"
+                        AutomationProperties.HelpText="Abre la búsqueda de productos para seleccionar cantidad y agregar detalle a la orden" />
             </Grid>
         </Border>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,15,0,0">
-            <TextBlock Text="{Binding Mensaje}" Foreground="#9FB2C8" TextWrapping="Wrap" />
+            <TextBlock Text="{Binding Mensaje}"
+                       Foreground="#9FB2C8"
+                       TextWrapping="Wrap"
+                       AutomationProperties.LiveSetting="Polite"
+                       AutomationProperties.Name="Mensaje de estado de la orden" />
         </StackPanel>
 
         <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10">
@@ -62,29 +91,29 @@
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
                     <Grid Margin="0,0,0,6">
                         <TextBlock Text="Subtotal" />
-                        <TextBlock Text="{Binding Subtotal, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" />
+                        <TextBlock Text="{Binding Subtotal, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" AutomationProperties.Name="Subtotal de la orden" />
                     </Grid>
                     <Grid Margin="0,0,0,6">
                         <TextBlock Text="IVA estimado" />
-                        <TextBlock Text="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" />
+                        <TextBlock Text="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" AutomationProperties.Name="IVA estimado de la orden" />
                     </Grid>
                     <Separator Margin="0,8" />
                     <Grid Margin="0,0,0,18">
                         <TextBlock Text="Total estimado" FontWeight="Bold" />
-                        <TextBlock Text="{Binding TotalEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" FontWeight="Bold" />
+                        <TextBlock Text="{Binding TotalEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" FontWeight="Bold" AutomationProperties.Name="Total estimado de la orden" />
                     </Grid>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="+" Command="{Binding IncrementarCommand}" Width="42" />
-                        <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" />
-                        <Button Content="Remover" Command="{Binding RemoverProductoCommand}" />
+                        <Button Content="+" Command="{Binding IncrementarCommand}" Width="42" TabIndex="4" AutomationProperties.Name="Incrementar cantidad del producto seleccionado" />
+                        <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" TabIndex="5" AutomationProperties.Name="Disminuir cantidad del producto seleccionado" />
+                        <Button Content="Remover" Command="{Binding RemoverProductoCommand}" TabIndex="6" AutomationProperties.Name="Remover producto seleccionado de la orden" />
                     </StackPanel>
-                    <Button Content="Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="#1688F0" Foreground="White" Margin="0,12,0,0" />
-                    <Button Content="Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" />
+                    <Button Content="Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="#1688F0" Foreground="White" Margin="0,12,0,0" TabIndex="7" AutomationProperties.Name="Procesar orden de venta" />
+                    <Button Content="Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" TabIndex="8" AutomationProperties.Name="Limpiar orden de venta" />
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="Detalle de orden" FontSize="19" FontWeight="SemiBold" Foreground="#F3F6FA" Margin="0,0,0,12" />
+                    <TextBlock Text="Detalle de orden" FontSize="19" FontWeight="SemiBold" Foreground="#F3F6FA" Margin="0,0,0,12" AutomationProperties.HeadingLevel="Level2" />
                     <DataGrid AutoGenerateColumns="False"
                               ItemsSource="{Binding Detalles}"
                               SelectedItem="{Binding DetalleSeleccionado}"
@@ -93,7 +122,10 @@
                               Background="#121820"
                               Foreground="#E7EDF5"
                               RowBackground="#121820"
-                              AlternatingRowBackground="#18202A">
+                              AlternatingRowBackground="#18202A"
+                              TabIndex="3"
+                              AutomationProperties.Name="Tabla de detalles de la orden"
+                              AutomationProperties.HelpText="Lista de productos agregados a la orden. Seleccione una fila para modificar cantidad o removerla">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*" />
                             <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="55" />

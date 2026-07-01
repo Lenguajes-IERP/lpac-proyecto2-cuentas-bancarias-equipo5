@@ -1,17 +1,17 @@
-# Proyecto 2 LPAC - Cuentas Bancarias Equipo 5
+# SalesPro - Proyecto 2 LPAC
 
-Aplicación para punto de venta del curso Lenguajes para Aplicaciones Comerciales.
+Aplicación base para el Proyecto 2 del curso Lenguajes para Aplicaciones Comerciales.
 
 ## Equipo 5
 
 CRUD asignado: gestión de cuentas bancarias de compañía.
 
-| Integrante | GitHub | Rama asignada |
-|---|---|---|
-| Caleb Hernández Vega | `CalebHv21` | `feature/caleb-docs-http` |
-| Sebastián Cordero | `cbastiancq-lab` | `feature/sebas-db-transacciones` |
-| Josue Delgado Corrales | `JosueDelgadoCorrales` | `feature/josue-api-business` |
-| Alejandro Porras | `axpew` | `feature/alejandro-wpf` |
+| Integrante | GitHub |
+|---|---|
+| Caleb Hernández Vega | `CalebHv21` |
+| Sebastian Cordero | `cbastiancq-lab` |
+| Josue Delgado Corrales | `JosueDelgadoCorrales` |
+| Alejandro Porras | `axpew` |
 
 Organización/equipo GitHub:
 
@@ -44,30 +44,6 @@ La orden debe permitir:
 - actualizar inventario al procesar;
 - usar transacción en backend.
 
-## Mapa de responsabilidades
-
-Cada módulo tiene un archivo `README_MODULO.md` con responsable, límites y reglas.
-
-| Módulo | Carpeta | Responsable |
-|---|---|---|
-| Base de datos | `database/` | YO |
-| Data / transacciones | `src/SalesPro.Data/` | YO |
-| API REST | `src/SalesPro.Api/` | Josue |
-| Business | `src/SalesPro.Business/` | Josue |
-| WPF | `src/SalesPro.Wpf/` | Alejandro |
-| Documentación | `docs/` | Caleb |
-| Pruebas `.http` | `src/SalesPro.Api/SalesPro.Api.http` | Caleb |
-| DTOs compartidos | `src/SalesPro.Contracts/` | Todos, con aviso en PR |
-| Dominio | `src/SalesPro.Domain/` | YO |
-
-Regla de equipo:
-
-```text
-Cada quien trabaja en su rama y módulo asignado.
-Si alguien necesita tocar otro módulo, debe explicarlo en el Pull Request.
-Si no puede explicar el código en defensa, no se acepta.
-```
-
 ## Estructura
 
 ```text
@@ -85,7 +61,6 @@ docs/
   ARRANQUE_RAPIDO.md
   GUIA_DEFENSA.md
   BITACORA_TAREAS.md
-  GITHUB_ORGANIZACION.md
 scripts/
   setup-localdb.ps1
 ```
@@ -110,7 +85,6 @@ Más detalle:
 
 ```text
 database/README_BASE_DATOS.md
-database/README_MODULO.md
 ```
 
 ## Ejecutar API
@@ -156,15 +130,16 @@ dotnet restore SalesPro.slnx --ignore-failed-sources
 dotnet build SalesPro.slnx --no-restore
 ```
 
-## Punto fuerte para defensa
+## Puntos fuertes para defensa
 
-La orden de venta usa `SqlTransaction` en la capa `SalesPro.Data`.
-
-Si falla cualquier parte de la operación —cliente inválido, empleado inválido, producto inexistente, producto no vendible, stock insuficiente o error insertando detalle— se ejecuta rollback y no queda la base a medias.
+1. **Transacciones Seguras:** La orden de venta usa `SqlTransaction` en la capa `SalesPro.Data`. Si falla cualquier parte de la operación (cliente inválido, stock, inserción), se ejecuta rollback y no queda la base a medias.
+2. **Documentación interactiva de API:** La API implementa OpenAPI/Swagger en `http://localhost:5294/swagger`, lo que permite revisar y probar endpoints durante el desarrollo.
+3. **Accesibilidad digital:** Las vistas WPF incluyen nombres accesibles, ayudas de controles, orden de tabulación y mensajes de estado para apoyar navegación por teclado y lectores de pantalla, en línea con criterios de accesibilidad asociados a la Ley 7600.
+4. **Arquitectura por capas:** El proyecto separa dominio, contratos, datos, negocio, API y WPF para mantener trazabilidad entre diseño, código y pruebas.
 
 ## Organización del trabajo
 
-Leer antes de trabajar:
+Leer:
 
 ```text
 CONTRIBUTING.md
@@ -172,5 +147,4 @@ docs/ARRANQUE_RAPIDO.md
 docs/PLAN_EQUIPO_5.md
 docs/GUIA_DEFENSA.md
 docs/BITACORA_TAREAS.md
-docs/GITHUB_ORGANIZACION.md
 ```

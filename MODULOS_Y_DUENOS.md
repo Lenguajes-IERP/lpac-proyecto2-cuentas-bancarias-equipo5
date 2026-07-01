@@ -35,7 +35,7 @@ Estas carpetas pueden requerir coordinación:
 - No crear ramas nuevas sin avisar.
 - No cambiar la transacción de orden sin revisión.
 - No meter credenciales reales.
-- No pegar código de IA que no se pueda explicar.
+- No subir código que no se pueda explicar en revisión o defensa.
 - No tocar módulos ajenos sin explicar.
 
 ## Checklist antes de PR

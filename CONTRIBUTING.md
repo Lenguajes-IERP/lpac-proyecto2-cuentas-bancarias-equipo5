@@ -1,7 +1,5 @@
 # Guía de trabajo - Equipo 5
 
-Este proyecto es para el curso LPAC, Proyecto 2. Para evitar conflictos, nadie debe trabajar directo sobre `main`.
-
 ## Flujo obligatorio
 
 1. Actualizar el repo.

@@ -8,13 +8,6 @@ Regla del equipo:
 Si no puede explicar el codigo en defensa, no entra al main.
 ```
 
-## Uso aceptable de asistencia
-
-- Pedir ayuda para entender errores.
-- Generar una primera idea y luego adaptarla a la estructura del proyecto.
-- Pedir ejemplos parecidos a lo visto en clase.
-- Usarla para documentacion, siempre revisando que calce con el codigo real.
-
 ## Aspectos no aceptables
 
 - Pegar codigo que no se entiende.
@@ -24,7 +17,7 @@ Si no puede explicar el codigo en defensa, no entra al main.
 - Quemar datos en WPF para que “se vea bonito” pero no consuma API.
 - Romper transacciones, inventario o calculo de IVA.
 
-## Si alguien usa IA
+## Cada integrante debe poder explicar
 
 Debe poder responder:
 
@@ -34,6 +27,18 @@ Debe poder responder:
 - que validaciones tiene;
 - como se prueba en `.http` o en WPF;
 - que pasa si falla.
+
+## Accesibilidad digital
+
+Para la defensa se puede indicar que la interfaz WPF incorpora ajustes de accesibilidad relacionados con la Ley 7600:
+
+- nombres accesibles en controles principales mediante `AutomationProperties.Name`;
+- textos de ayuda mediante `AutomationProperties.HelpText` y `ToolTip`;
+- orden de tabulación para navegación por teclado;
+- mensajes de estado con `AutomationProperties.LiveSetting`;
+- encabezados de pantalla marcados con `AutomationProperties.HeadingLevel`.
+
+Estos ajustes no sustituyen la validación final con usuario o lector de pantalla, pero dejan la interfaz preparada para una revisión básica de accesibilidad.
 
 ## Frase para defensa
 

@@ -142,7 +142,7 @@ Puntos que defiende esta parte:
 
 - 20% CRUD correcto de cuentas bancarias.
 - Parte del 35% de orden, porque WPF consume la API para crear la orden.
-- Parte del 10% de pruebas `.http`, porque los endpoints tienen que ser probables.
+- Parte del 10% de pruebas `.http`, porque los endpoints tienen que poder probarse.
 - Parte del 10% dominio/trazabilidad.
 
 Minimo que debe quedar fino:
@@ -239,16 +239,14 @@ Esto es lo que hay que respetar para no perder puntos por una tontera:
 - El archivo `.http` es para demostrar los endpoints y probar casos buenos y algunos malos.
 - Stored procedures no son obligatorios si el enunciado no lo pide.
 - La busqueda de producto/cliente puede ser popup, ventana o dialogo, pero tiene que existir.
-- Si alguien no bretea, se documenta en bitacora y se habla con el profe.
+- Si una tarea no se completa, se documenta en bitacora para coordinarla a tiempo.
 
-## Regla de calidad sobre codigo asistido
+## Regla de calidad
 
-Se puede usar asistencia de IA solo si el codigo resultante se entiende y se puede defender. Regla simple:
+Todo cambio debe poder explicarse y defenderse. Regla simple:
 
 - si no puede explicar el codigo, no se mergea;
 - si mete arquitectura nueva que nadie pidio, no se mergea;
 - si rompe otra capa sin avisar, no se mergea;
 - si cambia transacciones/inventario/impuesto sin explicarlo, no se mergea.
-
-El Laboratorio 3 permitia usar prompts, pero con la condicion de seguir lo visto en clase y poder defender el codigo generado. Para este proyecto aplica el mismo criterio.
 
