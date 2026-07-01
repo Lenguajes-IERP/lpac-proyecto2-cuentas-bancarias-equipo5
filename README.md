@@ -9,8 +9,8 @@ CRUD asignado: gestión de cuentas bancarias de compañía.
 | Integrante | GitHub |
 |---|---|
 | Caleb Hernández Vega | `CalebHv21` |
-| Sebastian Cordero | `cbastiancq-lab` |
-| Josue Delgado Corrales | `JosueDelgadoCorrales` |
+| Sebastián Cordero | `cbastiancq-lab` |
+| Josué Delgado Corrales | `JosueDelgadoCorrales` |
 | Alejandro Porras | `axpew` |
 
 ## Stack

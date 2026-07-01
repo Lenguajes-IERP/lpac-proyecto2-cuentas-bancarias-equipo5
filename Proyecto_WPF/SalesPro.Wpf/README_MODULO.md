@@ -10,7 +10,7 @@ Apoyo:
 
 ```text
 Caleb Hernández Vega (@CalebHv21)
-YO (@cbastiancq-lab)
+Sebastián Cordero (@cbastiancq-lab)
 ```
 
 ## Qué se puede tocar aquí

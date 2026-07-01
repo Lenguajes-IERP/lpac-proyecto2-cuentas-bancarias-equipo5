@@ -5,8 +5,8 @@
 | Integrante | Usuario GitHub | Rol sugerido |
 |---|---|---|
 | Caleb Hernández Vega | `CalebHv21` | Documentación, pruebas `.http`, apoyo WPF |
-| Sebastian Cordero | `cbastiancq-lab` | Base de datos, transacciones, integración |
-| Josue Delgado Corrales | `JosueDelgadoCorrales` | API REST y capa de negocio |
+| Sebastián Cordero | `cbastiancq-lab` | Base de datos, transacciones, integración |
+| Josué Delgado Corrales | `JosueDelgadoCorrales` | API REST y capa de negocio |
 | Alejandro Porras | `axpew` | WPF/MVVM e interfaz |
 
 ## Requisitos principales del enunciado

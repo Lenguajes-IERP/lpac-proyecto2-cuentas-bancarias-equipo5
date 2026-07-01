@@ -15,7 +15,7 @@ main no se toca directo salvo integración autorizada.
 | Persona | Rama | Carpeta principal | Responsabilidad |
 |---|---|---|---|
 | Sebastián Cordero | `feature/sebas-db-transacciones` | `Proyecto_backend/database/`, `Proyecto_backend/SalesPro.Data/` | SQL Server, repositorios, transacciones, integración |
-| Josue | `feature/josue-api-business` | `Proyecto_backend/SalesPro.Api/`, `Proyecto_backend/SalesPro.Business/` | Controllers, servicios de negocio, validaciones |
+| Josué | `feature/josue-api-business` | `Proyecto_backend/SalesPro.Api/`, `Proyecto_backend/SalesPro.Business/` | Controllers, servicios de negocio, validaciones |
 | Alejandro | `feature/alejandro-wpf` | `Proyecto_WPF/SalesPro.Wpf/` | Interfaz WPF, ViewModels, consumo API |
 | Caleb | `feature/caleb-docs-http` | `docs/`, `.http` | Documentación, pruebas manuales API |
 

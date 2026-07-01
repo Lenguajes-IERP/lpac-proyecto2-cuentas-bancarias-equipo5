@@ -14,7 +14,7 @@
 | Persona | Rama | Módulo |
 |---|---|---|
 | Sebastián Cordero | `feature/sebas-db-transacciones` | Base de datos, Data, transacciones |
-| Josue | `feature/josue-api-business` | API, Business, Contracts necesarios |
+| Josué | `feature/josue-api-business` | API, Business, Contracts necesarios |
 | Alejandro | `feature/alejandro-wpf` | WPF |
 | Caleb | `feature/caleb-docs-http` | Documentación y `.http` |
 
@@ -39,9 +39,9 @@ git push
 
 | Persona | GitHub | Responsable principal | Puede tocar |
 |---|---|---|---|
-| YO | `@cbastiancq-lab` | Base de datos, transacciones, integración | `Proyecto_backend/database/`, `SalesPro.Data`, documentación técnica |
+| Sebastián Cordero | `@cbastiancq-lab` | Base de datos, transacciones, integración | `Proyecto_backend/database/`, `SalesPro.Data`, documentación técnica |
 | Caleb Hernández | `@CalebHv21` | Documentación, pruebas `.http`, apoyo WPF | `docs/`, `.http`, partes acordadas de WPF |
-| Josue Delgado | `@JosueDelgadoCorrales` | API y reglas de negocio | `SalesPro.Api`, `SalesPro.Business`, DTOs acordados |
+| Josué Delgado | `@JosueDelgadoCorrales` | API y reglas de negocio | `SalesPro.Api`, `SalesPro.Business`, DTOs acordados |
 | Alejandro Porras | `@axpew` | Interfaz WPF | `SalesPro.Wpf` |
 
 ## Archivos de orientación

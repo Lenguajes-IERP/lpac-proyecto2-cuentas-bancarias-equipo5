@@ -9,8 +9,8 @@ Caleb Hernández Vega (@CalebHv21)
 Apoyo:
 
 ```text
-Josue Delgado Corrales (@JosueDelgadoCorrales)
-YO (@cbastiancq-lab)
+Josué Delgado Corrales (@JosueDelgadoCorrales)
+Sebastián Cordero (@cbastiancq-lab)
 ```
 
 Archivo principal:

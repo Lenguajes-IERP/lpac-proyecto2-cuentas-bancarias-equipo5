@@ -10,9 +10,22 @@ Fecha de entrega: 2 de julio de 2026
 | Integrante | GitHub |
 |---|---|
 | Caleb Hernández Vega | `CalebHv21` |
-| Sebastian Cordero | `cbastiancq-lab` |
-| Josue Delgado Corrales | `JosueDelgadoCorrales` |
+| Sebastián Cordero | `cbastiancq-lab` |
+| Josué Delgado Corrales | `JosueDelgadoCorrales` |
 | Alejandro Porras | `axpew` |
+
+## Trazabilidad Git y aportes verificables
+
+La revisión del historial Git muestra aportes técnicos verificables principalmente de Sebastián Cordero y Josué Delgado Corrales. En este informe no se atribuyen tareas no comprobadas a otros integrantes; sus nombres se mantienen como parte del equipo, pero la bitácora técnica se basa en commits, ramas y PRs disponibles en el repositorio.
+
+| Persona | Evidencia Git | Aporte verificable |
+|---|---|---|
+| Sebastián Cordero | `feature/sebas-db-transacciones`, PRs de integración, commits de estructura, evidencia y entrega | Base de datos, configuración SQL Server, transacciones, estructura de entrega, pruebas finales, documentación y coordinación del repositorio. |
+| Josué Delgado Corrales | `feature/josue-api-business`, PR #6, commits `9b56631` y `6c55371` | Ajustes y documentación técnica de API/Business, respuestas HTTP de controladores y apoyo en endpoints relacionados con cuentas, catálogos y órdenes. |
+| Caleb Hernández Vega | Sin evidencia técnica independiente registrada en el cierre revisado | Rol asignado a documentación/pruebas, pendiente de evidencia específica en bitácora si corresponde. |
+| Alejandro Porras | Sin evidencia técnica independiente registrada en el cierre revisado | Rol asignado a WPF, pendiente de evidencia específica en bitácora si corresponde. |
+
+Esta decisión evita inflar la documentación con aportes no verificados y facilita una defensa honesta del trabajo realizado.
 
 ## Resumen
 
