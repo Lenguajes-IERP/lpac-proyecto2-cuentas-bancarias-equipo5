@@ -85,6 +85,20 @@ Responsabilidades:
 - Documentar API REST.
 - Documentar modelo de dominio.
 - Documentar modelo entidad-relación.
+- Crear bitácora.
+- Completar pruebas `.http`.
+
+## Pendientes críticos antes de entrega
+
+- [x] Montar base SQL Server local o confirmar base remota final.
+- [x] Agregar búsqueda/selección de cliente en WPF mediante ventana o diálogo.
+- [x] Revisar que el `.http` cubra todos los recursos expuestos.
+- [x] Corregir la transacción para evitar rollback después de commit.
+- [x] Probar CRUD completo de cuentas bancarias.
+- [x] Probar orden completa y descuento de inventario.
+- [x] Probar rollback por stock insuficiente.
+- [x] Agregar atributos básicos de accesibilidad digital en WPF.
+- [x] Crear documentación final.
 - Completar bitácora.
 - Completar evidencias de pruebas.
 - Preparar informe final en PDF.
