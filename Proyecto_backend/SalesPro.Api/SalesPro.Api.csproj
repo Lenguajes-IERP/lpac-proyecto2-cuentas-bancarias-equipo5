@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SalesPro.Business\SalesPro.Business.csproj" />
-    <ProjectReference Include="..\..\Proyecto_compartido\SalesPro.Contracts\SalesPro.Contracts.csproj" />
-    <ProjectReference Include="..\..\Proyecto_compartido\SalesPro.Domain\SalesPro.Domain.csproj" />
+    <ProjectReference Include="..\SalesPro.Contracts\SalesPro.Contracts.csproj" />
+    <ProjectReference Include="..\SalesPro.Domain\SalesPro.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
