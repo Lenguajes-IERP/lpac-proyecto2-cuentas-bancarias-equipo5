@@ -39,7 +39,7 @@
                    Margin="0,0,0,20"
                    AutomationProperties.HeadingLevel="Level1" />
 
-        <Border Grid.Row="1" Grid.Column="0" Padding="18" Background="{DynamicResource FondoPanel}" BorderBrush="{DynamicResource Borde}" BorderThickness="1" CornerRadius="10" Margin="0,0,0,18">
+        <Border Grid.Row="1" Grid.Column="0" Padding="18" BorderThickness="1" CornerRadius="10" Margin="0,0,0,18">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" MinWidth="160" />
@@ -78,11 +78,11 @@
                         AutomationProperties.HelpText="Abre la búsqueda de clientes para asociar uno a la orden" />
 
                 <Button Grid.Column="3"
-                        Content="_Buscar y Agregar Producto..."
+                        Content="_Buscar y Agregar Producto..." Style="{DynamicResource BotonAcento}"
                         Click="AbrirBusqueda_Click"
                         VerticalAlignment="Center"
-                        Background="{DynamicResource Acento}"
-                        Foreground="{DynamicResource TextoSobreAcento}"
+                       
+                       
                         TabIndex="3"
                         ToolTip="Abrir ventana para buscar productos y agregarlos a la orden"
                         AutomationProperties.Name="Buscar y agregar producto"
@@ -98,7 +98,7 @@
                        AutomationProperties.Name="Mensaje de estado de la orden" />
         </StackPanel>
 
-        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Padding="18" Background="{DynamicResource FondoPanel}" BorderBrush="{DynamicResource Borde}" BorderThickness="1" CornerRadius="10">
+        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Padding="18" BorderThickness="1" CornerRadius="10">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
                     <Grid Margin="0,0,0,6">
@@ -120,7 +120,7 @@
                         <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" TabIndex="6" ToolTip="Disminuir cantidad" AutomationProperties.Name="Disminuir cantidad del producto seleccionado" />
                         <Button Content="_Remover" Command="{Binding RemoverProductoCommand}" TabIndex="7" AutomationProperties.Name="Remover producto seleccionado de la orden" />
                     </StackPanel>
-                    <Button Content="_Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="{DynamicResource Acento}" Foreground="{DynamicResource TextoSobreAcento}" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
+                    <Button Content="_Procesar orden" Style="{DynamicResource BotonAcento}" Command="{Binding ProcesarOrdenCommand}" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
                     <Button Content="_Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" TabIndex="9" AutomationProperties.Name="Limpiar orden de venta" />
                 </StackPanel>
 

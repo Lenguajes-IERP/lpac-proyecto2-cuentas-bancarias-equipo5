@@ -82,7 +82,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border Grid.Row="1" Grid.Column="2" Padding="18" Background="{DynamicResource FondoPanel}" BorderBrush="{DynamicResource Borde}" BorderThickness="1" CornerRadius="10">
+        <Border Grid.Row="1" Grid.Column="2" Padding="18" BorderThickness="1" CornerRadius="10">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock Text="{Binding TituloFormulario}"
@@ -159,10 +159,10 @@
                                 Margin="0,0,8,8"
                                 TabIndex="14"
                                 AutomationProperties.Name="Editar cuenta seleccionada" />
-                        <Button Content="_Guardar"
+                        <Button Content="_Guardar" Style="{DynamicResource BotonAcento}"
                                 Command="{Binding GuardarCommand}"
-                                Background="{DynamicResource Acento}"
-                                Foreground="{DynamicResource TextoSobreAcento}"
+                               
+                               
                                 Margin="0,0,8,8"
                                 TabIndex="15"
                                 AutomationProperties.Name="Guardar cuenta bancaria" />
