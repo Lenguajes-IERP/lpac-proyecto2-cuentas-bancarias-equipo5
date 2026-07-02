@@ -44,6 +44,8 @@ La orden permite:
 Proyecto_backend/
   SalesPro.Api         Endpoints REST, Swagger y configuración
   SalesPro.Business    Reglas de negocio y validaciones
+  SalesPro.Business.Tests
+                       Pruebas unitarias de reglas de negocio
   SalesPro.Data        Repositorios ADO.NET y SqlTransaction
   SalesPro.Domain      Entidades y excepciones del dominio
   SalesPro.Contracts   DTOs, requests y responses compartidos
@@ -130,6 +132,14 @@ dotnet run --project .\Proyecto_WPF\SalesPro.Wpf\SalesPro.Wpf.csproj
 dotnet restore SalesPro.slnx
 dotnet build SalesPro.slnx
 ```
+
+## Ejecutar pruebas unitarias
+
+```powershell
+dotnet test SalesPro.slnx
+```
+
+Las pruebas unitarias se concentran en `SalesPro.Business.Tests` y validan reglas de negocio del CRUD de cuentas bancarias y del registro de órdenes.
 
 ## Crear entregables comprimidos
 

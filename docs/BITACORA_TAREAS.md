@@ -12,7 +12,7 @@ Este archivo registra el trabajo real realizado en el proyecto.
 | 2026-06-30 | Sebastian Cordero | `feature/sebas-db-transacciones` | Agregar búsqueda y selección de cliente en la orden de venta (pop-up) | commit `6186da3`, PR #2 | Completado |
 | 2026-06-30 | Sebastian Cordero | `feature/sebas-db-transacciones` | Separar proyecto backend y WPF en carpetas diferenciadas | commit `eed8d21`, PR #3 | Completado |
 | 2026-07-01 | Sebastian Cordero | `feature/sebas-db-transacciones` | Preparar plantillas de evidencias y entregables finales | commit `9575639` | Completado |
-| 2026-07-01 | Sebastian Cordero | `feature/sebas-db-transacciones` | Soportar configuración SQL Server del curso (LocalDB) | commit `9238f7a` | Completado |
+| 2026-07-01 | Sebastian Cordero | `feature/sebas-db-transacciones` | Soportar configuración SQL Server del curso mediante `appsettings.Local.json` | commit `9238f7a` | Completado |
 | 2026-07-01 | Josue Delgado | `feature/josue-api-business` | Completar casos `.http` del CRUD de cuentas bancarias | commit `446348d`, PR #4 | Completado |
 | 2026-07-01 | Josue Delgado | `feature/josue-api-business` | Documentar respuestas HTTP de CuentasBancariasController | commit `9b56631` | Completado |
 | 2026-07-01 | Josue Delgado | `feature/josue-api-business` | Agregar casos negativos de orden al `.http` | commit `f15f930` | Completado |

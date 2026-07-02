@@ -90,7 +90,7 @@ Proyecto_backend/
   SalesPro.Domain      Entidades y excepciones del dominio
   SalesPro.Contracts   DTOs, requests y responses (capa compartida)
   database/            Script SQL Server (00_create_salespro.sql)
-  scripts/             Utilidades de preparación local (LocalDB)
+  scripts/             Utilidades de preparación local para SQL Server
 Proyecto_WPF/
   SalesPro.Wpf         Interfaz de usuario WPF (MVVM manual)
 ```
