@@ -4,7 +4,10 @@
         Title="Buscar Producto" Height="500" Width="700"
         WindowStartupLocation="CenterOwner"
         Background="#0F141A"
-        Foreground="#E7EDF5">
+        Foreground="#E7EDF5"
+        KeyboardNavigation.TabNavigation="Continue"
+        AutomationProperties.Name="Búsqueda de producto"
+        AutomationProperties.HelpText="Ventana para buscar un producto, indicar la cantidad y agregarlo a la orden">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="#D7DEE8" />
@@ -26,14 +29,28 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Buscar producto por nombre o código:" FontWeight="SemiBold" FontSize="14" />
+            <TextBlock Text="Buscar producto por nombre o código:"
+                       FontWeight="SemiBold"
+                       FontSize="14"
+                       AutomationProperties.HeadingLevel="Level1" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Text="{Binding ProductoBusqueda, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,10,12" />
-                <Button Grid.Column="1" Content="Buscar" Command="{Binding BuscarProductosCommand}" VerticalAlignment="Top" Margin="0,5,0,0" />
+                <TextBox Grid.Column="0"
+                         Text="{Binding ProductoBusqueda, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,5,10,12"
+                         TabIndex="0"
+                         ToolTip="Digite el nombre o el código del producto"
+                         AutomationProperties.Name="Texto de búsqueda de producto" />
+                <Button Grid.Column="1"
+                        Content="_Buscar"
+                        Command="{Binding BuscarProductosCommand}"
+                        VerticalAlignment="Top"
+                        Margin="0,5,0,0"
+                        TabIndex="1"
+                        AutomationProperties.Name="Buscar productos" />
             </Grid>
         </StackPanel>
 
@@ -47,7 +64,10 @@
                   RowBackground="#121820"
                   AlternatingRowBackground="#18202A"
                   HeadersVisibility="Column"
-                  Margin="0,0,0,15">
+                  Margin="0,0,0,15"
+                  TabIndex="2"
+                  AutomationProperties.Name="Tabla de productos encontrados"
+                  AutomationProperties.HelpText="Seleccione el producto que se agregará a la orden">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Código" Binding="{Binding CodigoBarra}" Width="100" />
                 <DataGridTextColumn Header="Producto" Binding="{Binding NombreEtiqueta}" Width="*" />
@@ -65,14 +85,40 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="0" Text="Cantidad:" VerticalAlignment="Center" Margin="0,0,10,0" />
-            <TextBox Grid.Column="1" Text="{Binding CantidadProducto, UpdateSourceTrigger=PropertyChanged}" Margin="0" VerticalContentAlignment="Center" />
-            
-            <TextBlock Grid.Column="2" Text="{Binding Mensaje}" Foreground="#9FB2C8" VerticalAlignment="Center" Margin="15,0,0,0" />
 
-            <Button Grid.Column="3" Content="Cancelar" Click="Cerrar_Click" Margin="0,0,10,0" Background="#26313D" Foreground="#E7EDF5" />
-            <Button Grid.Column="4" Content="Agregar Producto" Click="Agregar_Click" Background="#1688F0" Foreground="White" />
+            <TextBlock Grid.Column="0" Text="Cantidad:" VerticalAlignment="Center" Margin="0,0,10,0"
+            <TextBox x:Name="CantidadBox"
+                     Grid.Column="1"
+                     Text="{Binding CantidadProducto, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0"
+                     VerticalContentAlignment="Center"
+                     TabIndex="3"
+                     ToolTip="Cantidad de unidades del producto a agregar"
+                     AutomationProperties.Name="Cantidad del producto" />
+
+            <TextBlock Grid.Column="2"
+                       Text="{Binding Mensaje}"
+                       Foreground="#9FB2C8"
+                       VerticalAlignment="Center"
+                       Margin="15,0,0,0"
+                       AutomationProperties.LiveSetting="Polite"
+                       AutomationProperties.Name="Mensaje de búsqueda de producto" />
+
+            <Button Grid.Column="3"
+                    Content="_Cancelar"
+                    Click="Cerrar_Click"
+                    Margin="0,0,10,0"
+                    Background="#26313D"
+                    Foreground="#E7EDF5"
+                    TabIndex="4"
+                    AutomationProperties.Name="Cancelar búsqueda de producto" />
+            <Button Grid.Column="4"
+                    Content="A_gregar producto"
+                    Click="Agregar_Click"
+                    Background="#1688F0"
+                    Foreground="White"
+                    TabIndex="5"
+                    AutomationProperties.Name="Agregar producto a la orden" />
         </Grid>
     </Grid>
 </Window>
