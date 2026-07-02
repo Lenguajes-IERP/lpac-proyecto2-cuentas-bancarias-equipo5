@@ -6,75 +6,163 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/DarkTheme.xaml" />
+                <ResourceDictionary Source="Themes/TemaClaro.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="DataGridColumnHeader">
-                <Setter Property="Background" Value="{DynamicResource DataGridHeaderBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource LabelTextBrush}" />
-                <Setter Property="Padding" Value="10,6" />
+            <!-- ====== FOCO VISIBLE REFORZADO (doble contorno, WCAG 2.4.11/2.4.13) ====== -->
+            <Style x:Key="FocoAccesible">
+                <Setter Property="Control.FocusVisualStyle">
+                    <Setter.Value>
+                        <Style>
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Grid Margin="-3">
+                                            <Rectangle StrokeThickness="5" Stroke="{DynamicResource FondoApp}" RadiusX="6" RadiusY="6" SnapsToDevicePixels="True" />
+                                            <Rectangle StrokeThickness="3" Stroke="{DynamicResource Foco}" RadiusX="6" RadiusY="6" SnapsToDevicePixels="True" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- ====== BOTÓN BASE (plantilla propia: respeta tema en alto contraste) ====== -->
+            <Style x:Key="BotonBase" TargetType="Button" BasedOn="{StaticResource FocoAccesible}">
+                <Setter Property="Foreground" Value="{DynamicResource TextoPrincipal}" />
+                <Setter Property="Background" Value="{DynamicResource FondoPanel}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Borde}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Padding" Value="14,8" />
+                <Setter Property="Margin" Value="0,0,8,0" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="borde"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6"
+                                    SnapsToDevicePixels="True">
+                                <ContentPresenter x:Name="contenido"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  RecognizesAccessKey="True"
+                                                  TextBlock.Foreground="{TemplateBinding Foreground}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="borde" Property="BorderBrush" Value="{DynamicResource Acento}" />
+                                    <Setter TargetName="borde" Property="BorderThickness" Value="2" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="borde" Property="Background" Value="{DynamicResource FondoHeader}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="contenido" Property="Opacity" Value="0.5" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Botón por defecto = base (cubre TODOS los botones sin key) -->
+            <Style TargetType="Button" BasedOn="{StaticResource BotonBase}" />
+
+            <!-- ====== BOTÓN DE ACENTO (acción principal: Guardar, Agregar, etc.) ====== -->
+            <Style x:Key="BotonAcento" TargetType="Button" BasedOn="{StaticResource BotonBase}">
+                <Setter Property="Foreground" Value="{DynamicResource TextoSobreAcento}" />
+                <Setter Property="Background" Value="{DynamicResource Acento}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Acento}" />
                 <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="borde"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6"
+                                    SnapsToDevicePixels="True">
+                                <ContentPresenter x:Name="contenido"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  RecognizesAccessKey="True"
+                                                  TextBlock.Foreground="{TemplateBinding Foreground}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="borde" Property="Opacity" Value="0.9" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="borde" Property="Opacity" Value="0.75" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="contenido" Property="Opacity" Value="0.5" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
-            <Style TargetType="TextBox">
-                <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}" />
+            <!-- ====== Encabezados de columna ====== -->
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="{DynamicResource FondoHeader}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextoPrincipal}" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="Padding" Value="10,8" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Borde}" />
+                <Setter Property="BorderThickness" Value="0,0,1,1" />
             </Style>
 
-            <ControlTemplate TargetType="ComboBox" x:Key="FlatComboBoxTemplate">
-                <Grid>
-                    <ToggleButton x:Name="ToggleButton" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Foreground="{TemplateBinding Foreground}" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
-                        <ToggleButton.Template>
-                            <ControlTemplate TargetType="ToggleButton">
-                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
-                                    <Path Fill="{TemplateBinding Foreground}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Data="M 0 0 L 4 4 L 8 0 Z"/>
-                                </Border>
-                            </ControlTemplate>
-                        </ToggleButton.Template>
-                    </ToggleButton>
-                    <ContentPresenter IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" Margin="8,3,23,3" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                    <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
-                        <Grid SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                            <Border Background="{DynamicResource CardBackgroundBrush}" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}"/>
-                            <ScrollViewer Margin="1,1,1,1" SnapsToDevicePixels="True">
-                                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
-                            </ScrollViewer>
-                        </Grid>
-                    </Popup>
-                </Grid>
-            </ControlTemplate>
-
-            <Style TargetType="ComboBox">
-                <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                <Setter Property="Template" Value="{StaticResource FlatComboBoxTemplate}" />
-            </Style>
-
-            <Style TargetType="ComboBoxItem">
-                <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-                <Setter Property="BorderThickness" Value="0" />
+            <Style TargetType="DataGridCell">
                 <Setter Property="Padding" Value="6,4" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FontSize" Value="13" />
                 <Style.Triggers>
-                    <Trigger Property="IsHighlighted" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource CardAltBackgroundBrush}" />
-                    </Trigger>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-                        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource Acento}" />
+                        <Setter Property="Foreground" Value="{DynamicResource TextoSobreAcento}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
 
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="{DynamicResource SecondaryButtonBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                <Setter Property="BorderThickness" Value="1" />
+            <Style TargetType="DataGridRow" BasedOn="{StaticResource FocoAccesible}">
+                <Setter Property="MinHeight" Value="30" />
             </Style>
+
+            <Style TargetType="DataGrid">
+                <Setter Property="Background" Value="{DynamicResource FondoPanel}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextoSecundario}" />
+                <Setter Property="RowBackground" Value="{DynamicResource FondoPanel}" />
+                <Setter Property="AlternatingRowBackground" Value="{DynamicResource FilaAlterna}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Borde}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="GridLinesVisibility" Value="Horizontal" />
+                <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource Borde}" />
+                <Setter Property="HeadersVisibility" Value="Column" />
+                <Setter Property="AutoGenerateColumns" Value="False" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ColumnWidth" Value="Auto" />
+                <Setter Property="SelectionUnit" Value="FullRow" />
+            </Style>
+
+            <!-- Foco en combos y textboxes -->
+            <Style TargetType="ComboBox" BasedOn="{StaticResource FocoAccesible}" />
+            <Style TargetType="TextBox" BasedOn="{StaticResource FocoAccesible}" />
+            <Style TargetType="CheckBox" BasedOn="{StaticResource FocoAccesible}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

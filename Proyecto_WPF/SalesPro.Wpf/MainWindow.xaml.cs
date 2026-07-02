@@ -1,4 +1,5 @@
-using System.Windows;
+﻿using System.Windows;
+using SalesPro.Wpf.Services;
 using SalesPro.Wpf.ViewModels;
 
 namespace SalesPro.Wpf;
@@ -9,17 +10,15 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = new MainViewModel();
-        ActualizarTextoTema();
     }
 
-    private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
+    private void TemaClaro_Click(object sender, RoutedEventArgs e)
     {
-        App.AlternarTema();
-        ActualizarTextoTema();
+        TemaService.Aplicar(Tema.Claro);
     }
 
-    private void ActualizarTextoTema()
+    private void TemaAltoContraste_Click(object sender, RoutedEventArgs e)
     {
-        ThemeToggleButton.Content = App.IsDarkTheme ? "Tema claro" : "Tema oscuro";
+        TemaService.Aplicar(Tema.AltoContraste);
     }
 }

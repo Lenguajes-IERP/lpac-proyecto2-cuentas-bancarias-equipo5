@@ -18,4 +18,15 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Themes\TemaClaro.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\TemaAltoContraste.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
