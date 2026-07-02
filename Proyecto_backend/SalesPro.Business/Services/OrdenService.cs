@@ -36,6 +36,11 @@ public sealed class OrdenService : IOrdenService
                ?? throw new NotFoundException($"No existe la orden {numeroOrden}.");
     }
 
+    public Task<IReadOnlyCollection<OrdenDto>> ListarAsync(CancellationToken cancellationToken)
+    {
+        return _ordenRepository.ListarAsync(cancellationToken);
+    }
+
     private static void ValidarSolicitud(CrearOrdenRequest request)
     {
         if (request.ClienteId <= 0)

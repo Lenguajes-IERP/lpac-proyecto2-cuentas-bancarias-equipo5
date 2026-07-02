@@ -184,6 +184,90 @@ public sealed class OrdenRepository : IOrdenRepository
             detalles);
     }
 
+    public async Task<IReadOnlyCollection<OrdenDto>> ListarAsync(CancellationToken cancellationToken)
+    {
+        const string headerSql = """
+            SELECT o.numero_orden,
+                   o.fk_cliente,
+                   CONCAT(c.nombre, ' ', c.apellidos) AS cliente_nombre,
+                   o.fecha_orden,
+                   o.fk_empleado,
+                   o.impuesto,
+                   o.total_orden
+            FROM Pos_Orden o
+            INNER JOIN Cliente c ON c.id = o.fk_cliente
+            ORDER BY o.numero_orden;
+            """;
+
+        const string detailSql = """
+            SELECT d.fk_pos_orden,
+                   d.fk_producto,
+                   p.nombre_etiqueta,
+                   d.precio_unitario,
+                   d.cantidad,
+                   d.precio_subtotal,
+                   d.impuesto
+            FROM Pos_Orden_Detalle d
+            INNER JOIN Producto p ON p.product_id = d.fk_producto
+            ORDER BY d.fk_pos_orden, p.nombre_etiqueta;
+            """;
+
+        await using var connection = _connectionFactory.CreateConnection();
+        await connection.OpenAsync(cancellationToken);
+
+        var detallesPorOrden = new Dictionary<int, List<OrdenDetalleDto>>();
+        await using (var detailCommand = new SqlCommand(detailSql, connection))
+        await using (var detailReader = await detailCommand.ExecuteReaderAsync(cancellationToken))
+        {
+            while (await detailReader.ReadAsync(cancellationToken))
+            {
+                var numeroOrden = detailReader.GetInt32(0);
+                if (!detallesPorOrden.TryGetValue(numeroOrden, out var lista))
+                {
+                    lista = new List<OrdenDetalleDto>();
+                    detallesPorOrden[numeroOrden] = lista;
+                }
+
+                lista.Add(new OrdenDetalleDto(
+                    detailReader.GetInt32(1),
+                    detailReader.GetString(2),
+                    detailReader.GetDecimal(3),
+                    detailReader.GetInt32(4),
+                    detailReader.GetDecimal(5),
+                    detailReader.GetDecimal(6)));
+            }
+        }
+
+        var ordenes = new List<OrdenDto>();
+        await using (var headerCommand = new SqlCommand(headerSql, connection))
+        await using (var headerReader = await headerCommand.ExecuteReaderAsync(cancellationToken))
+        {
+            while (await headerReader.ReadAsync(cancellationToken))
+            {
+                var numeroOrden = headerReader.GetInt32(0);
+                var impuesto = headerReader.GetDecimal(5);
+                var total = headerReader.GetDecimal(6);
+
+                var detalles = detallesPorOrden.TryGetValue(numeroOrden, out var lista)
+                    ? (IReadOnlyCollection<OrdenDetalleDto>)lista
+                    : Array.Empty<OrdenDetalleDto>();
+
+                ordenes.Add(new OrdenDto(
+                    numeroOrden,
+                    headerReader.GetInt32(1),
+                    headerReader.GetString(2),
+                    headerReader.GetDateTime(3),
+                    headerReader.IsDBNull(4) ? null : headerReader.GetInt32(4),
+                    total - impuesto,
+                    impuesto,
+                    total,
+                    detalles));
+            }
+        }
+
+        return ordenes;
+    }
+
     private static async Task ValidarClienteAsync(SqlConnection connection, SqlTransaction transaction, int clienteId, CancellationToken cancellationToken)
     {
         const string sql = "SELECT COUNT(1) FROM Cliente WHERE id = @clienteId AND activo = 1;";

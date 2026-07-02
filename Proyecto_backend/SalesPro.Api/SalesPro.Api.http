@@ -105,6 +105,9 @@ DELETE {{baseUrl}}/api/cuentas-bancarias/{{crearCuenta.response.body.$.id}}
 ### Cuentas bancarias: eliminar id inexistente (espera 404 not_found)
 DELETE {{baseUrl}}/api/cuentas-bancarias/999999
 
+### Orden: listar todas las ordenes (solo verificacion por API; no se usa en el WPF)
+GET {{baseUrl}}/api/ordenes
+
 ### Orden: crear venta válida con transacción, inventario e IVA
 # @name crearOrden
 POST {{baseUrl}}/api/ordenes

@@ -16,6 +16,13 @@ public sealed class OrdenesController : ControllerBase
         _ordenService = ordenService;
     }
 
+    [HttpGet]
+    [ProducesResponseType(typeof(IReadOnlyCollection<OrdenDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<IReadOnlyCollection<OrdenDto>>> Listar(CancellationToken cancellationToken)
+    {
+        return Ok(await _ordenService.ListarAsync(cancellationToken));
+    }
+
     [HttpGet("{numeroOrden:int}")]
     [ProducesResponseType(typeof(OrdenDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
