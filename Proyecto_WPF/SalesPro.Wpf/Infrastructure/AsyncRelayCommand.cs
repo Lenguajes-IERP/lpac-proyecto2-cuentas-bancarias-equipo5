@@ -4,6 +4,7 @@ namespace SalesPro.Wpf.Infrastructure;
 
 public sealed class AsyncRelayCommand : ICommand
 {
+    // Versión async del comando. Se usa cuando hay llamadas HTTP o trabajo que debe esperarse.
     private readonly Func<Task> _execute;
     private readonly Func<bool>? _canExecute;
     private bool _isRunning;
@@ -18,6 +19,7 @@ public sealed class AsyncRelayCommand : ICommand
 
     public bool CanExecute(object? parameter)
     {
+        // Mientras se está ejecutando, se deshabilita para evitar doble clic y doble solicitud.
         return !_isRunning && (_canExecute?.Invoke() ?? true);
     }
 
@@ -32,10 +34,12 @@ public sealed class AsyncRelayCommand : ICommand
         {
             _isRunning = true;
             RaiseCanExecuteChanged();
+            // Aquí se espera la tarea real del ViewModel, por ejemplo cargar o guardar.
             await _execute();
         }
         finally
         {
+            // Aunque falle, el botón se vuelve a habilitar según la condición original.
             _isRunning = false;
             RaiseCanExecuteChanged();
         }

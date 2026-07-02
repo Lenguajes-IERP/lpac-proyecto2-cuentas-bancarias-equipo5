@@ -6,6 +6,8 @@ namespace SalesPro.Data.Repositories;
 
 public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 {
+    // Repositorio ADO.NET del CRUD de cuentas bancarias.
+    // Aquí se concentran los SELECT/INSERT/UPDATE/DELETE contra SQL Server.
     private readonly ISqlConnectionFactory _connectionFactory;
 
     public CuentaBancariaRepository(ISqlConnectionFactory connectionFactory)
@@ -15,6 +17,7 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 
     public async Task<IReadOnlyCollection<CuentaBancariaDto>> ListarAsync(string? buscar, CancellationToken cancellationToken)
     {
+        // El filtro es opcional. Si viene vacío, @buscar se manda como NULL y se listan todas.
         const string sql = """
             SELECT c.id,
                    c.numero_cuenta,
@@ -50,6 +53,7 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
         var cuentas = new List<CuentaBancariaDto>();
         while (await reader.ReadAsync(cancellationToken))
         {
+            // Cada fila de SQL se transforma al DTO que consumen API y WPF.
             cuentas.Add(MapCuenta(reader));
         }
 
@@ -89,6 +93,7 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 
     public async Task<int> CrearAsync(CrearCuentaBancariaRequest request, CancellationToken cancellationToken)
     {
+        // OUTPUT INSERTED.id devuelve el id generado por SQL Server en la misma operación.
         const string sql = """
             INSERT INTO Compania_Cuenta_Bancaria
                 (numero_cuenta, tipo_cuenta, tipo_divisa, estado, pais, provincia, fk_banco, fk_compania, nombre_dueno, apellidos_dueno)
@@ -108,6 +113,8 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 
     public async Task<bool> ActualizarAsync(int id, ActualizarCuentaBancariaRequest request, CancellationToken cancellationToken)
     {
+        // ExecuteNonQuery devuelve cuántas filas se modificaron.
+        // Si no fue 1, el servicio lo maneja como no encontrado.
         const string sql = """
             UPDATE Compania_Cuenta_Bancaria
             SET numero_cuenta = @numeroCuenta,
@@ -134,6 +141,7 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 
     public async Task<bool> EliminarAsync(int id, CancellationToken cancellationToken)
     {
+        // En este proyecto el delete es físico: elimina la fila de la tabla.
         const string sql = "DELETE FROM Compania_Cuenta_Bancaria WHERE id = @id;";
 
         await using var connection = _connectionFactory.CreateConnection();
@@ -158,6 +166,7 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 
     public async Task<bool> ExisteNumeroCuentaAsync(string numeroCuenta, int bancoId, int? idExcluir, CancellationToken cancellationToken)
     {
+        // idExcluir se usa en edición para ignorar la misma cuenta que se está actualizando.
         const string sql = """
             SELECT COUNT(1)
             FROM Compania_Cuenta_Bancaria
@@ -189,6 +198,7 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 
     private static CuentaBancariaDto MapCuenta(SqlDataReader reader)
     {
+        // Mapeo manual ADO.NET: los índices corresponden al orden del SELECT.
         return new CuentaBancariaDto(
             reader.GetInt32(0),
             reader.GetString(1),
@@ -207,6 +217,7 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 
     private static void AddCuentaParameters(SqlCommand command, CrearCuentaBancariaRequest request)
     {
+        // Se hace Trim antes de guardar para evitar duplicados por espacios al inicio/final.
         command.Parameters.AddWithValue("@numeroCuenta", request.NumeroCuenta.Trim());
         command.Parameters.AddWithValue("@tipoCuenta", request.TipoCuenta.Trim());
         command.Parameters.AddWithValue("@tipoDivisa", request.TipoDivisa.Trim().ToUpperInvariant());
@@ -221,6 +232,7 @@ public sealed class CuentaBancariaRepository : ICuentaBancariaRepository
 
     private static void AddCuentaParameters(SqlCommand command, ActualizarCuentaBancariaRequest request)
     {
+        // Mismo set de parámetros para update; se separa por el tipo de request.
         command.Parameters.AddWithValue("@numeroCuenta", request.NumeroCuenta.Trim());
         command.Parameters.AddWithValue("@tipoCuenta", request.TipoCuenta.Trim());
         command.Parameters.AddWithValue("@tipoDivisa", request.TipoDivisa.Trim().ToUpperInvariant());

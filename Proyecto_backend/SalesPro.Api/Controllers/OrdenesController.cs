@@ -9,6 +9,8 @@ namespace SalesPro.Api.Controllers;
 [Produces("application/json")]
 public sealed class OrdenesController : ControllerBase
 {
+    // El controlador no calcula ni valida reglas de negocio.
+    // Solo recibe HTTP, llama al servicio y devuelve una respuesta REST.
     private readonly IOrdenService _ordenService;
 
     public OrdenesController(IOrdenService ordenService)
@@ -21,6 +23,7 @@ public sealed class OrdenesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<OrdenDto>> ObtenerPorNumero(int numeroOrden, CancellationToken cancellationToken)
     {
+        // Si no existe, el servicio lanza NotFoundException y el middleware la convierte en 404.
         return Ok(await _ordenService.ObtenerPorNumeroAsync(numeroOrden, cancellationToken));
     }
 
@@ -32,6 +35,7 @@ public sealed class OrdenesController : ControllerBase
     public async Task<ActionResult<OrdenDto>> Crear([FromBody] CrearOrdenRequest request, CancellationToken cancellationToken)
     {
         var created = await _ordenService.CrearOrdenAsync(request, cancellationToken);
+        // CreatedAtAction devuelve 201 y deja la ruta para consultar la orden creada.
         return CreatedAtAction(nameof(ObtenerPorNumero), new { numeroOrden = created.NumeroOrden }, created);
     }
 }

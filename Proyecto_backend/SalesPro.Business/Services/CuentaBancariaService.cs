@@ -6,6 +6,8 @@ namespace SalesPro.Business.Services;
 
 public sealed class CuentaBancariaService : ICuentaBancariaService
 {
+    // Catálogos pequeños permitidos por el enunciado/proyecto.
+    // Se validan aquí para que la API no guarde valores inventados.
     private static readonly HashSet<string> TiposCuentaPermitidos = new(StringComparer.OrdinalIgnoreCase)
     {
         "Corriente",
@@ -40,6 +42,8 @@ public sealed class CuentaBancariaService : ICuentaBancariaService
 
     public async Task<CuentaBancariaDto> CrearAsync(CrearCuentaBancariaRequest request, CancellationToken cancellationToken)
     {
+        // Primero se valida negocio; después se inserta.
+        // Si la validación falla, no se toca la base.
         await ValidarAsync(request, null, cancellationToken);
 
         var id = await _cuentaRepository.CrearAsync(request, cancellationToken);
@@ -48,6 +52,8 @@ public sealed class CuentaBancariaService : ICuentaBancariaService
 
     public async Task<CuentaBancariaDto> ActualizarAsync(int id, ActualizarCuentaBancariaRequest request, CancellationToken cancellationToken)
     {
+        // Se verifica que exista antes de validar duplicados.
+        // El idExcluir permite editar la misma cuenta sin chocar contra su propio número.
         _ = await ObtenerPorIdAsync(id, cancellationToken);
         await ValidarAsync(request, id, cancellationToken);
 
@@ -71,6 +77,7 @@ public sealed class CuentaBancariaService : ICuentaBancariaService
 
     private async Task ValidarAsync(CrearCuentaBancariaRequest request, int? idExcluir, CancellationToken cancellationToken)
     {
+        // Validaciones de campos requeridos. Se dejan en negocio para que a WPF le llegue un mensaje entendible.
         ValidarTexto(request.NumeroCuenta, "El número de cuenta es obligatorio.");
         ValidarTexto(request.TipoCuenta, "El tipo de cuenta es obligatorio.");
         ValidarTexto(request.TipoDivisa, "La moneda/divisa es obligatoria.");
@@ -91,6 +98,7 @@ public sealed class CuentaBancariaService : ICuentaBancariaService
 
         if (!await _cuentaRepository.ExisteBancoAsync(request.BancoId, cancellationToken))
         {
+            // Banco/compañía se validan contra base porque son datos existentes, no texto libre.
             throw new ValidationFailureException($"El banco {request.BancoId} no existe o no está activo.");
         }
 
@@ -101,6 +109,7 @@ public sealed class CuentaBancariaService : ICuentaBancariaService
 
         if (await _cuentaRepository.ExisteNumeroCuentaAsync(request.NumeroCuenta, request.BancoId, idExcluir, cancellationToken))
         {
+            // Regla de unicidad funcional: un mismo banco no debe tener dos veces el mismo número.
             throw new ConflictException("Ya existe una cuenta con ese número para el banco seleccionado.");
         }
     }

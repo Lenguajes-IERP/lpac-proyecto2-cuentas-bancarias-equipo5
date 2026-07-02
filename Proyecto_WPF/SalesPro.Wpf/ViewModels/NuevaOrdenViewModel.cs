@@ -8,6 +8,8 @@ namespace SalesPro.Wpf.ViewModels;
 
 public sealed class NuevaOrdenViewModel : ViewModelBase
 {
+    // Este ViewModel es la pantalla maestro-detalle de la orden.
+    // Mantiene el cliente, productos seleccionados, totales y comandos que usa el XAML.
     private readonly ApiClientService _apiClient;
     private string _mensaje = string.Empty;
     private string _clienteBusqueda = string.Empty;
@@ -23,6 +25,8 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     {
         _apiClient = apiClient;
 
+        // Los comandos conectan botones de WPF con métodos del ViewModel.
+        // Así la vista no tiene que conocer reglas de negocio ni llamadas HTTP.
         BuscarClientesCommand = new AsyncRelayCommand(BuscarClientesAsync);
         SeleccionarClienteCommand = new RelayCommand(SeleccionarCliente, () => ClienteSeleccionado is not null);
         BuscarProductosCommand = new AsyncRelayCommand(BuscarProductosAsync);
@@ -36,6 +40,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
 
     public ObservableCollection<ClienteDto> ClientesEncontrados { get; } = [];
     public ObservableCollection<ProductoDto> ProductosEncontrados { get; } = [];
+    // ObservableCollection notifica cambios a la tabla automáticamente cuando se agrega o quita una línea.
     public ObservableCollection<OrdenDetalleLineaViewModel> Detalles { get; } = [];
 
     public string Mensaje
@@ -51,6 +56,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
         {
             if (SetProperty(ref _clienteId, value))
             {
+                // Al cambiar cliente, puede cambiar si el botón Procesar se habilita o no.
                 ProcesarOrdenCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged(nameof(ClienteResumen));
             }
@@ -70,6 +76,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
         {
             if (SetProperty(ref _clienteSeleccionado, value))
             {
+                // Si hay cliente seleccionado, se habilita el comando para asociarlo a la orden.
                 SeleccionarClienteCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged(nameof(ClienteResumen));
             }
@@ -130,9 +137,11 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
         }
     }
 
+    // Totales calculados desde el detalle actual. No se guardan como campos para evitar datos duplicados.
     public decimal Subtotal => Detalles.Sum(d => d.Subtotal);
     public decimal ImpuestoEstimado => Detalles.Sum(d => d.ImpuestoEstimado);
     public decimal TotalEstimado => Detalles.Sum(d => d.TotalEstimado);
+    // Propiedad de solo lectura; en XAML se usa Mode=OneWay para no intentar escribir sobre ella.
     public string FechaOrden => DateTime.Now.ToString("dd/MM/yyyy");
 
     public AsyncRelayCommand BuscarClientesCommand { get; }
@@ -149,6 +158,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     {
         try
         {
+            // Se consulta el catálogo de clientes de la API y se filtra con el texto digitado.
             var clientes = await _apiClient.GetAsync<IReadOnlyCollection<ClienteDto>>($"api/catalogos/clientes?buscar={Uri.EscapeDataString(ClienteBusqueda)}");
             ClientesEncontrados.Clear();
             foreach (var cliente in clientes)
@@ -172,6 +182,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
         }
 
         ClienteId = ClienteSeleccionado.Id;
+        // ClienteResumen se actualiza por OnPropertyChanged cuando se asigna ClienteId.
         Mensaje = $"Cliente seleccionado: {ClienteResumen}.";
     }
 
@@ -179,6 +190,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     {
         try
         {
+            // La búsqueda de productos también va por API; WPF no consulta SQL directamente.
             var productos = await _apiClient.GetAsync<IReadOnlyCollection<ProductoDto>>($"api/catalogos/productos?buscar={Uri.EscapeDataString(ProductoBusqueda)}");
             ProductosEncontrados.Clear();
             foreach (var producto in productos)
@@ -204,10 +216,13 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
         var existente = Detalles.FirstOrDefault(d => d.ProductoId == ProductoSeleccionado.ProductoId);
         if (existente is not null)
         {
+            // Si el producto ya está en la orden, se suma cantidad en la misma línea.
+            // Esto evita mandar productos repetidos al backend.
             existente.Cantidad += CantidadProducto;
         }
         else
         {
+            // Si es nuevo, se crea una línea de detalle para mostrarla en el DataGrid.
             Detalles.Add(new OrdenDetalleLineaViewModel(
                 ProductoSeleccionado.ProductoId,
                 string.IsNullOrWhiteSpace(ProductoSeleccionado.CodigoBarra)
@@ -271,6 +286,8 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     {
         try
         {
+            // La solicitud al backend solo manda ids y cantidades.
+            // El backend recalcula precios, IVA e inventario para no confiar ciegamente en la UI.
             var request = new CrearOrdenRequest(
                 ClienteId,
                 EmpleadoId,
@@ -288,6 +305,8 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
 
     private void Limpiar()
     {
+        // Limpia productos, pero conserva el cliente si ya fue seleccionado.
+        // Así se puede corregir una orden sin volver a buscar cliente.
         Detalles.Clear();
         DetalleSeleccionado = null;
         RefrescarTotales();
@@ -299,6 +318,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
 
     private void RefrescarTotales()
     {
+        // Cada vez que cambia el detalle, se avisa al XAML que recalcule los totales.
         OnPropertyChanged(nameof(Subtotal));
         OnPropertyChanged(nameof(ImpuestoEstimado));
         OnPropertyChanged(nameof(TotalEstimado));

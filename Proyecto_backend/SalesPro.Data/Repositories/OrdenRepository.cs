@@ -8,6 +8,8 @@ namespace SalesPro.Data.Repositories;
 
 public sealed class OrdenRepository : IOrdenRepository
 {
+    // La capa de datos no conoce strings de conexión directamente.
+    // Recibe una fábrica para abrir conexiones y así queda más fácil probar/cambiar la configuración.
     private readonly ISqlConnectionFactory _connectionFactory;
 
     public OrdenRepository(ISqlConnectionFactory connectionFactory)
@@ -17,6 +19,8 @@ public sealed class OrdenRepository : IOrdenRepository
 
     public async Task<OrdenDto> CrearOrdenAsync(CrearOrdenRequest request, decimal porcentajeImpuestoVenta, CancellationToken cancellationToken)
     {
+        // Todo lo que modifica la orden se hace con la misma conexión y la misma transacción.
+        // Esa es la parte importante para defender: encabezado, detalles e inventario viajan juntos.
         await using var connection = _connectionFactory.CreateConnection();
         await connection.OpenAsync(cancellationToken);
         using var transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
@@ -24,16 +28,23 @@ public sealed class OrdenRepository : IOrdenRepository
 
         try
         {
+            // Antes de insertar, se valida que el cliente exista y esté activo.
+            // Si falla, todavía no se ha tocado inventario ni detalle.
             await ValidarClienteAsync(connection, transaction, request.ClienteId, cancellationToken);
 
             if (request.EmpleadoId is not null)
             {
+                // El empleado es opcional en el contrato, pero si viene informado debe existir.
                 await ValidarEmpleadoAsync(connection, transaction, request.EmpleadoId.Value, cancellationToken);
             }
 
+            // Primero se calcula toda la orden en memoria.
+            // Así evitamos insertar una orden a medias si algún producto no existe o no tiene stock.
             var detallesCalculados = new List<DetalleCalculado>();
             foreach (var detalle in request.Detalles)
             {
+                // UPDLOCK/ROWLOCK bloquea la fila del producto mientras dura la transacción.
+                // Esto evita que dos órdenes descuenten el mismo stock al mismo tiempo.
                 var producto = await ObtenerProductoBloqueadoAsync(connection, transaction, detalle.ProductoId, cancellationToken);
                 if (producto is null)
                 {
@@ -50,6 +61,7 @@ public sealed class OrdenRepository : IOrdenRepository
                     throw new ConflictException($"Stock insuficiente para '{producto.Nombre}'. Disponible: {producto.ExistenciaEnStock}, solicitado: {detalle.Cantidad}.");
                 }
 
+                // El impuesto se calcula solo para productos que lo tienen marcado en base de datos.
                 var subtotal = producto.PrecioUnitario * detalle.Cantidad;
                 var impuesto = producto.TieneImpuesto
                     ? Math.Round(subtotal * porcentajeImpuestoVenta / 100m, 2, MidpointRounding.AwayFromZero)
@@ -68,6 +80,8 @@ public sealed class OrdenRepository : IOrdenRepository
             var impuestoOrden = detallesCalculados.Sum(d => d.Impuesto);
             var totalOrden = subtotalOrden + impuestoOrden;
 
+            // El encabezado se inserta primero porque SQL Server genera el número de orden.
+            // Ese número se usa luego como FK en cada línea de detalle.
             var numeroOrden = await InsertarEncabezadoAsync(
                 connection,
                 transaction,
@@ -79,10 +93,13 @@ public sealed class OrdenRepository : IOrdenRepository
 
             foreach (var detalle in detallesCalculados)
             {
+                // Orden correcto: descontar stock y registrar detalle dentro de la misma transacción.
+                // Si cualquiera de los dos falla, el catch hace rollback de todo.
                 await DescontarInventarioAsync(connection, transaction, detalle.ProductoId, detalle.Cantidad, cancellationToken);
                 await InsertarDetalleAsync(connection, transaction, numeroOrden, detalle, cancellationToken);
             }
 
+            // A partir de aquí la venta queda confirmada en base de datos.
             transaction.Commit();
             committed = true;
 
@@ -93,6 +110,8 @@ public sealed class OrdenRepository : IOrdenRepository
         {
             if (!committed)
             {
+                // Este rollback es lo que garantiza que no quede inventario descontado sin orden,
+                // ni orden creada sin sus detalles.
                 transaction.Rollback();
             }
 
@@ -102,6 +121,8 @@ public sealed class OrdenRepository : IOrdenRepository
 
     public async Task<OrdenDto?> ObtenerPorNumeroAsync(int numeroOrden, CancellationToken cancellationToken)
     {
+        // Se consulta el encabezado y luego los detalles. Se hace separado para devolver un DTO limpio
+        // con la estructura maestro-detalle que consume el WPF.
         const string headerSql = """
             SELECT o.numero_orden,
                    o.fk_cliente,
@@ -186,6 +207,7 @@ public sealed class OrdenRepository : IOrdenRepository
 
     private static async Task ValidarClienteAsync(SqlConnection connection, SqlTransaction transaction, int clienteId, CancellationToken cancellationToken)
     {
+        // Validación mínima de integridad antes de vender: cliente existente y activo.
         const string sql = "SELECT COUNT(1) FROM Cliente WHERE id = @clienteId AND activo = 1;";
         await using var command = new SqlCommand(sql, connection, transaction);
         command.Parameters.AddWithValue("@clienteId", clienteId);
@@ -199,6 +221,7 @@ public sealed class OrdenRepository : IOrdenRepository
 
     private static async Task ValidarEmpleadoAsync(SqlConnection connection, SqlTransaction transaction, int empleadoId, CancellationToken cancellationToken)
     {
+        // Si el empleado viene en la solicitud, también debe estar activo.
         const string sql = "SELECT COUNT(1) FROM Empleado WHERE id = @empleadoId AND activo = 1;";
         await using var command = new SqlCommand(sql, connection, transaction);
         command.Parameters.AddWithValue("@empleadoId", empleadoId);
@@ -212,6 +235,8 @@ public sealed class OrdenRepository : IOrdenRepository
 
     private static async Task<ProductoBloqueado?> ObtenerProductoBloqueadoAsync(SqlConnection connection, SqlTransaction transaction, int productoId, CancellationToken cancellationToken)
     {
+        // El bloqueo se pide desde el SELECT, antes de calcular o descontar.
+        // Esto es clave en escenarios concurrentes: otro usuario debe esperar a que esta transacción termine.
         const string sql = """
             SELECT product_id,
                    nombre_etiqueta,
@@ -250,6 +275,7 @@ public sealed class OrdenRepository : IOrdenRepository
         decimal impuesto,
         CancellationToken cancellationToken)
     {
+        // OUTPUT INSERTED permite obtener el número de orden generado sin hacer otra consulta.
         const string sql = """
             INSERT INTO Pos_Orden (fk_cliente, fecha_orden, fk_empleado, total_orden, impuesto)
             OUTPUT INSERTED.numero_orden
@@ -272,6 +298,8 @@ public sealed class OrdenRepository : IOrdenRepository
         int cantidad,
         CancellationToken cancellationToken)
     {
+        // La condición existencia_en_stock >= @cantidad es una defensa extra:
+        // aunque el stock haya sido validado antes, el UPDATE no descuenta si ya no alcanza.
         const string sql = """
             UPDATE Producto
             SET existencia_en_stock = existencia_en_stock - @cantidad
@@ -287,6 +315,7 @@ public sealed class OrdenRepository : IOrdenRepository
         var rows = await command.ExecuteNonQueryAsync(cancellationToken);
         if (rows != 1)
         {
+            // Si no se afectó exactamente una fila, algo no cuadra y se fuerza rollback.
             throw new ConflictException($"No se pudo descontar inventario del producto {productoId}. La transacción será revertida.");
         }
     }
@@ -298,6 +327,8 @@ public sealed class OrdenRepository : IOrdenRepository
         DetalleCalculado detalle,
         CancellationToken cancellationToken)
     {
+        // Cada línea guarda los montos calculados al momento de la venta.
+        // Así la orden conserva su precio histórico aunque luego cambie el precio del producto.
         const string sql = """
             INSERT INTO Pos_Orden_Detalle
                 (fk_pos_orden, fk_producto, impuesto, cantidad, descuento, precio_unitario, precio_subtotal)
@@ -315,6 +346,7 @@ public sealed class OrdenRepository : IOrdenRepository
         await command.ExecuteNonQueryAsync(cancellationToken);
     }
 
+    // Records internos para transportar datos dentro del repositorio sin exponer clases extra al resto del sistema.
     private sealed record ProductoBloqueado(
         int ProductoId,
         string Nombre,

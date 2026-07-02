@@ -9,6 +9,7 @@ namespace SalesPro.Api.Controllers;
 [Produces("application/json")]
 public sealed class CuentasBancariasController : ControllerBase
 {
+    // CRUD REST del actualizador asignado al Equipo 5: cuentas bancarias.
     private readonly ICuentaBancariaService _cuentaBancariaService;
 
     public CuentasBancariasController(ICuentaBancariaService cuentaBancariaService)
@@ -20,6 +21,7 @@ public sealed class CuentasBancariasController : ControllerBase
     [ProducesResponseType(typeof(IReadOnlyCollection<CuentaBancariaDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyCollection<CuentaBancariaDto>>> Listar([FromQuery] string? buscar, CancellationToken cancellationToken)
     {
+        // El filtro "buscar" es opcional y se manda a datos para filtrar por cuenta, banco, compañía o dueño.
         return Ok(await _cuentaBancariaService.ListarAsync(buscar, cancellationToken));
     }
 
@@ -38,6 +40,7 @@ public sealed class CuentasBancariasController : ControllerBase
     public async Task<ActionResult<CuentaBancariaDto>> Crear([FromBody] CrearCuentaBancariaRequest request, CancellationToken cancellationToken)
     {
         var created = await _cuentaBancariaService.CrearAsync(request, cancellationToken);
+        // 201 Created es lo correcto cuando el POST sí crea un recurso nuevo.
         return CreatedAtAction(nameof(ObtenerPorId), new { id = created.Id }, created);
     }
 
@@ -57,6 +60,7 @@ public sealed class CuentasBancariasController : ControllerBase
     public async Task<IActionResult> Eliminar(int id, CancellationToken cancellationToken)
     {
         await _cuentaBancariaService.EliminarAsync(id, cancellationToken);
+        // NoContent evita devolver basura cuando el DELETE fue correcto.
         return NoContent();
     }
 }

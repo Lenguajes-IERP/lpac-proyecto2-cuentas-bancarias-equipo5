@@ -9,6 +9,8 @@ namespace SalesPro.Wpf.ViewModels;
 
 public sealed class CuentasBancariasViewModel : ViewModelBase
 {
+    // ViewModel del CRUD asignado al equipo: cuentas bancarias.
+    // Maneja listas, formulario y comandos sin poner lógica en el code-behind de la vista.
     private readonly ApiClientService _apiClient;
     private string _buscar = string.Empty;
     private string _mensaje = string.Empty;
@@ -20,6 +22,7 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
     {
         _apiClient = apiClient;
 
+        // Cada comando corresponde a un botón o acción de la pantalla.
         CargarCommand = new AsyncRelayCommand(CargarAsync);
         NuevaCommand = new RelayCommand(Nueva);
         EditarCommand = new RelayCommand(Editar, () => CuentaSeleccionada is not null);
@@ -27,6 +30,7 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
         EliminarCommand = new AsyncRelayCommand(EliminarAsync, () => CuentaSeleccionada is not null);
         CancelarCommand = new RelayCommand(Nueva);
 
+        // Se cargan catálogos y cuentas apenas se abre la pantalla.
         _ = CargarAsync();
     }
 
@@ -83,6 +87,7 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
         {
             Mensaje = "Cargando datos...";
 
+            // La vista carga catálogos y cuentas desde la API; no hay conexión directa a SQL desde WPF.
             var bancos = await _apiClient.GetAsync<IReadOnlyCollection<BancoDto>>("api/catalogos/bancos");
             var companias = await _apiClient.GetAsync<IReadOnlyCollection<CompaniaDto>>("api/catalogos/companias");
             var cuentas = await _apiClient.GetAsync<IReadOnlyCollection<CuentaBancariaDto>>($"api/cuentas-bancarias?buscar={Uri.EscapeDataString(Buscar)}");
@@ -111,6 +116,7 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
 
     private void Nueva()
     {
+        // Reinicia el formulario para crear, usando valores por defecto de los catálogos.
         _idEnEdicion = null;
         Form = new CuentaBancariaFormModel
         {
@@ -128,6 +134,8 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
             return;
         }
 
+        // Se copia la cuenta seleccionada al formulario.
+        // No se edita el DTO directamente para evitar cambios visuales antes de guardar.
         _idEnEdicion = CuentaSeleccionada.Id;
         Form = new CuentaBancariaFormModel
         {
@@ -152,6 +160,7 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
         {
             if (_idEnEdicion is null)
             {
+                // Sin id en edición significa POST: crear una cuenta nueva.
                 var request = new CrearCuentaBancariaRequest(
                     Form.NumeroCuenta,
                     Form.TipoCuenta,
@@ -169,6 +178,7 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
             }
             else
             {
+                // Con id en edición significa PUT: actualizar la cuenta existente.
                 var request = new ActualizarCuentaBancariaRequest(
                     Form.NumeroCuenta,
                     Form.TipoCuenta,
@@ -201,6 +211,7 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
             return;
         }
 
+        // Se pide confirmación porque el DELETE es físico en base de datos.
         var result = System.Windows.MessageBox.Show(
             $"¿Está seguro que desea eliminar la cuenta {CuentaSeleccionada.NumeroCuenta} físicamente?",
             "Confirmar eliminación",
@@ -227,6 +238,7 @@ public sealed class CuentasBancariasViewModel : ViewModelBase
 
     private static void Replace<T>(ObservableCollection<T> collection, IEnumerable<T> values)
     {
+        // WPF escucha la colección; por eso se limpia y se vuelve a llenar en vez de reemplazar la instancia.
         collection.Clear();
         foreach (var value in values)
         {
