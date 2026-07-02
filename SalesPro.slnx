@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Proyecto_backend/">
     <Project Path="Proyecto_backend/SalesPro.Api/SalesPro.Api.csproj" />
+    <Project Path="Proyecto_backend/SalesPro.Business.Tests/SalesPro.Business.Tests.csproj" />
     <Project Path="Proyecto_backend/SalesPro.Business/SalesPro.Business.csproj" />
     <Project Path="Proyecto_backend/SalesPro.Data/SalesPro.Data.csproj" />
     <Project Path="Proyecto_backend/SalesPro.Contracts/SalesPro.Contracts.csproj" />

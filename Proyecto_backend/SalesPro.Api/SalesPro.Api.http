@@ -1,4 +1,5 @@
 @baseUrl = http://localhost:5294
+@idCuentaPrueba = 1
 
 ### API: estado básico
 GET {{baseUrl}}/
@@ -231,7 +232,6 @@ GET {{baseUrl}}/api/ordenes/1
 ### Orden: obtener por número inexistente (espera 404 not_found)
 GET {{baseUrl}}/api/ordenes/999999
 
-### Orden: crear sin detalles (espera 400 validation_error)
 ### Orden: sin detalles (espera 400 validation_error)
 POST {{baseUrl}}/api/ordenes
 Content-Type: application/json

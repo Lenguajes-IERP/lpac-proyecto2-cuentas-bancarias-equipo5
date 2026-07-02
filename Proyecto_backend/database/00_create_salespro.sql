@@ -1,4 +1,4 @@
-IF DB_ID('SalesPro') IS NULL
+﻿IF DB_ID('SalesPro') IS NULL
 BEGIN
     CREATE DATABASE SalesPro;
 END
@@ -221,7 +221,7 @@ GO
 IF NOT EXISTS (SELECT 1 FROM Compania WHERE nombre = 'SalesPro Demo S.A.')
 BEGIN
     INSERT INTO Compania (nombre, email, telefono, cedula_juridica, pais, direccion)
-    VALUES ('SalesPro Demo S.A.', 'info@salespro.demo', '2222-0000', '3-101-000000', 'Costa Rica', 'San José');
+    VALUES ('SalesPro Demo S.A.', 'info@salespro.demo', '2222-0000', '3-101-000000', 'Costa Rica', 'San JosÃ©');
 END
 GO
 
@@ -229,15 +229,15 @@ IF NOT EXISTS (SELECT 1 FROM Cliente WHERE numero_identificacion = '1-1111-1111'
 BEGIN
     INSERT INTO Cliente (apellidos, nombre, numero_identificacion, ciudad, nacionalidad, telefono_mobil, email, activo)
     VALUES
-        ('Mora', 'Valeria', '1-1111-1111', 'San José', 'Costarricense', '8888-1111', 'valeria@example.com', 1),
-        ('Solano', 'Andrés', '1-2222-2222', 'Heredia', 'Costarricense', '8888-2222', 'andres@example.com', 1);
+        ('Mora', 'Valeria', '1-1111-1111', 'San JosÃ©', 'Costarricense', '8888-1111', 'valeria@example.com', 1),
+        ('Solano', 'AndrÃ©s', '1-2222-2222', 'Heredia', 'Costarricense', '8888-2222', 'andres@example.com', 1);
 END
 GO
 
 IF NOT EXISTS (SELECT 1 FROM Empleado WHERE numero_identificacion = '1-3333-3333')
 BEGIN
     INSERT INTO Empleado (apellidos, nombre, numero_identificacion, email, fk_compania, activo)
-    VALUES ('Cordero', 'Sebastián', '1-3333-3333', 'sebas@salespro.demo', 1, 1);
+    VALUES ('Cordero', 'SebastiÃ¡n', '1-3333-3333', 'sebas@salespro.demo', 1, 1);
 END
 GO
 
@@ -246,9 +246,9 @@ BEGIN
     INSERT INTO Producto (codigo_barra, nombre_etiqueta, description, existencia_en_stock, precio_neto, puede_venderse, puede_comprarse, tiene_impuesto)
     VALUES
         ('PROD001', 'Laptop', 'Laptop para oficina', 10, 600000.00, 1, 1, 1),
-        ('PROD002', 'Mouse', 'Mouse inalámbrico', 50, 12500.00, 1, 1, 1),
-        ('PROD003', 'Keyboard', 'Teclado mecánico', 30, 37500.00, 1, 1, 1),
-        ('PROD004', 'Servicio instalación', 'Servicio no gravado de ejemplo', 99, 25000.00, 1, 0, 0);
+        ('PROD002', 'Mouse', 'Mouse inalÃ¡mbrico', 50, 12500.00, 1, 1, 1),
+        ('PROD003', 'Keyboard', 'Teclado mecÃ¡nico', 30, 37500.00, 1, 1, 1),
+        ('PROD004', 'Servicio instalaciÃ³n', 'Servicio no gravado de ejemplo', 99, 25000.00, 1, 0, 0);
 END
 GO
 
@@ -257,6 +257,6 @@ BEGIN
     INSERT INTO Compania_Cuenta_Bancaria
         (numero_cuenta, tipo_cuenta, tipo_divisa, estado, pais, provincia, fk_banco, fk_compania, nombre_dueno, apellidos_dueno)
     VALUES
-        ('CR000000000001', 'Corriente', 'CRC', 1, 'Costa Rica', 'San José', 1, 1, 'SalesPro', 'Demo');
+        ('CR000000000001', 'Corriente', 'CRC', 1, 'Costa Rica', 'San JosÃ©', 1, 1, 'SalesPro', 'Demo');
 END
 GO

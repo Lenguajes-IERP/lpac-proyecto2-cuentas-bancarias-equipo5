@@ -133,6 +133,7 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
     public decimal Subtotal => Detalles.Sum(d => d.Subtotal);
     public decimal ImpuestoEstimado => Detalles.Sum(d => d.ImpuestoEstimado);
     public decimal TotalEstimado => Detalles.Sum(d => d.TotalEstimado);
+    public string FechaOrden => DateTime.Now.ToString("dd/MM/yyyy");
 
     public AsyncRelayCommand BuscarClientesCommand { get; }
     public RelayCommand SeleccionarClienteCommand { get; }
@@ -209,6 +210,9 @@ public sealed class NuevaOrdenViewModel : ViewModelBase
         {
             Detalles.Add(new OrdenDetalleLineaViewModel(
                 ProductoSeleccionado.ProductoId,
+                string.IsNullOrWhiteSpace(ProductoSeleccionado.CodigoBarra)
+                    ? ProductoSeleccionado.ProductoId.ToString()
+                    : ProductoSeleccionado.CodigoBarra,
                 ProductoSeleccionado.NombreEtiqueta,
                 ProductoSeleccionado.PrecioNeto,
                 CantidadProducto,

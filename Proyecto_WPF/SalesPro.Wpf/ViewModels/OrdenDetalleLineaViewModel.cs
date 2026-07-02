@@ -6,9 +6,10 @@ public sealed class OrdenDetalleLineaViewModel : ViewModelBase
 {
     private int _cantidad;
 
-    public OrdenDetalleLineaViewModel(int productoId, string nombreProducto, decimal precioUnitario, int cantidad, bool tieneImpuesto)
+    public OrdenDetalleLineaViewModel(int productoId, string codigoProducto, string nombreProducto, decimal precioUnitario, int cantidad, bool tieneImpuesto)
     {
         ProductoId = productoId;
+        CodigoProducto = codigoProducto;
         NombreProducto = nombreProducto;
         PrecioUnitario = precioUnitario;
         TieneImpuesto = tieneImpuesto;
@@ -16,6 +17,7 @@ public sealed class OrdenDetalleLineaViewModel : ViewModelBase
     }
 
     public int ProductoId { get; }
+    public string CodigoProducto { get; }
     public string NombreProducto { get; }
     public decimal PrecioUnitario { get; }
     public bool TieneImpuesto { get; }
