@@ -6,7 +6,7 @@
              AutomationProperties.HelpText="Pantalla para buscar, crear, editar y eliminar cuentas bancarias">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource TextoSecundario}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextoSecundario}" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="0,5,0,12" />
@@ -38,7 +38,7 @@
             <TextBlock Text="Gestión de cuentas bancarias"
                        FontSize="26"
                        FontWeight="Bold"
-                       Foreground="{StaticResource TextoPrincipal}"
+                       Foreground="{DynamicResource TextoPrincipal}"
                        Margin="0,0,28,0"
                        VerticalAlignment="Center"
                        AutomationProperties.HeadingLevel="Level1" />
@@ -82,13 +82,13 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border Grid.Row="1" Grid.Column="2" Padding="18" Background="{StaticResource FondoPanel}" BorderBrush="{StaticResource Borde}" BorderThickness="1" CornerRadius="10">
+        <Border Grid.Row="1" Grid.Column="2" Padding="18" Background="{DynamicResource FondoPanel}" BorderBrush="{DynamicResource Borde}" BorderThickness="1" CornerRadius="10">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock Text="{Binding TituloFormulario}"
                                FontSize="19"
                                FontWeight="SemiBold"
-                               Foreground="{StaticResource TextoPrincipal}"
+                               Foreground="{DynamicResource TextoPrincipal}"
                                Margin="0,0,0,16"
                                AutomationProperties.HeadingLevel="Level2" />
 
@@ -147,7 +147,7 @@
                              AutomationProperties.Name="Apellidos del dueño de la cuenta" />
 
                     <CheckBox Content="Activa"
-                              Foreground="{StaticResource TextoSecundario}"
+                              Foreground="{DynamicResource TextoSecundario}"
                               IsChecked="{Binding Form.Estado}"
                               Margin="0,0,0,16"
                               TabIndex="13"
@@ -161,7 +161,7 @@
                                 AutomationProperties.Name="Editar cuenta seleccionada" />
                         <Button Content="_Guardar"
                                 Command="{Binding GuardarCommand}"
-                                Background="{StaticResource Acento}"
+                                Background="{DynamicResource Acento}"
                                 Foreground="White"
                                 Margin="0,0,8,8"
                                 TabIndex="15"
@@ -184,7 +184,7 @@
         <TextBlock Grid.Row="2"
                    Grid.ColumnSpan="3"
                    Text="{Binding Mensaje}"
-                   Foreground="{StaticResource TextoTenue}"
+                   Foreground="{DynamicResource TextoTenue}"
                    Margin="0,14,0,0"
                    AutomationProperties.LiveSetting="Polite"
                    AutomationProperties.Name="Mensaje de estado de cuentas bancarias" />

@@ -5,9 +5,9 @@
         xmlns:views="clr-namespace:SalesPro.Wpf.Views"
         Title="SalesPro" Height="760" Width="1180"
         WindowStartupLocation="CenterScreen"
-        Background="#0F1419"
+        Background="{DynamicResource FondoApp}"
         AutomationProperties.Name="Sistema de gestión de cuentas bancarias y órdenes de venta"
-        AutomationProperties.HelpText="Aplicación de escritorio con navegación por teclado y nombres accesibles para sus controles principales">
+        AutomationProperties.HelpText="Aplicación de escritorio con navegación por teclado, temas accesibles y nombres accesibles para sus controles">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:CuentasBancariasViewModel}">
             <views:CuentasBancariasView />
@@ -18,35 +18,71 @@
     </Window.Resources>
 
     <DockPanel KeyboardNavigation.TabNavigation="Continue">
-        <Border DockPanel.Dock="Top" Background="#121820" BorderBrush="#26313D" BorderThickness="0,0,0,1" Padding="22,14">
+        <Border DockPanel.Dock="Top" Background="{DynamicResource FondoHeader}" BorderBrush="{DynamicResource Borde}" BorderThickness="0,0,0,1" Padding="22,14">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="SalesPro"
-                           Foreground="#F3F6FA"
+                           Foreground="{DynamicResource TextoPrincipal}"
                            FontSize="18"
                            FontWeight="SemiBold"
+                           VerticalAlignment="Center"
                            AutomationProperties.Name="SalesPro" />
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Content="Cuentas bancarias"
+                <!-- Navegación principal -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Cuentas _bancarias"
                             Command="{Binding MostrarCuentasCommand}"
                             Margin="0,0,10,0"
                             Padding="14,8"
+                            Background="{DynamicResource FondoPanel}"
+                            Foreground="{DynamicResource TextoPrincipal}"
+                            BorderBrush="{DynamicResource Borde}"
                             TabIndex="0"
                             ToolTip="Abrir el actualizador de cuentas bancarias"
                             AutomationProperties.Name="Abrir gestión de cuentas bancarias"
                             AutomationProperties.HelpText="Muestra la pantalla para buscar, crear, editar y eliminar cuentas bancarias" />
-                    <Button Content="Nueva orden"
+                    <Button Content="Nueva _orden"
                             Command="{Binding MostrarNuevaOrdenCommand}"
                             Padding="14,8"
+                            Background="{DynamicResource FondoPanel}"
+                            Foreground="{DynamicResource TextoPrincipal}"
+                            BorderBrush="{DynamicResource Borde}"
                             TabIndex="1"
                             ToolTip="Abrir registro de orden de venta"
                             AutomationProperties.Name="Abrir nueva orden de venta"
                             AutomationProperties.HelpText="Muestra la pantalla maestro detalle para registrar una orden de venta" />
+                </StackPanel>
+
+                <!-- Selector de tema accesible (traduce la toolbar A11Y de InclusaSalud) -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="24,0,0,0">
+                    <TextBlock Text="Tema:"
+                               Foreground="{DynamicResource TextoSecundario}"
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,0" />
+                    <Button Content="_Claro"
+                            Click="TemaClaro_Click"
+                            Padding="12,7"
+                            Margin="0,0,8,0"
+                            Background="{DynamicResource FondoPanel}"
+                            Foreground="{DynamicResource TextoPrincipal}"
+                            BorderBrush="{DynamicResource Borde}"
+                            TabIndex="2"
+                            ToolTip="Cambiar a tema claro"
+                            AutomationProperties.Name="Activar tema claro" />
+                    <Button Content="_Alto contraste"
+                            Click="TemaAltoContraste_Click"
+                            Padding="12,7"
+                            Background="{DynamicResource FondoPanel}"
+                            Foreground="{DynamicResource TextoPrincipal}"
+                            BorderBrush="{DynamicResource Borde}"
+                            TabIndex="3"
+                            ToolTip="Cambiar a tema de alto contraste"
+                            AutomationProperties.Name="Activar tema de alto contraste" />
                 </StackPanel>
             </Grid>
         </Border>
