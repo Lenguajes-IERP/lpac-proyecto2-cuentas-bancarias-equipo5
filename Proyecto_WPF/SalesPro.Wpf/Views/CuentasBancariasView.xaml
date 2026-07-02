@@ -6,7 +6,7 @@
              AutomationProperties.HelpText="Pantalla para buscar, crear, editar y eliminar cuentas bancarias">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#D7DEE8" />
+            <Setter Property="Foreground" Value="{StaticResource TextoSecundario}" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="0,5,0,12" />
@@ -29,69 +29,66 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" MinWidth="420" />
             <ColumnDefinition Width="24" />
-            <ColumnDefinition Width="1.15*" />
+            <ColumnDefinition Width="1.15*" MinWidth="320" />
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,0,0,18">
             <TextBlock Text="Gestión de cuentas bancarias"
                        FontSize="26"
                        FontWeight="Bold"
-                       Foreground="#F3F6FA"
+                       Foreground="{StaticResource TextoPrincipal}"
                        Margin="0,0,28,0"
+                       VerticalAlignment="Center"
                        AutomationProperties.HeadingLevel="Level1" />
             <TextBox Width="260"
                      Text="{Binding Buscar, UpdateSourceTrigger=PropertyChanged}"
                      VerticalContentAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0,0,8,0"
                      TabIndex="0"
                      ToolTip="Digite texto para filtrar cuentas bancarias"
                      AutomationProperties.Name="Texto de búsqueda de cuentas bancarias"
                      AutomationProperties.HelpText="Permite filtrar cuentas por número, banco, compañía o dueño" />
-            <Button Content="Buscar / recargar"
+            <Button Content="_Buscar / recargar"
                     Command="{Binding CargarCommand}"
+                    VerticalAlignment="Center"
                     TabIndex="1"
                     ToolTip="Buscar cuentas bancarias"
                     AutomationProperties.Name="Buscar o recargar cuentas bancarias" />
-            <Button Content="Nueva"
+            <Button Content="_Nueva"
                     Command="{Binding NuevaCommand}"
+                    VerticalAlignment="Center"
                     TabIndex="2"
                     ToolTip="Limpiar formulario para crear una cuenta bancaria"
                     AutomationProperties.Name="Crear nueva cuenta bancaria" />
         </StackPanel>
 
         <DataGrid Grid.Row="1"
-                  AutoGenerateColumns="False"
                   ItemsSource="{Binding Cuentas}"
                   SelectedItem="{Binding CuentaSeleccionada}"
-                  IsReadOnly="True"
-                  HeadersVisibility="Column"
-                  Background="#121820"
-                  Foreground="#E7EDF5"
-                  RowBackground="#121820"
-                  AlternatingRowBackground="#18202A"
-                  GridLinesVisibility="Horizontal"
                   TabIndex="3"
                   AutomationProperties.Name="Tabla de cuentas bancarias"
                   AutomationProperties.HelpText="Listado de cuentas bancarias registradas. Seleccione una fila para editarla o eliminarla">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60" />
-                <DataGridTextColumn Header="Cuenta" Binding="{Binding NumeroCuenta}" Width="*" />
-                <DataGridTextColumn Header="Tipo" Binding="{Binding TipoCuenta}" Width="100" />
-                <DataGridTextColumn Header="Divisa" Binding="{Binding TipoDivisa}" Width="80" />
-                <DataGridTextColumn Header="Banco" Binding="{Binding BancoNombre}" Width="150" />
-                <DataGridTextColumn Header="Compañía" Binding="{Binding CompaniaNombre}" Width="150" />
-                <DataGridCheckBoxColumn Header="Activa" Binding="{Binding Estado}" Width="70" />
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="0.5*" MinWidth="45" />
+                <DataGridTextColumn Header="Cuenta" Binding="{Binding NumeroCuenta}" Width="2*" MinWidth="120" />
+                <DataGridTextColumn Header="Tipo" Binding="{Binding TipoCuenta}" Width="*" MinWidth="80" />
+                <DataGridTextColumn Header="Divisa" Binding="{Binding TipoDivisa}" Width="0.8*" MinWidth="65" />
+                <DataGridTextColumn Header="Banco" Binding="{Binding BancoNombre}" Width="1.5*" MinWidth="120" />
+                <DataGridTextColumn Header="Compañía" Binding="{Binding CompaniaNombre}" Width="1.5*" MinWidth="120" />
+                <DataGridCheckBoxColumn Header="Activa" Binding="{Binding Estado}" Width="0.6*" MinWidth="55" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border Grid.Row="1" Grid.Column="2" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10">
+        <Border Grid.Row="1" Grid.Column="2" Padding="18" Background="{StaticResource FondoPanel}" BorderBrush="{StaticResource Borde}" BorderThickness="1" CornerRadius="10">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock Text="{Binding TituloFormulario}"
                                FontSize="19"
                                FontWeight="SemiBold"
-                               Foreground="#F3F6FA"
+                               Foreground="{StaticResource TextoPrincipal}"
                                Margin="0,0,0,16"
                                AutomationProperties.HeadingLevel="Level2" />
 
@@ -150,32 +147,36 @@
                              AutomationProperties.Name="Apellidos del dueño de la cuenta" />
 
                     <CheckBox Content="Activa"
-                              Foreground="#D7DEE8"
+                              Foreground="{StaticResource TextoSecundario}"
                               IsChecked="{Binding Form.Estado}"
                               Margin="0,0,0,16"
                               TabIndex="13"
                               AutomationProperties.Name="Cuenta bancaria activa" />
 
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Editar selección"
+                    <WrapPanel>
+                        <Button Content="_Editar selección"
                                 Command="{Binding EditarCommand}"
+                                Margin="0,0,8,8"
                                 TabIndex="14"
                                 AutomationProperties.Name="Editar cuenta seleccionada" />
-                        <Button Content="Guardar"
+                        <Button Content="_Guardar"
                                 Command="{Binding GuardarCommand}"
-                                Background="#1688F0"
+                                Background="{StaticResource Acento}"
                                 Foreground="White"
+                                Margin="0,0,8,8"
                                 TabIndex="15"
                                 AutomationProperties.Name="Guardar cuenta bancaria" />
-                        <Button Content="Eliminar"
+                        <Button Content="El_iminar"
                                 Command="{Binding EliminarCommand}"
+                                Margin="0,0,8,8"
                                 TabIndex="16"
                                 AutomationProperties.Name="Eliminar cuenta bancaria seleccionada" />
-                        <Button Content="Cancelar"
+                        <Button Content="_Cancelar"
                                 Command="{Binding CancelarCommand}"
+                                Margin="0,0,8,8"
                                 TabIndex="17"
                                 AutomationProperties.Name="Cancelar edición de cuenta bancaria" />
-                    </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
             </ScrollViewer>
         </Border>
@@ -183,7 +184,7 @@
         <TextBlock Grid.Row="2"
                    Grid.ColumnSpan="3"
                    Text="{Binding Mensaje}"
-                   Foreground="#9FB2C8"
+                   Foreground="{StaticResource TextoTenue}"
                    Margin="0,14,0,0"
                    AutomationProperties.LiveSetting="Polite"
                    AutomationProperties.Name="Mensaje de estado de cuentas bancarias" />

@@ -6,7 +6,7 @@
              AutomationProperties.HelpText="Pantalla maestro detalle para registrar productos en una orden de venta">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#D7DEE8" />
+            <Setter Property="Foreground" Value="{StaticResource TextoSecundario}" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="0,5,0,12" />
@@ -16,42 +16,13 @@
             <Setter Property="Margin" Value="0,0,8,0" />
             <Setter Property="Padding" Value="12,7" />
         </Style>
-
-        <!-- Encabezados de columna legibles sobre tema oscuro (contraste Ley 7600 / WCAG AA) -->
-        <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#1C2733" />
-            <Setter Property="Foreground" Value="#F3F6FA" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="FontSize" Value="13" />
-            <Setter Property="Padding" Value="10,8" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="BorderBrush" Value="#26313D" />
-            <Setter Property="BorderThickness" Value="0,0,1,1" />
-        </Style>
-
-        <!-- Celdas: padding y alto contraste en la fila seleccionada -->
-        <Style TargetType="DataGridCell">
-            <Setter Property="Padding" Value="6,4" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="FontSize" Value="13" />
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#1688F0" />
-                    <Setter Property="Foreground" Value="White" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style TargetType="DataGridRow">
-            <Setter Property="MinHeight" Value="30" />
-        </Style>
     </UserControl.Resources>
 
     <Grid Margin="24">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2.1*" />
             <ColumnDefinition Width="24" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" MinWidth="360" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -64,15 +35,15 @@
                    Text="Nueva orden de venta"
                    FontSize="28"
                    FontWeight="Bold"
-                   Foreground="#F3F6FA"
+                   Foreground="{StaticResource TextoPrincipal}"
                    Margin="0,0,0,20"
                    AutomationProperties.HeadingLevel="Level1" />
 
-        <Border Grid.Row="1" Grid.Column="0" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10" Margin="0,0,0,18">
+        <Border Grid.Row="1" Grid.Column="0" Padding="18" Background="{StaticResource FondoPanel}" BorderBrush="{StaticResource Borde}" BorderThickness="1" CornerRadius="10" Margin="0,0,0,18">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="2*" MinWidth="160" />
+                    <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
@@ -99,8 +70,8 @@
                         Content="Seleccionar _Cliente"
                         Click="AbrirBusquedaCliente_Click"
                         VerticalAlignment="Center"
-                        Background="#26313D"
-                        Foreground="#E7EDF5"
+                        Background="{StaticResource Borde}"
+                        Foreground="{StaticResource TextoSecundario}"
                         TabIndex="1"
                         ToolTip="Abrir ventana para buscar y seleccionar cliente"
                         AutomationProperties.Name="Seleccionar cliente"
@@ -110,7 +81,7 @@
                         Content="_Buscar y Agregar Producto..."
                         Click="AbrirBusqueda_Click"
                         VerticalAlignment="Center"
-                        Background="#1688F0"
+                        Background="{StaticResource Acento}"
                         Foreground="White"
                         TabIndex="3"
                         ToolTip="Abrir ventana para buscar productos y agregarlos a la orden"
@@ -121,62 +92,52 @@
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,15,0,0">
             <TextBlock Text="{Binding Mensaje}"
-                       Foreground="#9FB2C8"
+                       Foreground="{StaticResource TextoTenue}"
                        TextWrapping="Wrap"
                        AutomationProperties.LiveSetting="Polite"
                        AutomationProperties.Name="Mensaje de estado de la orden" />
         </StackPanel>
 
-        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10">
+        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Padding="18" Background="{StaticResource FondoPanel}" BorderBrush="{StaticResource Borde}" BorderThickness="1" CornerRadius="10">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
                     <Grid Margin="0,0,0,6">
                         <TextBlock Text="Subtotal" />
-                        <TextBlock Text="{Binding Subtotal, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" AutomationProperties.Name="Subtotal de la orden" />
+                        <TextBlock Text="{Binding Subtotal, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="{StaticResource TextoPrincipal}" AutomationProperties.Name="Subtotal de la orden" />
                     </Grid>
                     <Grid Margin="0,0,0,6">
                         <TextBlock Text="IVA estimado" />
-                        <TextBlock Text="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" AutomationProperties.Name="IVA estimado de la orden" />
+                        <TextBlock Text="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="{StaticResource TextoPrincipal}" AutomationProperties.Name="IVA estimado de la orden" />
                     </Grid>
                     <Separator Margin="0,8" />
                     <Grid Margin="0,0,0,18">
                         <TextBlock Text="Total estimado" FontWeight="Bold" />
-                        <TextBlock Text="{Binding TotalEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="#F3F6FA" FontWeight="Bold" AutomationProperties.Name="Total estimado de la orden" />
+                        <TextBlock Text="{Binding TotalEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="{StaticResource TextoPrincipal}" FontWeight="Bold" AutomationProperties.Name="Total estimado de la orden" />
                     </Grid>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="+" Command="{Binding IncrementarCommand}" Width="42" TabIndex="5" AutomationProperties.Name="Incrementar cantidad del producto seleccionado" />
-                        <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" TabIndex="6" AutomationProperties.Name="Disminuir cantidad del producto seleccionado" />
+                        <Button Content="+" Command="{Binding IncrementarCommand}" Width="42" TabIndex="5" ToolTip="Incrementar cantidad" AutomationProperties.Name="Incrementar cantidad del producto seleccionado" />
+                        <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" TabIndex="6" ToolTip="Disminuir cantidad" AutomationProperties.Name="Disminuir cantidad del producto seleccionado" />
                         <Button Content="_Remover" Command="{Binding RemoverProductoCommand}" TabIndex="7" AutomationProperties.Name="Remover producto seleccionado de la orden" />
                     </StackPanel>
-                    <Button Content="_Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="#1688F0" Foreground="White" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
+                    <Button Content="_Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="{StaticResource Acento}" Foreground="White" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
                     <Button Content="_Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" TabIndex="9" AutomationProperties.Name="Limpiar orden de venta" />
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="Detalle de orden" FontSize="19" FontWeight="SemiBold" Foreground="#F3F6FA" Margin="0,0,0,12" AutomationProperties.HeadingLevel="Level2" />
-                    <DataGrid AutoGenerateColumns="False"
-                              ItemsSource="{Binding Detalles}"
+                    <TextBlock Text="Detalle de orden" FontSize="19" FontWeight="SemiBold" Foreground="{StaticResource TextoPrincipal}" Margin="0,0,0,12" AutomationProperties.HeadingLevel="Level2" />
+                    <DataGrid ItemsSource="{Binding Detalles}"
                               SelectedItem="{Binding DetalleSeleccionado}"
-                              IsReadOnly="True"
                               MinHeight="360"
-                              Background="#121820"
-                              Foreground="#E7EDF5"
-                              RowBackground="#121820"
-                              AlternatingRowBackground="#18202A"
-                              GridLinesVisibility="Horizontal"
-                              HorizontalGridLinesBrush="#26313D"
-                              BorderBrush="#26313D"
-                              BorderThickness="1"
                               TabIndex="4"
                               AutomationProperties.Name="Tabla de detalles de la orden"
                               AutomationProperties.HelpText="Lista de productos agregados a la orden. Seleccione una fila para modificar cantidad o removerla">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*" />
-                            <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="55" />
-                            <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnitario, StringFormat=₡{0:N2}}" Width="100" />
-                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=₡{0:N2}}" Width="110" />
-                            <DataGridTextColumn Header="IVA" Binding="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" Width="90" />
+                            <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="2*" MinWidth="90" />
+                            <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="0.6*" MinWidth="48" />
+                            <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnitario, StringFormat=₡{0:N2}}" Width="*" MinWidth="80" />
+                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=₡{0:N2}}" Width="*" MinWidth="85" />
+                            <DataGridTextColumn Header="IVA" Binding="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" Width="*" MinWidth="70" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
