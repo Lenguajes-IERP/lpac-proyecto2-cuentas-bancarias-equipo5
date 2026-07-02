@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SalesPro.Wpf.Views.NuevaOrdenView"
+<UserControl x:Class="SalesPro.Wpf.Views.NuevaOrdenView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              KeyboardNavigation.TabNavigation="Continue"
@@ -65,7 +65,7 @@
 
                 <StackPanel Grid.Column="1" Margin="0,0,14,0">
                     <TextBlock Text="Fecha de orden" />
-                    <TextBox Text="{Binding FechaOrden}"
+                    <TextBox Text="{Binding FechaOrden, Mode=OneWay}"
                              IsReadOnly="True"
                              TabIndex="1"
                              ToolTip="Fecha de registro de la orden"
@@ -90,7 +90,7 @@
                         TabIndex="1"
                         ToolTip="Abrir ventana para buscar y seleccionar cliente"
                         AutomationProperties.Name="Seleccionar cliente"
-                        AutomationProperties.HelpText="Abre la bÃºsqueda de clientes para asociar uno a la orden" />
+                        AutomationProperties.HelpText="Abre la búsqueda de clientes para asociar uno a la orden" />
 
                 <Button Grid.Column="4"
                         Content="Buscar y Agregar Producto..."
@@ -101,7 +101,7 @@
                         TabIndex="3"
                         ToolTip="Abrir ventana para buscar productos y agregarlos a la orden"
                         AutomationProperties.Name="Buscar y agregar producto"
-                        AutomationProperties.HelpText="Abre la bÃºsqueda de productos para seleccionar cantidad y agregar detalle a la orden" />
+                        AutomationProperties.HelpText="Abre la búsqueda de productos para seleccionar cantidad y agregar detalle a la orden" />
             </Grid>
         </Border>
 
@@ -118,16 +118,16 @@
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
                     <Grid Margin="0,0,0,6">
                         <TextBlock Text="Subtotal" />
-                        <TextBlock Text="{Binding Subtotal, StringFormat=â‚¡{0:N2}}" HorizontalAlignment="Right" Foreground="{DynamicResource HeadingTextBrush}" AutomationProperties.Name="Subtotal de la orden" />
+                        <TextBlock Text="{Binding Subtotal, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="{DynamicResource HeadingTextBrush}" AutomationProperties.Name="Subtotal de la orden" />
                     </Grid>
                     <Grid Margin="0,0,0,6">
                         <TextBlock Text="IVA estimado" />
-                        <TextBlock Text="{Binding ImpuestoEstimado, StringFormat=â‚¡{0:N2}}" HorizontalAlignment="Right" Foreground="{DynamicResource HeadingTextBrush}" AutomationProperties.Name="IVA estimado de la orden" />
+                        <TextBlock Text="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="{DynamicResource HeadingTextBrush}" AutomationProperties.Name="IVA estimado de la orden" />
                     </Grid>
                     <Separator Margin="0,8" />
                     <Grid Margin="0,0,0,18">
                         <TextBlock Text="Total estimado" FontWeight="Bold" />
-                        <TextBlock Text="{Binding TotalEstimado, StringFormat=â‚¡{0:N2}}" HorizontalAlignment="Right" Foreground="{DynamicResource HeadingTextBrush}" FontWeight="Bold" AutomationProperties.Name="Total estimado de la orden" />
+                        <TextBlock Text="{Binding TotalEstimado, StringFormat=₡{0:N2}}" HorizontalAlignment="Right" Foreground="{DynamicResource HeadingTextBrush}" FontWeight="Bold" AutomationProperties.Name="Total estimado de la orden" />
                     </Grid>
 
                     <StackPanel Orientation="Horizontal">
@@ -154,12 +154,12 @@
                               AutomationProperties.Name="Tabla de detalles de la orden"
                               AutomationProperties.HelpText="Lista de productos agregados a la orden. Seleccione una fila para modificar cantidad o removerla">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="CÃ³digo" Binding="{Binding CodigoProducto}" Width="90" />
+                            <DataGridTextColumn Header="Código" Binding="{Binding CodigoProducto}" Width="90" />
                             <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*" />
                             <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="55" />
-                            <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnitario, StringFormat=â‚¡{0:N2}}" Width="100" />
-                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=â‚¡{0:N2}}" Width="110" />
-                            <DataGridTextColumn Header="IVA" Binding="{Binding ImpuestoEstimado, StringFormat=â‚¡{0:N2}}" Width="90" />
+                            <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnitario, StringFormat=₡{0:N2}}" Width="100" />
+                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=₡{0:N2}}" Width="110" />
+                            <DataGridTextColumn Header="IVA" Binding="{Binding ImpuestoEstimado, StringFormat=₡{0:N2}}" Width="90" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>

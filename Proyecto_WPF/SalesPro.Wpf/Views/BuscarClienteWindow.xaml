@@ -6,7 +6,7 @@
         Background="{DynamicResource WindowBackgroundBrush}"
         Foreground="{DynamicResource TextBrush}"
         KeyboardNavigation.TabNavigation="Continue"
-        AutomationProperties.Name="BÃºsqueda de cliente"
+        AutomationProperties.Name="Búsqueda de cliente"
         AutomationProperties.HelpText="Ventana para buscar y seleccionar el cliente asociado a la orden">
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -53,7 +53,7 @@
                          Margin="0,5,10,12"
                          TabIndex="0"
                          ToolTip="Digite nombre, apellidos, identificaciÃ³n o correo del cliente"
-                         AutomationProperties.Name="Texto de bÃºsqueda de cliente" />
+                         AutomationProperties.Name="Texto de búsqueda de cliente" />
                 <Button Grid.Column="1"
                         Content="Buscar"
                         Command="{Binding BuscarClientesCommand}"
@@ -99,7 +99,7 @@
                        Foreground="{DynamicResource MutedTextBrush}"
                        VerticalAlignment="Center"
                        AutomationProperties.LiveSetting="Polite"
-                       AutomationProperties.Name="Mensaje de bÃºsqueda de cliente" />
+                       AutomationProperties.Name="Mensaje de búsqueda de cliente" />
 
             <Button Grid.Column="1"
                     Content="Cancelar"
@@ -108,7 +108,7 @@
                     Background="{DynamicResource SecondaryButtonBrush}"
                     Foreground="{DynamicResource TextBrush}"
                     TabIndex="3"
-                    AutomationProperties.Name="Cancelar bÃºsqueda de cliente" />
+                    AutomationProperties.Name="Cancelar búsqueda de cliente" />
             <Button Grid.Column="2"
                     Content="Seleccionar Cliente"
                     Click="Seleccionar_Click"

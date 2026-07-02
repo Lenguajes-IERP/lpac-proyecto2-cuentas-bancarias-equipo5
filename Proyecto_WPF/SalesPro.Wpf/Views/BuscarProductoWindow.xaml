@@ -59,10 +59,10 @@
                   HeadersVisibility="Column"
                   Margin="0,0,0,15">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="CÃ³digo" Binding="{Binding CodigoBarra}" Width="100" />
+                <DataGridTextColumn Header="Código" Binding="{Binding CodigoBarra}" Width="100" />
                 <DataGridTextColumn Header="Producto" Binding="{Binding NombreEtiqueta}" Width="*" />
                 <DataGridTextColumn Header="Stock" Binding="{Binding ExistenciaEnStock}" Width="80" />
-                <DataGridTextColumn Header="Precio" Binding="{Binding PrecioNeto, StringFormat=â‚¡{0:N2}}" Width="120" />
+                <DataGridTextColumn Header="Precio" Binding="{Binding PrecioNeto, StringFormat=₡{0:N2}}" Width="120" />
                 <DataGridCheckBoxColumn Header="IVA" Binding="{Binding TieneImpuesto}" Width="60" />
             </DataGrid.Columns>
         </DataGrid>
