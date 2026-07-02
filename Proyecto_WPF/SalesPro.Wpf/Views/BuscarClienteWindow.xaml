@@ -52,7 +52,6 @@
                         Margin="0,5,0,0"
                         TabIndex="1"
                        
-                        Foreground="{DynamicResource TextoPrincipal}"
                        
                         AutomationProperties.Name="Buscar clientes" />
             </Grid>
@@ -94,7 +93,6 @@
                     IsCancel="True"
                     Margin="0,0,10,0"
                    
-                    Foreground="{DynamicResource TextoPrincipal}"
                    
                     TabIndex="3"
                     AutomationProperties.Name="Cancelar búsqueda de cliente" />
