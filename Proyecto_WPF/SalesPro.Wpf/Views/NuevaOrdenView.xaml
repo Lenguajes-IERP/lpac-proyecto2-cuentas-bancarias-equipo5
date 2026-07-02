@@ -67,7 +67,7 @@
                 </StackPanel>
 
                 <Button Grid.Column="2"
-                        Content="Seleccionar _Cliente"
+                        Content="Seleccionar _Cliente" Style="{DynamicResource BotonAcento}"
                         Click="AbrirBusquedaCliente_Click"
                         VerticalAlignment="Center"
                         Background="{DynamicResource Borde}"
