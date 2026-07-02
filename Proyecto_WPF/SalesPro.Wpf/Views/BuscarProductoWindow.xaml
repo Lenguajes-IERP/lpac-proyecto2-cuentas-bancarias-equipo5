@@ -36,7 +36,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Buscar producto por nombre o cÃ³digo:" FontWeight="SemiBold" FontSize="14" />
+            <TextBlock Text="Buscar producto por nombre o código:" FontWeight="SemiBold" FontSize="14" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
