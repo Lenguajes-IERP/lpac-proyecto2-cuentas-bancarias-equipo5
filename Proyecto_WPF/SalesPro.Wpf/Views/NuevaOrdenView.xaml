@@ -82,7 +82,7 @@
                         Click="AbrirBusqueda_Click"
                         VerticalAlignment="Center"
                         Background="{DynamicResource Acento}"
-                        Foreground="White"
+                        Foreground="{DynamicResource TextoSobreAcento}"
                         TabIndex="3"
                         ToolTip="Abrir ventana para buscar productos y agregarlos a la orden"
                         AutomationProperties.Name="Buscar y agregar producto"
@@ -120,7 +120,7 @@
                         <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" TabIndex="6" ToolTip="Disminuir cantidad" AutomationProperties.Name="Disminuir cantidad del producto seleccionado" />
                         <Button Content="_Remover" Command="{Binding RemoverProductoCommand}" TabIndex="7" AutomationProperties.Name="Remover producto seleccionado de la orden" />
                     </StackPanel>
-                    <Button Content="_Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="{DynamicResource Acento}" Foreground="White" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
+                    <Button Content="_Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="{DynamicResource Acento}" Foreground="{DynamicResource TextoSobreAcento}" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
                     <Button Content="_Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" TabIndex="9" AutomationProperties.Name="Limpiar orden de venta" />
                 </StackPanel>
 

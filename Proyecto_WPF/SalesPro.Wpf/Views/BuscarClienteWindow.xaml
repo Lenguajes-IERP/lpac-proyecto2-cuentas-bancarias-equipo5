@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Buscar Cliente" Height="460" Width="720"
         WindowStartupLocation="CenterOwner"
-        Background="#0F141A"
-        Foreground="#E7EDF5"
-        KeyboardNavigation.TabNavigation="Continue"
+        Background="{DynamicResource FondoApp}"
+        Foreground="{DynamicResource TextoPrincipal}"
+        KeyboardNavigation.TabNavigation="Cycle"
         AutomationProperties.Name="Búsqueda de cliente"
         AutomationProperties.HelpText="Ventana para buscar y seleccionar el cliente asociado a la orden">
     <Window.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#D7DEE8" />
+            <Setter Property="Foreground" Value="{DynamicResource TextoSecundario}" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="0,5,0,12" />
@@ -45,35 +45,32 @@
                          ToolTip="Digite nombre, apellidos, identificación o correo del cliente"
                          AutomationProperties.Name="Texto de búsqueda de cliente" />
                 <Button Grid.Column="1"
-                        Content="Buscar"
+                        Content="_Buscar"
                         Command="{Binding BuscarClientesCommand}"
+                        IsDefault="True"
                         VerticalAlignment="Top"
                         Margin="0,5,0,0"
                         TabIndex="1"
+                        Background="{DynamicResource FondoPanel}"
+                        Foreground="{DynamicResource TextoPrincipal}"
+                        BorderBrush="{DynamicResource Borde}"
                         AutomationProperties.Name="Buscar clientes" />
             </Grid>
         </StackPanel>
 
         <DataGrid Grid.Row="1"
-                  AutoGenerateColumns="False"
                   ItemsSource="{Binding ClientesEncontrados}"
                   SelectedItem="{Binding ClienteSeleccionado}"
-                  IsReadOnly="True"
-                  Background="#121820"
-                  Foreground="#E7EDF5"
-                  RowBackground="#121820"
-                  AlternatingRowBackground="#18202A"
-                  HeadersVisibility="Column"
                   Margin="0,0,0,15"
                   TabIndex="2"
                   AutomationProperties.Name="Tabla de clientes encontrados"
-                  AutomationProperties.HelpText="Seleccione el cliente que se asociará a la orden">
+                  AutomationProperties.HelpText="Seleccione el cliente que se asociará a la orden. Presione Enter para confirmar la selección">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="70" />
-                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="150" />
-                <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" Width="180" />
-                <DataGridTextColumn Header="Identificación" Binding="{Binding NumeroIdentificacion}" Width="130" />
-                <DataGridTextColumn Header="Correo" Binding="{Binding Email}" Width="*" />
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="0.5*" MinWidth="55" />
+                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*" MinWidth="120" />
+                <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" Width="1.3*" MinWidth="140" />
+                <DataGridTextColumn Header="Identificación" Binding="{Binding NumeroIdentificacion}" Width="*" MinWidth="110" />
+                <DataGridTextColumn Header="Correo" Binding="{Binding Email}" Width="1.5*" MinWidth="130" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -86,24 +83,27 @@
 
             <TextBlock Grid.Column="0"
                        Text="{Binding Mensaje}"
-                       Foreground="#9FB2C8"
+                       Foreground="{DynamicResource TextoTenue}"
                        VerticalAlignment="Center"
                        AutomationProperties.LiveSetting="Polite"
                        AutomationProperties.Name="Mensaje de búsqueda de cliente" />
 
             <Button Grid.Column="1"
-                    Content="Cancelar"
+                    Content="_Cancelar"
                     Click="Cerrar_Click"
+                    IsCancel="True"
                     Margin="0,0,10,0"
-                    Background="#26313D"
-                    Foreground="#E7EDF5"
+                    Background="{DynamicResource FondoPanel}"
+                    Foreground="{DynamicResource TextoPrincipal}"
+                    BorderBrush="{DynamicResource Borde}"
                     TabIndex="3"
                     AutomationProperties.Name="Cancelar búsqueda de cliente" />
             <Button Grid.Column="2"
-                    Content="Seleccionar Cliente"
+                    Content="_Seleccionar Cliente"
                     Click="Seleccionar_Click"
-                    Background="#1688F0"
-                    Foreground="White"
+                    Background="{DynamicResource Acento}"
+                    Foreground="{DynamicResource TextoSobreAcento}"
+                    BorderBrush="{DynamicResource Borde}"
                     TabIndex="4"
                     AutomationProperties.Name="Seleccionar cliente para la orden" />
         </Grid>

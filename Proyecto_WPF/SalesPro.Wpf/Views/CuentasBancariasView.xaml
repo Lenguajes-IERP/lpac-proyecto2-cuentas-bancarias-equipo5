@@ -99,19 +99,19 @@
                              AutomationProperties.Name="Número de cuenta bancaria" />
 
                     <TextBlock Text="Tipo de cuenta" />
-                    <ComboBox ItemsSource="{Binding TiposCuenta}"
+                    <ComboBox PreviewKeyDown="ComboBox_PreviewKeyDown" ItemsSource="{Binding TiposCuenta}"
                               SelectedItem="{Binding Form.TipoCuenta}"
                               TabIndex="5"
                               AutomationProperties.Name="Tipo de cuenta bancaria" />
 
                     <TextBlock Text="Divisa" />
-                    <ComboBox ItemsSource="{Binding TiposDivisa}"
+                    <ComboBox PreviewKeyDown="ComboBox_PreviewKeyDown" ItemsSource="{Binding TiposDivisa}"
                               SelectedItem="{Binding Form.TipoDivisa}"
                               TabIndex="6"
                               AutomationProperties.Name="Tipo de divisa" />
 
                     <TextBlock Text="Banco registrado" />
-                    <ComboBox ItemsSource="{Binding Bancos}"
+                    <ComboBox PreviewKeyDown="ComboBox_PreviewKeyDown" ItemsSource="{Binding Bancos}"
                               DisplayMemberPath="Nombre"
                               SelectedValuePath="Id"
                               SelectedValue="{Binding Form.BancoId}"
@@ -119,7 +119,7 @@
                               AutomationProperties.Name="Banco registrado" />
 
                     <TextBlock Text="Compañía registrada" />
-                    <ComboBox ItemsSource="{Binding Companias}"
+                    <ComboBox PreviewKeyDown="ComboBox_PreviewKeyDown" ItemsSource="{Binding Companias}"
                               DisplayMemberPath="Nombre"
                               SelectedValuePath="Id"
                               SelectedValue="{Binding Form.CompaniaId}"
@@ -162,7 +162,7 @@
                         <Button Content="_Guardar"
                                 Command="{Binding GuardarCommand}"
                                 Background="{DynamicResource Acento}"
-                                Foreground="White"
+                                Foreground="{DynamicResource TextoSobreAcento}"
                                 Margin="0,0,8,8"
                                 TabIndex="15"
                                 AutomationProperties.Name="Guardar cuenta bancaria" />

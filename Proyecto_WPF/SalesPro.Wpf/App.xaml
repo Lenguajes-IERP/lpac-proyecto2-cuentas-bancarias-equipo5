@@ -10,7 +10,9 @@
                 <ResourceDictionary Source="Themes/TemaClaro.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Foco visible por teclado (equivalente WPF al :focus-visible / skip link). -->
+            <!-- ====== FOCO VISIBLE REFORZADO (doble contorno, WCAG 2.4.11/2.4.13) ======
+                 Traduce a WPF el foco de InclusaSalud: anillo grueso que se ve sobre
+                 cualquier fondo. Contorno interior del color del fondo + anillo de foco. -->
             <Style x:Key="FocoAccesible">
                 <Setter Property="Control.FocusVisualStyle">
                     <Setter.Value>
@@ -18,11 +20,16 @@
                             <Setter Property="Control.Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <Rectangle Margin="-2"
-                                                   StrokeThickness="2"
-                                                   Stroke="{DynamicResource Foco}"
-                                                   StrokeDashArray="2 1"
-                                                   SnapsToDevicePixels="True" />
+                                        <Grid Margin="-3">
+                                            <Rectangle StrokeThickness="5"
+                                                       Stroke="{DynamicResource FondoApp}"
+                                                       RadiusX="4" RadiusY="4"
+                                                       SnapsToDevicePixels="True" />
+                                            <Rectangle StrokeThickness="3"
+                                                       Stroke="{DynamicResource Foco}"
+                                                       RadiusX="4" RadiusY="4"
+                                                       SnapsToDevicePixels="True" />
+                                        </Grid>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -31,7 +38,16 @@
                 </Setter>
             </Style>
 
-            <!-- Encabezados de columna con contraste (usa brushes del tema activo). -->
+            <!-- Aplica el foco reforzado por defecto a los controles interactivos -->
+            <Style TargetType="Button" BasedOn="{StaticResource FocoAccesible}" />
+            <Style TargetType="ComboBox" BasedOn="{StaticResource FocoAccesible}" />
+            <Style TargetType="TextBox" BasedOn="{StaticResource FocoAccesible}" />
+            <Style TargetType="CheckBox" BasedOn="{StaticResource FocoAccesible}" />
+            <Style TargetType="DataGridRow" BasedOn="{StaticResource FocoAccesible}">
+                <Setter Property="MinHeight" Value="30" />
+            </Style>
+
+            <!-- ====== Encabezados de columna con contraste ====== -->
             <Style TargetType="DataGridColumnHeader">
                 <Setter Property="Background" Value="{DynamicResource FondoHeader}" />
                 <Setter Property="Foreground" Value="{DynamicResource TextoPrincipal}" />
@@ -43,6 +59,7 @@
                 <Setter Property="BorderThickness" Value="0,0,1,1" />
             </Style>
 
+            <!-- ====== Celdas: selección de ALTO CONTRASTE y bien visible ====== -->
             <Style TargetType="DataGridCell">
                 <Setter Property="Padding" Value="6,4" />
                 <Setter Property="BorderThickness" Value="0" />
@@ -55,10 +72,7 @@
                 </Style.Triggers>
             </Style>
 
-            <Style TargetType="DataGridRow">
-                <Setter Property="MinHeight" Value="30" />
-            </Style>
-
+            <!-- Fila seleccionada: resalte fuerte (borde grueso + fondo de acento) -->
             <Style TargetType="DataGrid">
                 <Setter Property="Background" Value="{DynamicResource FondoPanel}" />
                 <Setter Property="Foreground" Value="{DynamicResource TextoSecundario}" />
@@ -73,6 +87,7 @@
                 <Setter Property="IsReadOnly" Value="True" />
                 <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
                 <Setter Property="ColumnWidth" Value="Auto" />
+                <Setter Property="SelectionUnit" Value="FullRow" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>
