@@ -39,7 +39,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Buscar cliente por nombre, apellidos, identificaciÃ³n o correo:"
+            <TextBlock Text="Buscar cliente por nombre, apellidos, identificación o correo:"
                        FontWeight="SemiBold"
                        FontSize="14"
                        AutomationProperties.HeadingLevel="Level1" />
@@ -52,7 +52,7 @@
                          Text="{Binding ClienteBusqueda, UpdateSourceTrigger=PropertyChanged}"
                          Margin="0,5,10,12"
                          TabIndex="0"
-                         ToolTip="Digite nombre, apellidos, identificaciÃ³n o correo del cliente"
+                         ToolTip="Digite nombre, apellidos, identificación o correo del cliente"
                          AutomationProperties.Name="Texto de búsqueda de cliente" />
                 <Button Grid.Column="1"
                         Content="Buscar"
@@ -77,12 +77,12 @@
                   Margin="0,0,0,15"
                   TabIndex="2"
                   AutomationProperties.Name="Tabla de clientes encontrados"
-                  AutomationProperties.HelpText="Seleccione el cliente que se asociarÃ¡ a la orden">
+                  AutomationProperties.HelpText="Seleccione el cliente que se asociará a la orden">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="70" />
                 <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="150" />
                 <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" Width="180" />
-                <DataGridTextColumn Header="IdentificaciÃ³n" Binding="{Binding NumeroIdentificacion}" Width="130" />
+                <DataGridTextColumn Header="Identificación" Binding="{Binding NumeroIdentificacion}" Width="130" />
                 <DataGridTextColumn Header="Correo" Binding="{Binding Email}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>

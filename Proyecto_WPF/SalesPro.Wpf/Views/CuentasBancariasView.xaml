@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SalesPro.Wpf.Views.CuentasBancariasView"
+<UserControl x:Class="SalesPro.Wpf.Views.CuentasBancariasView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              KeyboardNavigation.TabNavigation="Continue"
@@ -54,7 +54,7 @@
                      TabIndex="0"
                      ToolTip="Digite texto para filtrar cuentas bancarias"
                      AutomationProperties.Name="Texto de búsqueda de cuentas bancarias"
-                     AutomationProperties.HelpText="Permite filtrar cuentas por nÃºmero, banco, compaÃ±Ã­a o dueño" />
+                     AutomationProperties.HelpText="Permite filtrar cuentas por número, banco, compañía o dueño" />
             <Button Content="Buscar / recargar"
                     Command="{Binding CargarCommand}"
                     TabIndex="1"
@@ -87,7 +87,7 @@
                 <DataGridTextColumn Header="Tipo" Binding="{Binding TipoCuenta}" Width="100" />
                 <DataGridTextColumn Header="Divisa" Binding="{Binding TipoDivisa}" Width="80" />
                 <DataGridTextColumn Header="Banco" Binding="{Binding BancoNombre}" Width="150" />
-                <DataGridTextColumn Header="CompaÃ±Ã­a" Binding="{Binding CompaniaNombre}" Width="150" />
+                <DataGridTextColumn Header="Compañía" Binding="{Binding CompaniaNombre}" Width="150" />
                 <DataGridCheckBoxColumn Header="Activa" Binding="{Binding Estado}" Width="70" />
             </DataGrid.Columns>
         </DataGrid>
@@ -107,11 +107,11 @@
                                Margin="0,0,0,16"
                                AutomationProperties.HeadingLevel="Level2" />
 
-                    <TextBlock Text="NÃºmero de cuenta" />
+                    <TextBlock Text="Número de cuenta" />
                     <TextBox Text="{Binding Form.NumeroCuenta, UpdateSourceTrigger=PropertyChanged}"
                              TabIndex="4"
-                             ToolTip="Digite el nÃºmero de cuenta bancaria"
-                             AutomationProperties.Name="NÃºmero de cuenta bancaria" />
+                             ToolTip="Digite el número de cuenta bancaria"
+                             AutomationProperties.Name="Número de cuenta bancaria" />
 
                     <TextBlock Text="Tipo de cuenta" />
                     <ComboBox ItemsSource="{Binding TiposCuenta}"
@@ -133,18 +133,18 @@
                               TabIndex="7"
                               AutomationProperties.Name="Banco registrado" />
 
-                    <TextBlock Text="CompaÃ±Ã­a registrada" />
+                    <TextBlock Text="Compañía registrada" />
                     <ComboBox ItemsSource="{Binding Companias}"
                               DisplayMemberPath="Nombre"
                               SelectedValuePath="Id"
                               SelectedValue="{Binding Form.CompaniaId}"
                               TabIndex="8"
-                              AutomationProperties.Name="CompaÃ±Ã­a registrada" />
+                              AutomationProperties.Name="Compañía registrada" />
 
-                    <TextBlock Text="PaÃ­s" />
+                    <TextBlock Text="País" />
                     <TextBox Text="{Binding Form.Pais, UpdateSourceTrigger=PropertyChanged}"
                              TabIndex="9"
-                             AutomationProperties.Name="PaÃ­s de la cuenta bancaria" />
+                             AutomationProperties.Name="País de la cuenta bancaria" />
 
                     <TextBlock Text="Provincia" />
                     <TextBox Text="{Binding Form.Provincia, UpdateSourceTrigger=PropertyChanged}"
@@ -187,7 +187,7 @@
                         <Button Content="Cancelar"
                                 Command="{Binding CancelarCommand}"
                                 TabIndex="17"
-                                AutomationProperties.Name="Cancelar ediciÃ³n de cuenta bancaria" />
+                                AutomationProperties.Name="Cancelar edición de cuenta bancaria" />
                     </StackPanel>
             </Grid>
         </Border>

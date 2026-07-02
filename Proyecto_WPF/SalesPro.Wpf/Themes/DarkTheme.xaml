@@ -5,10 +5,10 @@
     <SolidColorBrush x:Key="CardBackgroundBrush" Color="#121820" />
     <SolidColorBrush x:Key="CardAltBackgroundBrush" Color="#18202A" />
     <SolidColorBrush x:Key="BorderBrush" Color="#26313D" />
-    <SolidColorBrush x:Key="TextBrush" Color="#E7EDF5" />
-    <SolidColorBrush x:Key="LabelTextBrush" Color="#D7DEE8" />
-    <SolidColorBrush x:Key="HeadingTextBrush" Color="#F3F6FA" />
-    <SolidColorBrush x:Key="MutedTextBrush" Color="#9FB2C8" />
+    <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="LabelTextBrush" Color="#F0F4F8" />
+    <SolidColorBrush x:Key="HeadingTextBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="MutedTextBrush" Color="#C8D4E3" />
     <SolidColorBrush x:Key="PrimaryBrush" Color="#1688F0" />
     <SolidColorBrush x:Key="PrimaryTextBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="SecondaryButtonBrush" Color="#26313D" />
