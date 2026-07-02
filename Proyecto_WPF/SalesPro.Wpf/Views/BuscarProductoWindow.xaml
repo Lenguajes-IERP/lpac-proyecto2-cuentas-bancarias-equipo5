@@ -86,7 +86,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="Cantidad:" VerticalAlignment="Center" Margin="0,0,10,0"
+            <TextBlock Grid.Column="0" Text="Cantidad:" VerticalAlignment="Center" Margin="0,0,10,0" />
             <TextBox x:Name="CantidadBox"
                      Grid.Column="1"
                      Text="{Binding CantidadProducto, UpdateSourceTrigger=PropertyChanged}"
