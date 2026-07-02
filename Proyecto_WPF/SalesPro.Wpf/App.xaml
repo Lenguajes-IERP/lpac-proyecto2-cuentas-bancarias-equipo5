@@ -4,11 +4,30 @@
              xmlns:local="clr-namespace:SalesPro.Wpf"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#1A222C" />
-            <Setter Property="Foreground" Value="#D7DEE8" />
-            <Setter Property="Padding" Value="10,6" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/DarkTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="{DynamicResource DataGridHeaderBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource LabelTextBrush}" />
+                <Setter Property="Padding" Value="10,6" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}" />
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

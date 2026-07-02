@@ -9,5 +9,17 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = new MainViewModel();
+        ActualizarTextoTema();
+    }
+
+    private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
+    {
+        App.AlternarTema();
+        ActualizarTextoTema();
+    }
+
+    private void ActualizarTextoTema()
+    {
+        ThemeToggleButton.Content = App.IsDarkTheme ? "Tema claro" : "Tema oscuro";
     }
 }

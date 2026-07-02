@@ -460,7 +460,7 @@ La revisión del historial Git muestra aportes técnicos verificables principalm
 | Sebastián Cordero | `feature/sebas-db-transacciones`, PRs de integración, commits de estructura, evidencia y entrega | Base de datos, configuración SQL Server, transacciones, estructura de entrega, pruebas finales, documentación y coordinación del repositorio. |
 | Josué Delgado Corrales | `feature/josue-api-business`, PR #6, commits `9b56631` y `6c55371` | Ajustes y documentación técnica de API/Business, respuestas HTTP de controladores y apoyo en endpoints relacionados con cuentas, catálogos y órdenes. |
 | Caleb Hernández Vega | Sin evidencia técnica independiente registrada en el cierre revisado | Rol asignado a documentación/pruebas, pendiente de evidencia específica en bitácora si corresponde. |
-| Alejandro Porras | Sin evidencia técnica independiente registrada en el cierre revisado | Rol asignado a WPF, pendiente de evidencia específica en bitácora si corresponde. |
+| Alejandro Porras | Revisión de interfaz WPF y propuesta de modo claro/oscuro | Aporte de análisis visual y propuesta de mejora de accesibilidad visual. La propuesta fue revisada e integrada en el cierre mediante temas dinámicos en WPF. |
 
 Esta decisión evita inflar la documentación con aportes no verificados y facilita una defensa honesta del trabajo realizado.
 
@@ -468,7 +468,7 @@ Esta decisión evita inflar la documentación con aportes no verificados y facil
 
 El proyecto implementa una aplicación de punto de venta con backend en ASP.NET Core Web API y frontend en WPF. El backend expone servicios RESTful, aplica una arquitectura por capas y utiliza ADO.NET contra SQL Server. El frontend consume la API mediante ViewModels y permite ejecutar las dos funcionalidades solicitadas: el CRUD asignado al Equipo 5, correspondiente a cuentas bancarias, y el registro de una orden de venta con estructura maestro-detalle.
 
-El registro de órdenes contempla selección de cliente, búsqueda de productos, cantidades, subtotal, impuesto, total e impacto sobre inventario. La persistencia de la orden se ejecuta dentro de una transacción SQL para evitar inconsistencias si ocurre un error durante la operación.
+El registro de órdenes contempla selección de cliente, fecha visible de la orden, búsqueda de productos, código de producto, cantidades, subtotal, impuesto, total e impacto sobre inventario. La persistencia de la orden se ejecuta dentro de una transacción SQL para evitar inconsistencias si ocurre un error durante la operación.
 
 Estado de evidencia: se anexó evidencia real de API, CRUD de cuentas bancarias y transacciones contra SQL Server del curso. Quedan pendientes las capturas manuales de WPF para respaldar visualmente la interfaz.
 
@@ -582,7 +582,9 @@ La funcionalidad permite:
 La funcionalidad permite:
 
 - seleccionar cliente;
+- mostrar la fecha de la orden;
 - buscar producto;
+- mostrar el código del producto en el detalle;
 - agregar productos con cantidad;
 - incrementar y decrementar cantidades;
 - remover productos;
@@ -610,6 +612,7 @@ docs/EVIDENCIA_TRANSACCIONES.md
 | Transacciones | `docs/EVIDENCIA_TRANSACCIONES.md` | Evidencia real anexada |
 | CRUD cuentas | `docs/EVIDENCIA_CRUD_CUENTAS.md` | Evidencia API anexada; capturas WPF pendientes |
 | Orden | `docs/EVIDENCIA_ORDEN_WPF.md` | Evidencia API/transacción anexada; capturas WPF pendientes |
+| Pruebas unitarias | `Proyecto_backend/SalesPro.Business.Tests` | 19 pruebas unitarias ejecutadas correctamente |
 
 ## Accesibilidad, Ley N.° 7600 y criterios WCAG
 
@@ -624,15 +627,22 @@ Las medidas incorporadas incluyen:
 - navegación por tabulación mediante `TabIndex` y `KeyboardNavigation.TabNavigation`;
 - mensajes de estado con `AutomationProperties.LiveSetting` para notificación a tecnologías de apoyo;
 - encabezados identificados con `AutomationProperties.HeadingLevel`;
-- controles identificables para acciones principales.
+- controles identificables para acciones principales;
+- alternancia visual entre tema oscuro y tema claro mediante recursos dinámicos de WPF.
 
 Estas medidas no sustituyen una auditoría formal de accesibilidad ni una validación con lectores de pantalla, pero sí permiten defender que la interfaz fue construida considerando accesibilidad desde el diseño y no como un ajuste posterior.
+
+### Tema claro y oscuro
+
+Durante la revisión final se implementó cambio dinámico entre tema oscuro y tema claro en WPF. La mejora es valiosa desde el punto de vista de accesibilidad visual, ya que permite adaptar la interfaz a usuarios que requieran mayor claridad, contraste diferente o menor fatiga visual.
+
+La implementación utiliza diccionarios de recursos `DarkTheme.xaml` y `LightTheme.xaml`, cargados desde `App.xaml`. La clase `App` expone el cambio de tema y `MainWindow` incorpora un botón para alternar entre ambos modos. Las vistas principales reemplazaron colores fijos por `DynamicResource`, de forma que el cambio se aplica en cuentas bancarias, nueva orden y ventanas de búsqueda.
 
 ## Conclusiones
 
 El proyecto cuenta con una estructura funcional alineada con el enunciado: backend RESTful, WPF, SQL Server, CRUD de cuentas bancarias y orden maestro-detalle. La parte transaccional se encuentra implementada en la capa de datos, que es donde corresponde según el diseño por capas.
 
-Para cerrar la entrega, falta anexar las capturas manuales de WPF y exportar este informe a PDF. La evidencia de API, inventario y rollback ya fue registrada contra SQL Server del curso.
+La versión final incorpora además pruebas unitarias de la capa de negocio, validación del archivo `.http`, fecha visible en la orden, código de producto en la matriz de detalle y alternancia visual entre tema oscuro y tema claro. Para cerrar la entrega administrativa, falta anexar las capturas manuales de WPF y exportar este informe a PDF. La evidencia de API, inventario y rollback ya fue registrada contra SQL Server del curso.
 
 ## Bitácora
 
