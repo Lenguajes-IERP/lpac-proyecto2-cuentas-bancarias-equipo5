@@ -16,6 +16,9 @@ public sealed class CuentasBancariasController : ControllerBase
         _cuentaBancariaService = cuentaBancariaService;
     }
 
+
+    // Listar
+    // Lista todas las cuentas bancarias (filtro opcional por texto de búsqueda).
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<CuentaBancariaDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyCollection<CuentaBancariaDto>>> Listar([FromQuery] string? buscar, CancellationToken cancellationToken)
@@ -23,6 +26,8 @@ public sealed class CuentasBancariasController : ControllerBase
         return Ok(await _cuentaBancariaService.ListarAsync(buscar, cancellationToken));
     }
 
+    // ObtenerPorId
+    // Obtiene una cuenta bancaria por su id (404 si no existe).
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(CuentaBancariaDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -31,6 +36,8 @@ public sealed class CuentasBancariasController : ControllerBase
         return Ok(await _cuentaBancariaService.ObtenerPorIdAsync(id, cancellationToken));
     }
 
+    // Crear
+    // Crea una nueva cuenta bancaria (400 validación, 409 número duplicado).
     [HttpPost]
     [ProducesResponseType(typeof(CuentaBancariaDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -41,6 +48,8 @@ public sealed class CuentasBancariasController : ControllerBase
         return CreatedAtAction(nameof(ObtenerPorId), new { id = created.Id }, created);
     }
 
+    // Actualizar
+    // Actualiza los datos de una cuenta bancaria existente.
     [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(CuentaBancariaDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,6 +60,8 @@ public sealed class CuentasBancariasController : ControllerBase
         return Ok(await _cuentaBancariaService.ActualizarAsync(id, request, cancellationToken));
     }
 
+    // Eliminar
+    // Elimina una cuenta bancaria por su id (204 si se elimina, 404 si no existe).
     [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
