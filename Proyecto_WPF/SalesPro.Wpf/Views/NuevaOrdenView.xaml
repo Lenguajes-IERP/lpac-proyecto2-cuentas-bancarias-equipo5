@@ -16,6 +16,35 @@
             <Setter Property="Margin" Value="0,0,8,0" />
             <Setter Property="Padding" Value="12,7" />
         </Style>
+
+        <!-- Encabezados de columna legibles sobre tema oscuro (contraste Ley 7600 / WCAG AA) -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#1C2733" />
+            <Setter Property="Foreground" Value="#F3F6FA" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="BorderBrush" Value="#26313D" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+        </Style>
+
+        <!-- Celdas: padding y alto contraste en la fila seleccionada -->
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="6,4" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="13" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#1688F0" />
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="MinHeight" Value="30" />
+        </Style>
     </UserControl.Resources>
 
     <Grid Margin="24">
@@ -67,7 +96,7 @@
                 </StackPanel>
 
                 <Button Grid.Column="2"
-                        Content="Seleccionar Cliente"
+                        Content="Seleccionar _Cliente"
                         Click="AbrirBusquedaCliente_Click"
                         VerticalAlignment="Center"
                         Background="#26313D"
@@ -78,7 +107,7 @@
                         AutomationProperties.HelpText="Abre la búsqueda de clientes para asociar uno a la orden" />
 
                 <Button Grid.Column="3"
-                        Content="Buscar y Agregar Producto..."
+                        Content="_Buscar y Agregar Producto..."
                         Click="AbrirBusqueda_Click"
                         VerticalAlignment="Center"
                         Background="#1688F0"
@@ -118,10 +147,10 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Content="+" Command="{Binding IncrementarCommand}" Width="42" TabIndex="5" AutomationProperties.Name="Incrementar cantidad del producto seleccionado" />
                         <Button Content="-" Command="{Binding DecrementarCommand}" Width="42" TabIndex="6" AutomationProperties.Name="Disminuir cantidad del producto seleccionado" />
-                        <Button Content="Remover" Command="{Binding RemoverProductoCommand}" TabIndex="7" AutomationProperties.Name="Remover producto seleccionado de la orden" />
+                        <Button Content="_Remover" Command="{Binding RemoverProductoCommand}" TabIndex="7" AutomationProperties.Name="Remover producto seleccionado de la orden" />
                     </StackPanel>
-                    <Button Content="Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="#1688F0" Foreground="White" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
-                    <Button Content="Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" TabIndex="9" AutomationProperties.Name="Limpiar orden de venta" />
+                    <Button Content="_Procesar orden" Command="{Binding ProcesarOrdenCommand}" Background="#1688F0" Foreground="White" Margin="0,12,0,0" TabIndex="8" AutomationProperties.Name="Procesar orden de venta" />
+                    <Button Content="_Limpiar" Command="{Binding LimpiarCommand}" Margin="0,8,0,0" TabIndex="9" AutomationProperties.Name="Limpiar orden de venta" />
                 </StackPanel>
 
                 <StackPanel>
@@ -135,6 +164,10 @@
                               Foreground="#E7EDF5"
                               RowBackground="#121820"
                               AlternatingRowBackground="#18202A"
+                              GridLinesVisibility="Horizontal"
+                              HorizontalGridLinesBrush="#26313D"
+                              BorderBrush="#26313D"
+                              BorderThickness="1"
                               TabIndex="4"
                               AutomationProperties.Name="Tabla de detalles de la orden"
                               AutomationProperties.HelpText="Lista de productos agregados a la orden. Seleccione una fila para modificar cantidad o removerla">
