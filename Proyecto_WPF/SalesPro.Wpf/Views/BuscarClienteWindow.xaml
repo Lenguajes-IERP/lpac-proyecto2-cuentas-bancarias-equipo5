@@ -19,6 +19,12 @@
         <Style TargetType="Button">
             <Setter Property="Padding" Value="12,7" />
         </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#1A222C" />
+            <Setter Property="Foreground" Value="#D7DEE8" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
     </Window.Resources>
 
     <Grid Margin="20">

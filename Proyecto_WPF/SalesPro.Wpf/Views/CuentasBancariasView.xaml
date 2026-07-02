@@ -86,7 +86,12 @@
         </DataGrid>
 
         <Border Grid.Row="1" Grid.Column="2" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="0,0,0,16">
                 <StackPanel>
                     <TextBlock Text="{Binding TituloFormulario}"
                                FontSize="19"
@@ -152,11 +157,12 @@
                     <CheckBox Content="Activa"
                               Foreground="#D7DEE8"
                               IsChecked="{Binding Form.Estado}"
-                              Margin="0,0,0,16"
                               TabIndex="13"
                               AutomationProperties.Name="Cuenta bancaria activa" />
+                </StackPanel>
+            </ScrollViewer>
 
-                    <StackPanel Orientation="Horizontal">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Content="Editar selección"
                                 Command="{Binding EditarCommand}"
                                 TabIndex="14"
@@ -176,8 +182,7 @@
                                 TabIndex="17"
                                 AutomationProperties.Name="Cancelar edición de cuenta bancaria" />
                     </StackPanel>
-                </StackPanel>
-            </ScrollViewer>
+            </Grid>
         </Border>
 
         <TextBlock Grid.Row="2"

@@ -42,7 +42,8 @@
         <Border Grid.Row="1" Grid.Column="0" Padding="18" Background="#121820" BorderBrush="#26313D" BorderThickness="1" CornerRadius="10" Margin="0,0,0,18">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1.4*" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="180" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -50,7 +51,7 @@
 
                 <StackPanel Grid.Column="0" Margin="0,0,14,0">
                     <TextBlock Text="Cliente seleccionado" />
-                    <TextBox Text="{Binding ClienteResumen}"
+                    <TextBox Text="{Binding ClienteResumen, Mode=OneWay}"
                              IsReadOnly="True"
                              TabIndex="0"
                              ToolTip="Cliente asociado a la orden"
@@ -59,6 +60,16 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Margin="0,0,14,0">
+                    <TextBlock Text="Fecha de orden" />
+                    <TextBox Text="{Binding FechaOrden}"
+                             IsReadOnly="True"
+                             TabIndex="1"
+                             ToolTip="Fecha de registro de la orden"
+                             AutomationProperties.Name="Fecha de orden"
+                             AutomationProperties.HelpText="Muestra la fecha de registro de la orden de venta" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="0,0,14,0">
                     <TextBlock Text="Empleado Id" />
                     <TextBox Text="{Binding EmpleadoId, UpdateSourceTrigger=PropertyChanged}"
                              TabIndex="2"
@@ -66,7 +77,7 @@
                              AutomationProperties.Name="Identificador del empleado" />
                 </StackPanel>
 
-                <Button Grid.Column="2"
+                <Button Grid.Column="3"
                         Content="Seleccionar Cliente"
                         Click="AbrirBusquedaCliente_Click"
                         VerticalAlignment="Center"
@@ -77,7 +88,7 @@
                         AutomationProperties.Name="Seleccionar cliente"
                         AutomationProperties.HelpText="Abre la búsqueda de clientes para asociar uno a la orden" />
 
-                <Button Grid.Column="3"
+                <Button Grid.Column="4"
                         Content="Buscar y Agregar Producto..."
                         Click="AbrirBusqueda_Click"
                         VerticalAlignment="Center"
@@ -139,6 +150,7 @@
                               AutomationProperties.Name="Tabla de detalles de la orden"
                               AutomationProperties.HelpText="Lista de productos agregados a la orden. Seleccione una fila para modificar cantidad o removerla">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Código" Binding="{Binding CodigoProducto}" Width="90" />
                             <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*" />
                             <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="55" />
                             <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnitario, StringFormat=₡{0:N2}}" Width="100" />
